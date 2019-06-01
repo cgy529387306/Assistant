@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/icon_goods_details"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="51dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="笔记本电脑"
+            android:gravity="center"
+            android:textColor="#ff333333"
+            android:textSize="16sp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="DELL223R"
+            android:gravity="center"
+            android:textColor="#ff999999"
+            android:textSize="12sp"
+            android:layout_marginLeft="10dp"/>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:text="鼓楼一部"
+            android:gravity="center|right"
+            android:textColor="#ff999999"
+            android:textSize="12sp"/>
+
+    </LinearLayout>
+
+    <include layout="@layout/common_divider"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="16dp"
+        android:paddingTop="26dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="类别"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="存放位置"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="数量"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="单价"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="办公用品类"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="办公室"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="1"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="2000"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="是否资产"
+                android:gravity="center"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="归口部门"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="录入日期"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="联系人"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="24dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="是"
+                android:gravity="center"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="设计部"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="2019-05-18"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="张三"
+                android:gravity="center"
+                android:layout_marginTop="10dp"
+                android:textColor="#333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="58dp"
+            android:paddingRight="12dp"
+            android:src="@mipmap/icon_reduce"/>
+
+        <TextView
+            android:textSize="13sp"
+            android:textColor="#333333"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:paddingLeft="12dp"
+            android:paddingRight="45dp"
+            android:src="@mipmap/icon_add"/>
+
+        <TextView
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#0080CC"
+            android:text="立即申请"/>
+    </LinearLayout>
+
+</LinearLayout>

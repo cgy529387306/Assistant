@@ -1,0 +1,413 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="8dp"
+        android:background="#F8F8F8"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="名称"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:id="@+id/et_account"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="型号"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp"
+                    android:text=""/>
+            </LinearLayout>
+
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="类别"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_arraw_right"/>
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="保管单位"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_arraw_right"/>
+            </LinearLayout>
+
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="存放位置"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_position"/>
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="数量"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="单价"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="是否资产"
+                    android:gravity="center|left"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_yes"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="是"
+                    android:background="@drawable/goods_input_border_left_blue"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_no"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="否"
+                    android:gravity="center"
+                    android:background="@drawable/goods_input_border_right_gray"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="归口部门"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="录入日期"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_date"/>
+            </LinearLayout>
+
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="联系人"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:gravity="center"
+                android:text="物资照片"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_login"
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:layout_marginLeft="38dp"
+                android:layout_marginRight="37dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginBottom="22dp"
+                android:background="@drawable/border_btn_bg_login"
+                android:gravity="center"
+                android:text="提交"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

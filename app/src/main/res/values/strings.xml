@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Assistant</string>
+
+
+    <string name="tab_home">首页</string>
+    <string name="tab_competitive_manage">竞情管理</string>
+    <string name="tab_goods_manage">物资管理</string>
+
+    <string name="tab_all">全部</string>
+    <string name="tab_no_pass">未通过</string>
+    <string name="tab_pass">已通过</string>
+
+    <string name="tab_engineer_construction">工程建设</string>
+    <string name="tab_network_maintenance">网络维护</string>
+    <string name="tab_broadband_terminal">宽带终端</string>
+    <string name="tab_office_equipment">办公设备</string>
+</resources>
