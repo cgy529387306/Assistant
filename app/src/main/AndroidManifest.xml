@@ -25,6 +25,10 @@
         <activity android:name=".activity.goods.GoodsDetailsActivity"/>
         <activity android:name=".activity.goods.GoodsInputActivity"/>
         <activity android:name=".activity.goods.GoodsShoppingCartActivity"/>
+        <activity android:name=".activity.competitive.CompetitiveInputActivity"/>
+        <activity android:name=".activity.competitive.CompetitiveBrowseActivity"/>
+        <activity android:name=".activity.competitive.CompetitiveDetailsActivity"/>
+        <activity android:name=".activity.goods.GoodsApplyUseActivity"/>
     </application>
 
 

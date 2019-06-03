@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:orientation="vertical">
-
+    <include layout="@layout/common_divider"/>
     <com.android.mb.assistant.widget.NestedGridView
         android:id="@+id/gridCate"
         android:layout_width="match_parent"

@@ -60,7 +60,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
         //添加Header
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_home_header, mRecyclerView, false);
         mGridCate = header.findViewById(R.id.gridCate);
-        mBanner = header.findViewById(R.id.bannerView);
+//        mBanner = header.findViewById(R.id.bannerView);
         mHomeMsgAdapter.addHeaderView(header);
 
         mGridCate.setAdapter(new ITypeAdapter(getActivity(),getHomeTypeList()));

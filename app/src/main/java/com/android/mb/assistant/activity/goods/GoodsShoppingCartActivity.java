@@ -8,9 +8,15 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
+import com.android.mb.assistant.adapter.GoodsShoppingCartAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.entitys.ShoppingCartData;
+import com.android.mb.assistant.utils.NavigationHelper;
+import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -24,9 +30,10 @@ import java.util.List;
  */
 public class GoodsShoppingCartActivity extends BaseActivity implements View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
 
-    private GoodsBrowseAdapter mGoodsBrowseAdapter;
+    private GoodsShoppingCartAdapter mGoodsShoppingCartAdapter;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
+    private TextView mTvApplyUse;
 
     @Override
     protected void loadIntent() {
@@ -56,9 +63,19 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
 
     @Override
     protected void setListener() {
+        mTvApplyUse.setOnClickListener(this);
+        mGoodsShoppingCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                ShoppingCartData data = mGoodsShoppingCartAdapter.getItem(position);
+                data.setSelect(!data.isSelect());
+                mGoodsShoppingCartAdapter.setData(position,data);
+            }
+        });
     }
 
     private void initView() {
+        mTvApplyUse = findViewById(R.id.tv_apply_use);
         mRefreshLayout = findViewById(R.id.refreshLayout);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
@@ -66,13 +83,22 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
-        mGoodsBrowseAdapter = new GoodsBrowseAdapter(getList());
-        mRecyclerView.setAdapter(mGoodsBrowseAdapter);
+        mGoodsShoppingCartAdapter = new GoodsShoppingCartAdapter(getList());
+        mRecyclerView.setAdapter(mGoodsShoppingCartAdapter);
+        mGoodsShoppingCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+            }
+        });
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
+        if (id == R.id.tv_apply_use){
+            NavigationHelper.startActivity(this, GoodsApplyUseActivity.class,null,false);
+        }
     }
 
     @Override
@@ -84,14 +110,20 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
     }
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("联想电脑");
-        list.add("苹果电脑");
-        list.add("华硕电脑");
-        list.add("联想电脑");
-        list.add("苹果电脑");
-        list.add("华硕电脑");
+    private List<ShoppingCartData> getList(){
+        List<ShoppingCartData> list = new ArrayList<>();
+        ShoppingCartData data = new ShoppingCartData();
+        data.setName("联想电脑");
+        data.setSelect(false);
+        list.add(data);
+//        ShoppingCartData data1 = new ShoppingCartData();
+//        data.setName("苹果电脑");
+//        data.setSelect(false);
+//        list.add(data1);
+//        ShoppingCartData data2 = new ShoppingCartData();
+//        data.setName("华硕电脑");
+//        data.setSelect(false);
+//        list.add(data2);
         return list;
     }
 }

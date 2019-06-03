@@ -17,6 +17,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="客户概况"
+                android:paddingLeft="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+
+            <include layout="@layout/common_divider"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -27,7 +38,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="名称"
+                    android:text="姓名"
                     android:gravity="center"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
@@ -58,7 +69,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="型号"
+                    android:text="手机号码"
                     android:gravity="center"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
@@ -89,109 +100,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="类别"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_arraw_right"/>
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="保管单位"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_arraw_right"/>
-            </LinearLayout>
-
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="存放位置"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请选择"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_position"/>
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="数量"
+                    android:text="地址"
                     android:gravity="center"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
@@ -208,36 +117,9 @@
                     android:textColor="#333333"
                     android:gravity="center|right"
                     android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="单价"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
+                    android:textSize="13sp"
+                    android:text=""/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
             </LinearLayout>
             <include layout="@layout/common_divider"/>
             <LinearLayout
@@ -250,13 +132,100 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:text="是否资产"
+                    android:text="手机总数"
                     android:gravity="center|left"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_reduce"/>
+
                 <TextView
-                    android:id="@+id/tv_yes"
+                    android:textSize="13sp"
+                    android:textColor="#333333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:gravity="center"
+                    android:layout_marginRight="12dp"
+                    android:text="1"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@mipmap/icon_add"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="异网号码1"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="12dp"
+                    android:src="@mipmap/icon_addmore"/>
+
+                <com.android.mb.assistant.widget.ClearableEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:maxLength="20"
+                    android:background="@null"
+                    android:imeOptions="actionNext"
+                    android:singleLine="true"
+                    android:inputType="text"
+                    android:hint="请输入"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="@color/base_gray"
+                    android:textSize="13sp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="#F8F8F8"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="宽带情况"
+                android:paddingLeft="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="移动宽带是否覆盖"
+                    android:gravity="center|left"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+                <TextView
+                    android:id="@+id/tv_cover_yes"
                     android:layout_width="60dp"
                     android:layout_height="26dp"
                     android:text="是"
@@ -266,7 +235,118 @@
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:id="@+id/tv_no"
+                    android:id="@+id/tv_cover_no"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="否"
+                    android:gravity="center"
+                    android:background="@drawable/goods_input_border_right_gray"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="是否有异网宽带"
+                    android:gravity="center|left"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_network_yes"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="是"
+                    android:background="@drawable/goods_input_border_left_blue"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_network_no"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="否"
+                    android:gravity="center"
+                    android:background="@drawable/goods_input_border_right_gray"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="异网宽带运营商"
+                    android:gravity="center|left"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_operator_yes"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="是"
+                    android:background="@drawable/goods_input_border_left_blue"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_operator_no"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="否"
+                    android:gravity="center"
+                    android:background="@drawable/goods_input_border_right_gray"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:text="异网宽带是否融合"
+                    android:gravity="center|left"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_together_yes"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp"
+                    android:text="是"
+                    android:background="@drawable/goods_input_border_left_blue"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:id="@+id/tv_together_no"
                     android:layout_width="60dp"
                     android:layout_height="26dp"
                     android:text="否"
@@ -279,35 +359,6 @@
 
             <include layout="@layout/common_divider"/>
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="归口部门"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
                 android:id="@+id/lly_date"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -317,7 +368,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="录入日期"
+                    android:text="异网宽带到期时间"
                     android:gravity="center"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
@@ -340,6 +391,114 @@
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_date"/>
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:background="#F8F8F8"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="录入情况"
+                android:paddingLeft="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:textColor="#000000"
+                android:textSize="16sp"/>
+            <include layout="@layout/common_divider"/>
+
+            区县
+            营销部
+            录入人员
+            录入时间
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="区县"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="#D7D8E1"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_arraw_right"/>
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="营销部"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:hint="请选择"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textColorHint="#D7D8E1"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_arraw_right"/>
+            </LinearLayout>
+            <include layout="@layout/common_divider"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="录入人员"
+                    android:gravity="center"
+                    android:textColor="#ff333333"
+                    android:textSize="13sp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="match_parent"
+                    android:textColor="#333333"
+                    android:gravity="center|right"
+                    android:textSize="13sp"
+                    android:text="员工号123456"/>
+            </LinearLayout>
 
             <include layout="@layout/common_divider"/>
             <LinearLayout
@@ -351,26 +510,56 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="联系人"
+                    android:text="录入时间"
                     android:gravity="center"
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
+                    android:hint="请选择"
                     android:textColor="#333333"
                     android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
+                    android:textColorHint="#D7D8E1"
+                    android:textSize="13sp"
+                    android:text=""/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="10dp"
+                    android:src="@mipmap/icon_date"/>
             </LinearLayout>
             <include layout="@layout/common_divider"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="备注"
+                android:paddingLeft="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <com.android.mb.assistant.widget.ClearableEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLength="20"
+                android:background="@null"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="9dp"
+                android:paddingBottom="9dp"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:hint="请输入"
+                android:textColor="#333333"
+                android:textColorHint="@color/base_gray"
+                android:textSize="13sp"
+                android:text=""/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -378,7 +567,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:gravity="center"
-                android:text="物资照片"
+                android:text="上传照片"
                 android:textColor="#ff333333"
                 android:textSize="13sp"/>
 

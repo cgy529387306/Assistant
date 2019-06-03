@@ -10,11 +10,15 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
+import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
+import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.CompetitivePresenter;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICompetitiveView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
@@ -73,7 +77,11 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
         mGridCate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {}
+                if (i == 6) {
+                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,null,false);
+                }else if (i == 7) {
+                    NavigationHelper.startActivity(getActivity(), CompetitiveInputActivity.class,null,false);
+                }
             }
         });
     }
