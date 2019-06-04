@@ -21,7 +21,7 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
     @Override
     protected void convert(BaseViewHolder helper, ShoppingCartData item) {
         helper.setText(R.id.tv_name,item.getName());
-
+        helper.setImageResource(R.id.iv_check,item.isSelect()?R.mipmap.icon_select_on:R.mipmap.icon_select_off);
     }
 }
 

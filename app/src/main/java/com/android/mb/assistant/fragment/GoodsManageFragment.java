@@ -1,6 +1,7 @@
 package com.android.mb.assistant.fragment;
 
 import android.media.Image;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.goods.ChapterApprovalActivity;
+import com.android.mb.assistant.activity.goods.ChapterApprovalDeailsActivity;
 import com.android.mb.assistant.activity.goods.GoodsBrowseActivity;
 import com.android.mb.assistant.activity.goods.GoodsInputActivity;
 import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
@@ -38,7 +40,7 @@ import java.util.List;
  * 物资管理
  * Created by cgy on 16/7/18.
  */
-public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsView> implements IGoodsView, OnRefreshListener, OnLoadMoreListener {
+public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsView> implements IGoodsView, OnRefreshListener, OnLoadMoreListener, GoodsManageAdapter.OnChapterApprovalListener {
     private GoodsManageAdapter mGoodsmanageAdapter;
     private RecyclerView mRecyclerView;
     private NestedGridView mGridCate;
@@ -65,7 +67,7 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
-        mGoodsmanageAdapter = new GoodsManageAdapter(getList());
+        mGoodsmanageAdapter = new GoodsManageAdapter(getList(),this);
         mRecyclerView.setAdapter(mGoodsmanageAdapter);
         //添加Header
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_goods_header, mRecyclerView, false);
@@ -93,13 +95,16 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
         mGoodsmanageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (position == 0){  // 用章审批
-                    NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,null,false);
-                }else if (position == 1){  // 我的申请
-
-                }else if (position == 2){  // 最新入库
-
-                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("status",position);
+                NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,bundle,false);
+//                if (position == 0){  // 用章审批
+//                    NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,null,false);
+//                }else if (position == 1){  // 我的申请
+//                    NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,null,false);
+//                }else if (position == 2){  // 最新入库
+//
+//                }
             }
         });
     }
@@ -144,5 +149,10 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         getList();
 
+    }
+
+    @Override
+    public void onGoodsApproval() {
+        NavigationHelper.startActivity(getActivity(), ChapterApprovalDeailsActivity.class,null,false);
     }
 }

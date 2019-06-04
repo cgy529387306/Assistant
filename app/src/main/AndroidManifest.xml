@@ -29,6 +29,8 @@
         <activity android:name=".activity.competitive.CompetitiveBrowseActivity"/>
         <activity android:name=".activity.competitive.CompetitiveDetailsActivity"/>
         <activity android:name=".activity.goods.GoodsApplyUseActivity"/>
+        <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"/>
+        <activity android:name=".activity.goods.MyApplyUseDeailsActivity"/>
     </application>
 
 

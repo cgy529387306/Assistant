@@ -85,12 +85,6 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
         mGoodsShoppingCartAdapter = new GoodsShoppingCartAdapter(getList());
         mRecyclerView.setAdapter(mGoodsShoppingCartAdapter);
-        mGoodsShoppingCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-
-            }
-        });
     }
 
     @Override
@@ -116,14 +110,14 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
         data.setName("联想电脑");
         data.setSelect(false);
         list.add(data);
-//        ShoppingCartData data1 = new ShoppingCartData();
-//        data.setName("苹果电脑");
-//        data.setSelect(false);
-//        list.add(data1);
-//        ShoppingCartData data2 = new ShoppingCartData();
-//        data.setName("华硕电脑");
-//        data.setSelect(false);
-//        list.add(data2);
+        ShoppingCartData data1 = new ShoppingCartData();
+        data.setName("苹果电脑");
+        data.setSelect(false);
+        list.add(data1);
+        ShoppingCartData data2 = new ShoppingCartData();
+        data.setName("华硕电脑");
+        data.setSelect(false);
+        list.add(data2);
         return list;
     }
 }

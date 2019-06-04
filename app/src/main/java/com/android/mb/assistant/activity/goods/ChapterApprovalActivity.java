@@ -22,10 +22,10 @@ public class ChapterApprovalActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
-
+    private int status;
     @Override
     protected void loadIntent() {
-
+        status = getIntent().getIntExtra("status",0);
     }
 
     @Override
@@ -35,7 +35,11 @@ public class ChapterApprovalActivity extends BaseActivity{
 
     @Override
     protected void initTitle() {
-        setTitleText("用章审批");
+        if (status == 0) {
+            setTitleText("用章审批");
+        }else if (status == 1){
+            setTitleText("我的申请");
+        }
     }
 
     @Override
@@ -84,9 +88,9 @@ public class ChapterApprovalActivity extends BaseActivity{
     }
     private void initTabViewPager(){
         mFragmentArrayList = new ArrayList<>();
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(0));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(1));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(2));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,0));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,1));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,2));
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
