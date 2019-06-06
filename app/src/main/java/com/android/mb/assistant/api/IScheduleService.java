@@ -13,7 +13,7 @@ import rx.Observable;
  * @created by cgy on 2017/6/19
  */
 public interface IScheduleService {
-    @POST("/app/user/login")
+    @POST("/ServletDispatcher")
     @FormUrlEncoded
     Observable<HttpResult<Object>> userLogin(@FieldMap Map<String, Object> requestMap);
 

@@ -7,5 +7,4 @@ import com.android.mb.assistant.base.BaseMvpView;
  */
 public interface ILoginView extends BaseMvpView {
     void loginSuccess(Object result);
-
 }

@@ -24,7 +24,7 @@ import rx.functions.Func1;
 
 public class BaseHttp {
 
-    public static final String BASE_URL = "https://shop.5979wenhua.com";
+    public static final String BASE_URL = "http://tdiff24.com:8085";
 
     public String getServerHost() {
         return BASE_URL;
@@ -46,7 +46,7 @@ public class BaseHttp {
                     MBApplication.getInstance().startActivity(intent);
                     throw new ApiException(40003, "token 过期");
                 }else {
-                    throw new ApiException(40003, httpResult.getMsg());
+                    throw new ApiException(40003, httpResult.getMessage());
                 }
             }
             return null;

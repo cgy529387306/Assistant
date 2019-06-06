@@ -1,28 +1,33 @@
 package com.android.mb.assistant.retrofit.http.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by cgy on 16/3/5.
  */
 public class HttpResult<T> {
 
     /**
-     * 返回成功与否标识（200：成功；0：失败）
+     * 返回成功与否标识（00：成功；01：失败）
      */
     private int code;
     /**
-     * 返回信息
+     * 返回条数
      */
-    private String msg;
-
-    /**
-     * 返回时间
-     */
-    private String time;
-
+    private int total;
     /**
      * 返回数据
      */
     private T data;
+    /**
+     * 返回列表
+     */
+    private List<T> rows;
+    /**
+     * 返回信息
+     */
+    private String message;
 
     public int getCode() {
         return code;
@@ -32,20 +37,12 @@ public class HttpResult<T> {
         this.code = code;
     }
 
-    public String getMsg() {
-        return msg;
+    public int getTotal() {
+        return total;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
+    public void setTotal(int total) {
+        this.total = total;
     }
 
     public T getData() {
@@ -54,5 +51,24 @@ public class HttpResult<T> {
 
     public void setData(T data) {
         this.data = data;
+    }
+
+    public List<T> getRows() {
+        if (rows == null) {
+            return new ArrayList<>();
+        }
+        return rows;
+    }
+
+    public void setRows(List<T> rows) {
+        this.rows = rows;
+    }
+
+    public String getMessage() {
+        return message == null ? "" : message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
     }
 }

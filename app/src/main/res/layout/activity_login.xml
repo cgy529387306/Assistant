@@ -44,11 +44,12 @@
             android:singleLine="true"
             android:inputType="text"
             android:hint="用户名"
-            android:textColor="#BBBBBB"
+            android:textColor="#333333"
             android:gravity="center"
-            android:textColorHint="@color/base_gray"
+            android:textColorHint="#BBBBBB"
             android:paddingRight="36dp"
             android:textSize="13sp"
+            android:text="admin"
             tools:ignore="TextFields" />
 
     </LinearLayout>
@@ -78,11 +79,12 @@
             android:singleLine="true"
             android:inputType="text"
             android:hint="密码"
-            android:textColor="#BBBBBB"
+            android:textColor="#333333"
             android:gravity="center"
-            android:textColorHint="@color/base_gray"
+            android:textColorHint="#BBBBBB"
             android:paddingRight="36dp"
             android:textSize="13sp"
+            android:text="123456"
             tools:ignore="TextFields" />
 
     </LinearLayout>
