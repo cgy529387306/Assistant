@@ -99,7 +99,7 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> i
 
     @Override
     public void loginSuccess(Object result) {
-        NavigationHelper.startActivity(LoginActivity.this,MainActivity.class,null,true);
+//        NavigationHelper.startActivity(LoginActivity.this,MainActivity.class,null,true);
     }
 
     @Override
