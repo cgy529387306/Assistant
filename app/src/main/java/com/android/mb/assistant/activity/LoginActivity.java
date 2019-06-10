@@ -24,8 +24,6 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> i
     private TextView mTvLogin;
     private ClearableEditText mEtAccount;
     private ClearableEditText mEtPwd;
-    private String data = "";
-    private String mac = "";
     @Override
     protected void loadIntent() {
 
@@ -84,17 +82,15 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> i
             return;
         }
         try {
-            MACHelper macHelper = new MACHelper();
-            data = account + "~" + macHelper.encryptHMAC(pwd,macHelper.WORK_KEY_FOR_BUSINESS);
-            mac = macHelper.encryptHMAC(data,macHelper.WORK_KEY_FOR_BUSINESS);
+            String data = account + MACHelper.KEY_SPLIT + MACHelper.pwd(pwd);
+            Map<String,Object> requestMap = new HashMap<>();
+            requestMap.put("code","100001");
+            requestMap.put("data",data);
+            requestMap.put("mac",MACHelper.workMacForApp(data));
+            mPresenter.userLogin(requestMap);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        Map<String,Object> requestMap = new HashMap<>();
-        requestMap.put("code","100001");
-        requestMap.put("data",data);
-        requestMap.put("mac",mac);
-        mPresenter.userLogin(requestMap);
     }
 
     @Override

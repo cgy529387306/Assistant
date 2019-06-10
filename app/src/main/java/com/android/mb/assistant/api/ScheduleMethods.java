@@ -35,7 +35,6 @@ public class ScheduleMethods extends BaseHttp {
     private IScheduleService getService() {
         return new RetrofitHttpClient.Builder()
                 .baseUrl(getServerHost())
-//                .addHeader(getHead())
                 .addDotNetDeserializer(false)
                 .addLog(true)
                 .build()
@@ -46,10 +45,6 @@ public class ScheduleMethods extends BaseHttp {
 
 
     public Observable userLogin(Map<String,Object> requestMap){
-//        if (CurrentUser.getInstance().isLogin()){
-//            requestMap.put("token_id",CurrentUser.getInstance().getToken_id());
-//            requestMap.put("token",CurrentUser.getInstance().getToken());
-//        }
         return getService().userLogin(requestMap)
                 .compose(CacheTransformer.emptyTransformer())
                 .map(new HttpCacheResultFunc<Object>());

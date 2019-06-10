@@ -20,6 +20,7 @@ public class MACHelper {
 	public static final String KEY_MD5 = "MD5";
 	public static final String KEY_MAC = "HmacMD5";
 	public static final String KEY_SHA = "SHA";
+	public static final String KEY_SPLIT = "~";
 
 	/**
 	 * MD5
