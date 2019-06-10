@@ -1,12 +1,9 @@
 package com.android.mb.assistant.presenter;
 
-import android.text.TextUtils;
-
 import com.android.mb.assistant.api.ScheduleMethods;
 import com.android.mb.assistant.base.BaseMvpPresenter;
+import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.presenter.interfaces.ILoginPresenter;
-import com.android.mb.assistant.retrofit.http.exception.ApiException;
-import com.android.mb.assistant.retrofit.http.exception.NoNetWorkException;
 import com.android.mb.assistant.view.interfaces.ILoginView;
 
 import java.util.Map;
@@ -25,7 +22,7 @@ public class LoginPresenter extends BaseMvpPresenter<ILoginView> implements ILog
     public void userLogin(Map<String,Object> requestMap) {
         mMvpView.showProgressDialog("登录中...");
         Observable observable = ScheduleMethods.getInstance().userLogin(requestMap);
-        toSubscribe(observable,  new Subscriber<Object>() {
+        toSubscribe(observable,  new Subscriber<UserBean>() {
             @Override
             public void onCompleted() {
 
@@ -35,16 +32,11 @@ public class LoginPresenter extends BaseMvpPresenter<ILoginView> implements ILog
             public void onError(Throwable e) {
                 if(mMvpView!=null){
                     mMvpView.dismissProgressDialog();
-                    if (e instanceof ApiException && !TextUtils.isEmpty(e.getMessage())){
-                        mMvpView.showToastMessage(e.getMessage());
-                    }else if (e instanceof NoNetWorkException && !TextUtils.isEmpty(e.getMessage())){
-                        mMvpView.showToastMessage(e.getMessage());
-                    }
                 }
             }
 
             @Override
-            public void onNext(Object result) {
+            public void onNext(UserBean result) {
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     mMvpView.loginSuccess(result);

@@ -1,6 +1,7 @@
 package com.android.mb.assistant.api;
 
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.assistant.retrofit.http.RetrofitHttpClient;
 import com.android.mb.assistant.utils.ProjectHelper;
@@ -47,7 +48,7 @@ public class ScheduleMethods extends BaseHttp {
     public Observable userLogin(Map<String,Object> requestMap){
         return getService().userLogin(requestMap)
                 .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<Object>());
+                .map(new HttpCacheResultFunc<UserBean>());
     }
 
 

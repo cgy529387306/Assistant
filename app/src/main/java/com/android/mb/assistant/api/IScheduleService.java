@@ -1,5 +1,6 @@
 package com.android.mb.assistant.api;
 
+import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.retrofit.http.entity.HttpResult;
 
 import java.util.Map;
@@ -14,7 +15,7 @@ import rx.Observable;
 public interface IScheduleService {
 
     @POST("/ServletDispatcher")
-    Observable<HttpResult<Object>> userLogin(@QueryMap Map<String, Object> requestMap);
+    Observable<HttpResult<UserBean>> userLogin(@QueryMap Map<String, Object> requestMap);
 
 
 }

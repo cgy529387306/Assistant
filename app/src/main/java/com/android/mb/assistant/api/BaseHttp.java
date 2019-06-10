@@ -1,14 +1,9 @@
 package com.android.mb.assistant.api;
 
 
-import android.content.Intent;
-
-import com.android.mb.assistant.activity.LoginActivity;
-import com.android.mb.assistant.app.MBApplication;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.retrofit.http.entity.HttpResult;
-import com.android.mb.assistant.retrofit.http.exception.ApiException;
-import com.android.mb.assistant.utils.ActivityManager;
+import com.android.mb.assistant.utils.ToastHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -37,16 +32,12 @@ public class BaseHttp {
             HttpResult<T> httpResult;
             if (o instanceof HttpResult) {
                 httpResult = (HttpResult<T>) o;
-                if (httpResult.getCode() == 1){
+                if ("00".equals(httpResult.getCode())){
                     return httpResult.getData();
-                }else if (httpResult.getCode() == 403){
-                    //Token 失效，重新登录
-                    ActivityManager.getInstance().closeAllActivity();
-                    Intent intent = new Intent(MBApplication.getInstance(), LoginActivity.class);
-                    MBApplication.getInstance().startActivity(intent);
-                    throw new ApiException(40003, "token 过期");
+                }else if ("01".equals(httpResult.getCode())){
+                    ToastHelper.showToast(httpResult.getMessage());
                 }else {
-                    throw new ApiException(40003, httpResult.getMessage());
+                    ToastHelper.showToast("请求失败");
                 }
             }
             return null;
@@ -74,8 +65,7 @@ public class BaseHttp {
     Map<String, String> getHead() {
         Map<String, String> cloudOfficeHeader = new HashMap<String, String>();
         if (CurrentUser.getInstance().isLogin()){
-            cloudOfficeHeader.put("token_id",CurrentUser.getInstance().getToken_id()+"");
-            cloudOfficeHeader.put("token",CurrentUser.getInstance().getToken());
+
         }
         return cloudOfficeHeader;
     }

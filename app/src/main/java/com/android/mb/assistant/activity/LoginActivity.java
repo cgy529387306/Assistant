@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.presenter.LoginPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.MACHelper;
@@ -94,8 +96,12 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> i
     }
 
     @Override
-    public void loginSuccess(Object result) {
-//        NavigationHelper.startActivity(LoginActivity.this,MainActivity.class,null,true);
+    public void loginSuccess(UserBean result) {
+        if (result!=null){
+            CurrentUser.getInstance().login(result);
+            showToastMessage("登录成功");
+            NavigationHelper.startActivity(this, MainActivity.class,null,true);
+        }
     }
 
     @Override
