@@ -20,6 +20,7 @@ import com.android.mb.assistant.presenter.HomePresenter;
 import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.FragmentViewPager;
+import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
 
@@ -54,7 +55,14 @@ public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> impl
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
+        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+        PgyUpdateManager.register(this);
+    }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PgyUpdateManager.unregister();
     }
 
     @Override

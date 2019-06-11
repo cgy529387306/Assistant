@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.android.mb.assistant.R;
+import com.pgyersdk.crash.PgyCrashManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -50,6 +51,7 @@ public class MBApplication extends Application {
 	public void onCreate() {
 		super.onCreate();
 		sInstance = this;
+		PgyCrashManager.register(this);
 		initJPush();
 	}
 
