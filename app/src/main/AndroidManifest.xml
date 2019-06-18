@@ -38,7 +38,8 @@
             android:name="PGYER_APPID"
             android:value="51adbf67841ba6e83868a89ed3e2e2cb" />
 
-        <activity android:name=".activity.LoginActivity">
+        <activity android:name=".activity.LoginActivity"
+            android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
