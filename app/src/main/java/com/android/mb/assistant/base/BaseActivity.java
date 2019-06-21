@@ -25,7 +25,7 @@ import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.KeyBoardUtils;
 import com.android.mb.assistant.utils.NetworkHelper;
 import com.android.mb.assistant.utils.ToastUtils;
-import com.gyf.barlibrary.ImmersionBar;
+import com.gyf.immersionbar.ImmersionBar;
 
 import rx.Observable;
 import rx.Subscriber;
@@ -92,7 +92,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         ActivityManager.getInstance().removeActivity(getClass().getName());
-        ImmersionBar.with(this).destroy();
         unregisterReceiver(mNetWorkStateChangeReceiver);
         RxBus.getInstance().unSubscribe(this);
         onUnsubscribe();

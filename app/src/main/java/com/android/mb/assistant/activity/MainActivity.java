@@ -1,5 +1,6 @@
 package com.android.mb.assistant.activity;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
@@ -17,6 +19,7 @@ import com.android.mb.assistant.fragment.CompetitiveManageFragment;
 import com.android.mb.assistant.fragment.GoodsManageFragment;
 import com.android.mb.assistant.fragment.HomeFragment;
 import com.android.mb.assistant.presenter.HomePresenter;
+import com.android.mb.assistant.utils.StatusBarUtil;
 import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.FragmentViewPager;
@@ -67,6 +70,10 @@ public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> impl
 
     @Override
     protected void setListener() {
+        //设置阴影
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            mTabLayout.setElevation(10);
+        }
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {

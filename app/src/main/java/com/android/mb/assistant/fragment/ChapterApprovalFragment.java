@@ -111,4 +111,9 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
     }
+
+    @Override
+    public void initImmersionBar() {
+
+    }
 }

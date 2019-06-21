@@ -23,7 +23,7 @@
     <!-- 允许程序录制音频 -->
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="android.permission.GET_TASKS"/>
-
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
     <application
         android:name=".app.MBApplication"
         android:allowBackup="true"
@@ -33,7 +33,23 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
+        android:maxAspectRatio="2.4"
+        android:resizeableActivity="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
+
+        <!-- 适配全面屏 -->
+        <meta-data
+            android:name="android.max_aspect"
+            android:value="2.4" />
+        <!-- 适配华为(hua wei)刘海屏 -->
+        <meta-data
+            android:name="android.notch_support"
+            android:value="true" />
+        <!-- 适配小米(xiao mi)刘海屏 -->
+        <meta-data
+            android:name="notch.config"
+            android:value="portrait|landscape" />
+
         <meta-data
             android:name="PGYER_APPID"
             android:value="51adbf67841ba6e83868a89ed3e2e2cb" />

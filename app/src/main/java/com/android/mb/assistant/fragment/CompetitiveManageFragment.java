@@ -22,6 +22,7 @@ import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICompetitiveView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -61,7 +62,6 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
         mCompetitiveOrderAdapter = new CompetitiveOrderAdapter(getList());
         mRecyclerView.setAdapter(mCompetitiveOrderAdapter);
         //添加Header
@@ -128,6 +128,10 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
         getList();
+    }
 
+    @Override
+    public void initImmersionBar() {
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).statusBarDarkFont(true).init();
     }
 }

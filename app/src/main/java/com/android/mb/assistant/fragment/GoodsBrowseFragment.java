@@ -103,4 +103,9 @@ public class GoodsBrowseFragment extends BaseFragment implements OnRefreshListen
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
     }
+
+    @Override
+    public void initImmersionBar() {
+
+    }
 }

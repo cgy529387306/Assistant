@@ -1,6 +1,5 @@
 package com.android.mb.assistant.fragment;
 
-import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,6 +26,7 @@ import com.android.mb.assistant.view.interfaces.IGoodsView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -66,7 +66,6 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
         mGoodsmanageAdapter = new GoodsManageAdapter(getList(),this);
         mRecyclerView.setAdapter(mGoodsmanageAdapter);
         //添加Header
@@ -154,5 +153,10 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
     @Override
     public void onGoodsApproval() {
         NavigationHelper.startActivity(getActivity(), ChapterApprovalDeailsActivity.class,null,false);
+    }
+
+    @Override
+    public void initImmersionBar() {
+        ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).statusBarDarkFont(true).init();
     }
 }

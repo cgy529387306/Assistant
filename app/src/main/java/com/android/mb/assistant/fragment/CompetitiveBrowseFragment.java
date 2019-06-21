@@ -103,4 +103,9 @@ public class CompetitiveBrowseFragment extends BaseFragment implements OnRefresh
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
     }
+
+    @Override
+    public void initImmersionBar() {
+
+    }
 }

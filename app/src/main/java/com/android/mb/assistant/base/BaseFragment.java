@@ -1,6 +1,7 @@
 package com.android.mb.assistant.base;
 
 import android.app.Activity;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.rxbus.RxBus;
+import com.gyf.immersionbar.ImmersionBar;
+import com.gyf.immersionbar.components.SimpleImmersionFragment;
 
 import rx.functions.Action1;
 
@@ -22,7 +25,7 @@ import rx.functions.Action1;
  *
  */
 
-public abstract class BaseFragment extends Fragment {
+public abstract class BaseFragment extends SimpleImmersionFragment {
 
     protected Activity mContext;
     protected boolean mIsFirstVisible = true;
@@ -38,7 +41,6 @@ public abstract class BaseFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         RxBus.getInstance().unSubscribe(this);
-
     }
 
     @Override
@@ -64,6 +66,7 @@ public abstract class BaseFragment extends Fragment {
             onInVisible();
         }
     }
+
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {

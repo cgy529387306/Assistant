@@ -16,6 +16,7 @@ import com.android.mb.assistant.presenter.HomePresenter;
 import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
+import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -104,5 +105,13 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
 
+    }
+
+    @Override
+    public void initImmersionBar() {
+        ImmersionBar.with(this).statusBarColorTransformEnable(false)
+                .keyboardEnable(false)
+                .navigationBarColor(R.color.colorPrimary)
+                .init();
     }
 }
