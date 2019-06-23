@@ -7,15 +7,10 @@ android {
     buildToolsVersion '28.0.3'
     defaultConfig {
         applicationId "com.android.mb.assistant"
-        minSdkVersion 15
+        minSdkVersion 16
         targetSdkVersion 28
         versionCode 101
         versionName "1.0.1"
-        multiDexEnabled true
-        ndk {
-            abiFilters "armeabi-v7a", "x86"
-        }
-
         multiDexEnabled true
     }
     signingConfigs {
@@ -56,11 +51,10 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation 'com.android.support:multidex:1.0.3'
     implementation "com.android.support:appcompat-v7:${SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:cardview-v7:${SUPPORT_LIBRARY_VERSION}"
     implementation "com.android.support:design:${SUPPORT_LIBRARY_VERSION}"
-    implementation "com.android.support:support-v13:${SUPPORT_LIBRARY_VERSION}"
-    implementation "com.android.support:support-annotations:${SUPPORT_LIBRARY_VERSION}"
 
     // RxJava
     implementation 'io.reactivex:rxjava:1.2.3'
@@ -98,4 +92,6 @@ dependencies {
     implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.2.3'
     //MD dialog
     implementation 'com.afollestad.material-dialogs:commons:0.9.6.0'
+    //选择控件
+    implementation 'com.contrarywind:Android-PickerView:4.1.8'
 }

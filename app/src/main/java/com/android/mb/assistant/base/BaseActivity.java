@@ -114,7 +114,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     private void initView(){
-        setContentView(R.layout.common_actionbar_back);
+        setContentView(R.layout.common_activity_base);
         mLlRoot = findViewById(R.id.ll_root);
         mIvBack = findViewById(R.id.iv_back);
         mTvTitle = findViewById(R.id.tv_title);

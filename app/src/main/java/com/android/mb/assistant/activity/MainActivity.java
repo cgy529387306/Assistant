@@ -4,12 +4,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.GravityCompat;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
@@ -19,13 +16,13 @@ import com.android.mb.assistant.fragment.CompetitiveManageFragment;
 import com.android.mb.assistant.fragment.GoodsManageFragment;
 import com.android.mb.assistant.fragment.HomeFragment;
 import com.android.mb.assistant.presenter.HomePresenter;
-import com.android.mb.assistant.utils.StatusBarUtil;
 import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.FragmentViewPager;
-import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
+
+import com.pgyersdk.update.PgyUpdateManager;
 
 public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> implements IHomeView{
     private FragmentViewPager mFragmentViewPager;
@@ -34,7 +31,6 @@ public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> impl
     private HomeFragment mHomeFragment;
     private CompetitiveManageFragment mCompetitiveManageFragment;
     private GoodsManageFragment mGoodsManageFragment;
-
     @Override
     protected void loadIntent() {
 
@@ -139,9 +135,6 @@ public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> impl
             tvTitle.setText(tabTitles[i]);
             ImageView imgTab =  view.findViewById(R.id.iv_tab);
             imgTab.setImageResource(tabImages[i]);
-//            if (i==3){
-//                mNewBadge = new QBadgeView(mContext).bindTarget(imgTab);
-//            }
             mTabLayout.addTab(tab);
         }
     }

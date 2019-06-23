@@ -2,6 +2,7 @@ package com.android.mb.assistant.app;
 
 import android.app.Application;
 import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.android.mb.assistant.R;
 import com.pgyersdk.crash.PgyCrashManager;
@@ -46,6 +47,12 @@ public class MBApplication extends Application {
     public static void init(Context application) {
         sInstance = application;
     }
+
+	@Override
+	protected void attachBaseContext(Context base) {
+		super.attachBaseContext(base);
+		MultiDex.install(this);        // 调用MutiDex
+	}
 
     @Override
 	public void onCreate() {
