@@ -11,6 +11,7 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.goods.GoodsDetailsActivity;
 import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.base.BaseFragment;
+import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -64,7 +65,7 @@ public class GoodsBrowseFragment extends BaseFragment implements OnRefreshListen
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
         mGoodsBrowseAdapter = new GoodsBrowseAdapter(getList());
         mRecyclerView.setAdapter(mGoodsBrowseAdapter);
         mGoodsBrowseAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

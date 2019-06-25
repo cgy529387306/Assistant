@@ -13,6 +13,7 @@ import com.android.mb.assistant.activity.goods.ChapterApprovalDeailsActivity;
 import com.android.mb.assistant.activity.goods.MyApplyUseDeailsActivity;
 import com.android.mb.assistant.adapter.IGoodsManageAdapter;
 import com.android.mb.assistant.base.BaseFragment;
+import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -70,7 +71,7 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.list_divider)));
         mIGoodsmanageAdapter = new IGoodsManageAdapter(getList());
         mRecyclerView.setAdapter(mIGoodsmanageAdapter);
     }

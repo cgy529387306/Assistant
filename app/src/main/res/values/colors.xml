@@ -15,5 +15,5 @@
     <color name="base_blue">#2aaeff</color>
     <color name="base_green">#12c136</color>
     <color name="gray_divider">#E4E4E4</color>
-
+    <color name="list_divider">#F8F8F8</color>
 </resources>

@@ -43,7 +43,7 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
                     android:id="@+id/et_account"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -54,7 +54,7 @@
                     android:inputType="text"
                     android:hint="请输入"
                     android:textColor="#333333"
-                    android:gravity="center|right"
+                    android:gravity="center_vertical|right"
                     android:textColorHint="@color/base_gray"
                     android:textSize="13sp" />
             </LinearLayout>
@@ -74,7 +74,7 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
                     android:id="@+id/et_phone"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -106,7 +106,7 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
                     android:id="@+id/et_address"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -185,7 +185,7 @@
                     android:layout_marginLeft="12dp"
                     android:src="@mipmap/icon_addmore"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
@@ -552,7 +552,7 @@
                 android:textColor="#ff333333"
                 android:textSize="13sp"/>
 
-            <com.android.mb.assistant.widget.ClearableEditText
+            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLength="20"

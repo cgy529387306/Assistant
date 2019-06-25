@@ -8,11 +8,17 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
+import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
+import com.android.mb.assistant.activity.goods.GoodsBrowseActivity;
+import com.android.mb.assistant.activity.goods.GoodsInputActivity;
 import com.android.mb.assistant.adapter.HomeMsgAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.HomePresenter;
+import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
@@ -55,7 +61,7 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, 1,getResources().getColor(R.color.gray_divider)));
         mHomeMsgAdapter = new HomeMsgAdapter(new ArrayList());
         mRecyclerView.setAdapter(mHomeMsgAdapter);
         //添加Header
@@ -68,7 +74,19 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
         mGridCate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 0) {}
+                if (i == 0) {
+                    //竞情录入
+                    NavigationHelper.startActivity(getActivity(), CompetitiveInputActivity.class,null,false);
+                }else if (i == 1){
+                    //竞情浏览
+                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,null,false);
+                }else if (i == 2){
+                    //物资录入
+                    NavigationHelper.startActivity(getActivity(), GoodsInputActivity.class,null,false);
+                }else if (i == 3){
+                    //物资浏览
+                    NavigationHelper.startActivity(getActivity(), GoodsBrowseActivity.class,null,false);
+                }
             }
         });
     }
@@ -88,12 +106,10 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
 
     private List<IType> getHomeTypeList(){
         List<IType> homeTypeList = new ArrayList<>();
-        homeTypeList.add(new IType(R.mipmap.icon_gongdanzhongxin,"工单中心"));
-        homeTypeList.add(new IType(R.mipmap.icon_xingxiao,"行销消息管理"));
-        homeTypeList.add(new IType(R.mipmap.icon_xianzhi,"闲置物资利旧管理"));
-        homeTypeList.add(new IType(R.mipmap.icon_diancan,"点餐服务"));
-        homeTypeList.add(new IType(R.mipmap.icon_dianzhi,"电子领料单"));
-        homeTypeList.add(new IType(R.mipmap.icon_wuzhi,"物资录入"));
+        homeTypeList.add(new IType(R.mipmap.icon_luru,"竞情录入"));
+        homeTypeList.add(new IType(R.mipmap.icon_all,"全部竞情"));
+        homeTypeList.add(new IType(R.mipmap.icon_wuzi,"物资录入"));
+        homeTypeList.add(new IType(R.mipmap.icon_liulan,"物资浏览"));
         return homeTypeList;
     }
 

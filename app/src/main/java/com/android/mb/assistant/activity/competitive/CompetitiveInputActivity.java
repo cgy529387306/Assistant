@@ -1,10 +1,16 @@
 package com.android.mb.assistant.activity.competitive;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.support.annotation.CallSuper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +19,7 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.widget.ClearableEditText;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -46,9 +53,9 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
     private boolean isNetworkYes = false;
     private boolean isOperatorYes = false;
     private boolean isTogetherYes = false;
-    private ClearableEditText mEtAccount;
-    private ClearableEditText mEtPhone;
-    private ClearableEditText mEtAddress;
+    private EditText mEtAccount;
+    private EditText mEtPhone;
+    private EditText mEtAddress;
     private TextView mTvNum;
     private ImageView mIvReduce;
     private ImageView mIvAdd;
@@ -129,7 +136,7 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
         mTvDueTime = findViewById(R.id.tv_due_time);
         mLlyInputTime = findViewById(R.id.lly_input_time);
         mTvInputTime = findViewById(R.id.tv_input_time);
-        showTimePicker();
+        initTimePicker();
     }
 
     private void initRecycleView(){
@@ -203,11 +210,11 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
         }
     }
 
-    private void showTimePicker() {
+    private void initTimePicker() {
         pvDueTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                mTvDueTime.setText(getTime(date));
+                mTvDueTime.setText(Helper.date2String(date,"yyyy-MM-dd HH:mm:00"));
             }
         })
                 .setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示
@@ -230,7 +237,7 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
         pvInputTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                mTvInputTime.setText(getTime(date));
+                mTvInputTime.setText(Helper.date2String(date,"yyyy-MM-dd HH:mm:00"));
             }
         })
                 .setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示
@@ -251,10 +258,7 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
                 .isDialog(false)//是否显示为对话框样式
                 .build();
     }
-    private String getTime(Date date) {//可根据需要自行截取数据显示
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        return format.format(date);
-    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -267,6 +271,45 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
                     mImageAdapter.setList(mSelectImageList);
                     break;
             }
+        }
+    }
+
+    /**
+     * 点击非编辑区域收起键盘
+     * 获取点击事件
+     */
+    @CallSuper
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (ev.getAction() ==  MotionEvent.ACTION_DOWN ) {
+            View view = getCurrentFocus();
+            if (isShouldHideKeyBord(view, ev)) {
+                hideSoftInput(view.getWindowToken());
+            }
+        }
+        return super.dispatchTouchEvent(ev);
+    }
+
+    /**
+     * 判定当前是否需要隐藏
+     */
+    protected boolean isShouldHideKeyBord(View v, MotionEvent ev) {
+        if (v != null && (v instanceof EditText)) {
+            int[] l = {0, 0};
+            v.getLocationInWindow(l);
+            int left = l[0], top = l[1], bottom = top + v.getHeight(), right = left + v.getWidth();
+            return !(ev.getX() > left && ev.getX() < right && ev.getY() > top && ev.getY() < bottom);
+        }
+        return false;
+    }
+
+    /**
+     * 隐藏软键盘
+     */
+    private void hideSoftInput(IBinder token) {
+        if (token != null) {
+            InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
     }
 }

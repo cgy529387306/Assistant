@@ -21,6 +21,7 @@ import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.GoodsPresenter;
+import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.IGoodsView;
 import com.android.mb.assistant.widget.NestedGridView;
@@ -66,6 +67,7 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
         mGoodsmanageAdapter = new GoodsManageAdapter(getList(),this);
         mRecyclerView.setAdapter(mGoodsmanageAdapter);
         //添加Header

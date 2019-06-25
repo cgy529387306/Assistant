@@ -13,6 +13,8 @@ import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.adapter.GoodsShoppingCartAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.entitys.ShoppingCartData;
+import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
@@ -82,7 +84,7 @@ public class GoodsShoppingCartActivity extends BaseActivity implements View.OnCl
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
         mGoodsShoppingCartAdapter = new GoodsShoppingCartAdapter(getList());
         mRecyclerView.setAdapter(mGoodsShoppingCartAdapter);
     }

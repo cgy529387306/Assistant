@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class GoodsApplyUseActivity extends BaseActivity implements View.OnClickL
         mTvSubmit = findViewById(R.id.tv_submit);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
         mGoodsApplyUseAdapter = new GoodsApplyUseAdapter(getList());
         mRecyclerView.setAdapter(mGoodsApplyUseAdapter);
     }

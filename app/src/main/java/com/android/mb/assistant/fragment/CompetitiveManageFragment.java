@@ -18,6 +18,7 @@ import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.CompetitivePresenter;
+import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICompetitiveView;
 import com.android.mb.assistant.widget.NestedGridView;
@@ -62,6 +63,7 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
         mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
         mCompetitiveOrderAdapter = new CompetitiveOrderAdapter(getList());
         mRecyclerView.setAdapter(mCompetitiveOrderAdapter);
         //添加Header
@@ -77,10 +79,12 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
         mGridCate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 6) {
-                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,null,false);
-                }else if (i == 7) {
+                if (i == 7) {
+                    //竞情录入
                     NavigationHelper.startActivity(getActivity(), CompetitiveInputActivity.class,null,false);
+                }else{
+                    //竞情浏览
+                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,null,false);
                 }
             }
         });
