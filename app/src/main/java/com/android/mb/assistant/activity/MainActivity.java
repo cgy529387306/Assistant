@@ -11,20 +11,17 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
-import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.fragment.CompetitiveManageFragment;
 import com.android.mb.assistant.fragment.GoodsManageFragment;
 import com.android.mb.assistant.fragment.HomeFragment;
-import com.android.mb.assistant.presenter.HomePresenter;
 import com.android.mb.assistant.utils.ToastHelper;
-import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.FragmentViewPager;
+import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
 
-import com.pgyersdk.update.PgyUpdateManager;
-
-public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> implements IHomeView{
+public class MainActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
@@ -137,11 +134,6 @@ public class MainActivity extends BaseMvpActivity<HomePresenter, IHomeView> impl
             imgTab.setImageResource(tabImages[i]);
             mTabLayout.addTab(tab);
         }
-    }
-
-    @Override
-    protected HomePresenter createPresenter() {
-        return new HomePresenter();
     }
 
     private static final long DOUBLE_CLICK_INTERVAL = 2000;

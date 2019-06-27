@@ -50,7 +50,7 @@ public abstract class BaseMvpActivity<P extends Presenter<V>,V extends BaseMvpVi
 
     @Override
     public void showProgressDialog(String message) {
-        ProgressDialogHelper.showProgressDialog(this, Helper.isEmpty(message)?"加载中...":message);
+        ProgressDialogHelper.showProgressDialog(this, Helper.isEmpty(message)?"请稍后...":message);
     }
 
     @Override

@@ -18,12 +18,10 @@ import com.android.mb.assistant.activity.goods.GoodsInputActivity;
 import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
 import com.android.mb.assistant.adapter.GoodsManageAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
-import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.base.BaseFragment;
 import com.android.mb.assistant.entitys.IType;
-import com.android.mb.assistant.presenter.GoodsPresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
-import com.android.mb.assistant.view.interfaces.IGoodsView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -41,7 +39,7 @@ import java.util.List;
  * 物资管理
  * Created by cgy on 16/7/18.
  */
-public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsView> implements IGoodsView, OnRefreshListener, OnLoadMoreListener, GoodsManageAdapter.OnChapterApprovalListener {
+public class GoodsManageFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener, GoodsManageAdapter.OnChapterApprovalListener {
     private GoodsManageAdapter mGoodsmanageAdapter;
     private RecyclerView mRecyclerView;
     private NestedGridView mGridCate;
@@ -125,11 +123,6 @@ public class GoodsManageFragment extends BaseMvpFragment<GoodsPresenter, IGoodsV
 
     @Override
     protected void setListener() {
-    }
-
-    @Override
-    protected GoodsPresenter createPresenter() {
-        return new GoodsPresenter();
     }
 
     private List<IType> getGoodsTypeList(){

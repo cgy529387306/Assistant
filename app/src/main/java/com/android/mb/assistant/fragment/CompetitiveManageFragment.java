@@ -12,15 +12,12 @@ import android.widget.TextView;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
 import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
-import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
-import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.base.BaseFragment;
 import com.android.mb.assistant.entitys.IType;
-import com.android.mb.assistant.presenter.CompetitivePresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
-import com.android.mb.assistant.view.interfaces.ICompetitiveView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.gyf.immersionbar.ImmersionBar;
@@ -37,7 +34,7 @@ import java.util.List;
  * 竞情管理
  * Created by cgy on 16/7/18.
  */
-public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresenter, ICompetitiveView> implements ICompetitiveView, OnRefreshListener, OnLoadMoreListener {
+public class CompetitiveManageFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     private CompetitiveOrderAdapter mCompetitiveOrderAdapter;
     private RecyclerView mRecyclerView;
@@ -106,10 +103,6 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CompetitivePresen
     protected void setListener() {
     }
 
-    @Override
-    protected CompetitivePresenter createPresenter() {
-        return new CompetitivePresenter();
-    }
 
     private List<IType> getCompetitiveTypeList(){
         List<IType> competitiveTypeList = new ArrayList<>();

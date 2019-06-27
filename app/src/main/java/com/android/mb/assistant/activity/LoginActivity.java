@@ -6,22 +6,22 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.base.BaseMvpActivity;
-import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.entitys.CurrentUser;
-import com.android.mb.assistant.entitys.UserBean;
-import com.android.mb.assistant.presenter.LoginPresenter;
+import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.entitys.LoginResp;
 import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.MACHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
-import com.android.mb.assistant.utils.PreferencesHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
-import com.android.mb.assistant.view.interfaces.ILoginView;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.ClearableEditText;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
-public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> implements ILoginView, View.OnClickListener {
+public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
 
     private TextView mTvLogin;
     private ClearableEditText mEtAccount;
@@ -83,29 +83,25 @@ public class LoginActivity extends BaseMvpActivity<LoginPresenter, ILoginView> i
             showToastMessage("请输入密码");
             return;
         }
-        try {
-            String data = account + MACHelper.KEY_SPLIT + MACHelper.pwd(pwd);
-            Map<String,Object> requestMap = new HashMap<>();
-            requestMap.put("code","100001");
-            requestMap.put("data",data);
-            requestMap.put("mac",MACHelper.workMacForApp(data));
-            mPresenter.userLogin(requestMap);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        List<String> requestParams = new ArrayList<>();
+        requestParams.add(account);
+        requestParams.add(MACHelper.pwd(pwd));
+        mPresenter.requestData(CodeConstants.KEY_LOGIN,requestParams,true);
+    }
+
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 
     @Override
-    public void loginSuccess(UserBean result) {
-        if (result!=null){
-            CurrentUser.getInstance().login(result);
+    public void requestSuccess(String result) {
+        LoginResp resp = JsonHelper.fromJson(result,LoginResp.class);
+        if (resp!=null && resp.getData()!=null){
+            CurrentUser.getInstance().login(resp.getData());
             showToastMessage("登录成功");
             NavigationHelper.startActivity(this, MainActivity.class,null,true);
         }
-    }
-
-    @Override
-    protected LoginPresenter createPresenter() {
-        return new LoginPresenter();
     }
 }

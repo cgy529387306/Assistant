@@ -4,8 +4,9 @@ import com.android.mb.assistant.base.BaseMvpView;
 import com.android.mb.assistant.entitys.UserBean;
 
 /**
- * Created by cgy on 2018/2/11 0011.
+ * Created by cgy on 19/6/27.
  */
-public interface ILoginView extends BaseMvpView {
-    void loginSuccess(UserBean result);
+
+public interface ICommonView extends BaseMvpView {
+    void requestSuccess(String result);
 }

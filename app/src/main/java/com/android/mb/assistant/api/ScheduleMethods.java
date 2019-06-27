@@ -1,9 +1,12 @@
 package com.android.mb.assistant.api;
 
+import android.util.Log;
+
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.assistant.retrofit.http.RetrofitHttpClient;
+import com.android.mb.assistant.utils.MACHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 
 import java.io.File;
@@ -44,11 +47,21 @@ public class ScheduleMethods extends BaseHttp {
     }
 
 
-
-    public Observable userLogin(Map<String,Object> requestMap){
-        return getService().userLogin(requestMap)
-                .compose(CacheTransformer.emptyTransformer())
-                .map(new HttpCacheResultFunc<UserBean>());
+    /**
+     * 登录
+     * @param params
+     * @return
+     */
+    public Observable baseRequest(String requestCode,List<String> params){
+        Map<String,String> requestMap = new HashMap<>();
+        String requestData = MACHelper.getData(params);
+        Log.e("requestData",requestData);
+        Log.e("requestCode",requestCode);
+        requestMap.put("code",requestCode);
+        requestMap.put("data",requestData);
+        requestMap.put("mac", MACHelper.workMacForApp(requestData));
+        return getService().baseRequest(requestMap)
+                .compose(CacheTransformer.emptyTransformer());
     }
 
 

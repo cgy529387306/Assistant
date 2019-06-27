@@ -14,12 +14,9 @@ import com.android.mb.assistant.activity.goods.GoodsBrowseActivity;
 import com.android.mb.assistant.activity.goods.GoodsInputActivity;
 import com.android.mb.assistant.adapter.HomeMsgAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
-import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.base.BaseFragment;
 import com.android.mb.assistant.entitys.IType;
-import com.android.mb.assistant.presenter.HomePresenter;
-import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
-import com.android.mb.assistant.view.interfaces.IHomeView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.gyf.immersionbar.ImmersionBar;
@@ -37,7 +34,7 @@ import java.util.List;
  * 首页
  * Created by cgy on 16/7/18.
  */
-public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> implements IHomeView, OnRefreshListener, OnLoadMoreListener {
+public class HomeFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     private HomeMsgAdapter mHomeMsgAdapter;
     private RecyclerView mRecyclerView;
@@ -97,11 +94,6 @@ public class HomeFragment extends BaseMvpFragment<HomePresenter, IHomeView> impl
 
     @Override
     protected void setListener() {
-    }
-
-    @Override
-    protected HomePresenter createPresenter() {
-        return new HomePresenter();
     }
 
     private List<IType> getHomeTypeList(){

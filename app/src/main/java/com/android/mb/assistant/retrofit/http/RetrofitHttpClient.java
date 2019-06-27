@@ -112,14 +112,14 @@ public class RetrofitHttpClient {
             builder.addNetworkInterceptor(new CacheInterceptorOnNet(isNoCache));
         }
 
-        Converter.Factory factory;
-
-        //是否开启C#时间反序列化
-        if(isDotNetDeserializer) {
-            factory = ResponseConvertFactory.createDotNet();
-        }else {
-            factory = ResponseConvertFactory.create();
-        }
+        Converter.Factory factory = new ToStringConverterFactory();
+//
+//        //是否开启C#时间反序列化
+//        if(isDotNetDeserializer) {
+//            factory = ResponseConvertFactory.createDotNet();
+//        }else {
+//            factory = ResponseConvertFactory.create();
+//        }
 
         //开启日志.
         if(isLog) {

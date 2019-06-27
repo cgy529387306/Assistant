@@ -15,7 +15,7 @@ import rx.Observable;
 public interface IScheduleService {
 
     @POST("/ServletDispatcher")
-    Observable<HttpResult<UserBean>> userLogin(@QueryMap Map<String, Object> requestMap);
+    Observable<String> baseRequest(@QueryMap Map<String, String> requestMap);
 
 
 }

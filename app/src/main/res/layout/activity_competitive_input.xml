@@ -44,7 +44,7 @@
                     android:textSize="13sp"/>
 
                 <EditText
-                    android:id="@+id/et_account"
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
@@ -421,6 +421,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:paddingLeft="16dp"
+                android:visibility="gone"
                 android:paddingRight="16dp"
                 android:orientation="horizontal">
                 <TextView
@@ -448,10 +449,12 @@
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_arraw_right"/>
             </LinearLayout>
-            <include layout="@layout/common_divider"/>
+            <include layout="@layout/common_divider"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
+                android:visibility="gone"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:orientation="horizontal">
@@ -480,7 +483,8 @@
                     android:layout_marginLeft="10dp"
                     android:src="@mipmap/icon_arraw_right"/>
             </LinearLayout>
-            <include layout="@layout/common_divider"/>
+            <include layout="@layout/common_divider"
+                android:visibility="gone"/>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
@@ -502,8 +506,7 @@
                     android:layout_height="match_parent"
                     android:textColor="#333333"
                     android:gravity="center|right"
-                    android:textSize="13sp"
-                    android:text="员工号123456"/>
+                    android:textSize="13sp" />
             </LinearLayout>
 
             <include layout="@layout/common_divider"/>
@@ -553,15 +556,15 @@
                 android:textSize="13sp"/>
 
             <EditText
+                android:id="@+id/et_remark"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:maxLength="20"
                 android:background="@null"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:paddingTop="9dp"
                 android:paddingBottom="9dp"
-                android:imeOptions="actionNext"
+                android:imeOptions="actionDone"
                 android:minLines="3"
                 android:inputType="text"
                 android:hint="请输入"
@@ -584,7 +587,7 @@
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"/>
             <TextView
-                android:id="@+id/tv_login"
+                android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginLeft="38dp"

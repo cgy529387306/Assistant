@@ -16,10 +16,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.MainActivity;
 import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.LoginResp;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.MACHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
+import com.android.mb.assistant.utils.ProjectHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.ClearableEditText;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
@@ -39,7 +50,7 @@ import java.util.List;
 /**
  * 竞情录入
  */
-public class CompetitiveInputActivity extends BaseActivity implements View.OnClickListener {
+public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
 
     private TextView mTvCoverYes;
     private TextView mTvCoverNo;
@@ -49,13 +60,15 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
     private TextView mTvOperatorNo;
     private TextView mTvTogetherYes;
     private TextView mTvTogetherNo;
-    private boolean isCoverYes = false;
-    private boolean isNetworkYes = false;
-    private boolean isOperatorYes = false;
-    private boolean isTogetherYes = false;
-    private EditText mEtAccount;
+    private TextView mTvConfirm;
+    private boolean isCoverYes = true;//是否移动端宽带覆盖
+    private boolean isNetworkYes = true;//是否有异网宽带
+    private boolean isOperatorYes = true;//是否是异网宽带运营商
+    private boolean isTogetherYes = true;//是否宽带融合
+    private EditText mEtName;
     private EditText mEtPhone;
     private EditText mEtAddress;
+    private EditText mEtRemark;
     private TextView mTvNum;
     private ImageView mIvReduce;
     private ImageView mIvAdd;
@@ -106,6 +119,7 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
         mTvOperatorNo.setOnClickListener(this);
         mTvTogetherYes.setOnClickListener(this);
         mTvTogetherNo.setOnClickListener(this);
+        mTvConfirm.setOnClickListener(this);
         mIvReduce.setOnClickListener(this);
         mIvAdd.setOnClickListener(this);
         mLlyDueTime.setOnClickListener(this);
@@ -121,9 +135,11 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
         mTvOperatorNo = findViewById(R.id.tv_operator_no);
         mTvTogetherYes = findViewById(R.id.tv_together_yes);
         mTvTogetherNo = findViewById(R.id.tv_together_no);
-        mEtAccount = findViewById(R.id.et_account);
+        mTvConfirm = findViewById(R.id.tv_confirm);
+        mEtName = findViewById(R.id.et_name);
         mEtPhone = findViewById(R.id.et_phone);
         mEtAddress = findViewById(R.id.et_address);
+        mEtRemark = findViewById(R.id.et_remark);
         mTvNum = findViewById(R.id.tv_num);
         mIvReduce = findViewById(R.id.iv_reduce);
         mIvAdd = findViewById(R.id.iv_add);
@@ -207,10 +223,54 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
             pvDueTime.show(view);
         }else if (id == R.id.lly_input_time){
             pvInputTime.show(view);
+        }else if (id == R.id.tv_confirm){
+            ProjectHelper.disableViewDoubleClick(view);
+            doConfirm();
         }
     }
 
+    private void doConfirm(){
+        String name = mEtName.getText().toString().trim();
+        String phone = mEtPhone.getText().toString().trim();
+        String address = mEtAddress.getText().toString().trim();
+        String remark = mEtRemark.getText().toString().trim();
+        String dueTime = Helper.date2String(Helper.string2Date(mTvDueTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00"),"yyyyMMddHHmmss");
+        String inputTime = Helper.date2String(Helper.string2Date(mTvInputTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00"),"yyyyMMddHHmmss");
+        if (Helper.isEmpty(name)){
+            showToastMessage("请输入客户姓名");
+            return;
+        }
+        if (Helper.isEmpty(phone)){
+            showToastMessage("请输入客户手机号码");
+            return;
+        }
+        if (Helper.isEmpty(address)){
+            showToastMessage("请输入客户地址");
+            return;
+        }
+
+
+        List<String> requestParams = new ArrayList<>();
+        requestParams.add(name);
+        requestParams.add(phone);
+        requestParams.add(address);
+        requestParams.add("1");//手机总数
+        requestParams.add("18650480850");//手机号码
+        requestParams.add(isCoverYes?"1":"0");
+        requestParams.add(isNetworkYes?"1":"0");
+        requestParams.add(isOperatorYes?"1":"0");
+        requestParams.add(isTogetherYes?"1":"0");
+        requestParams.add(dueTime);
+        requestParams.add(CurrentUser.getInstance().getUserid());
+        requestParams.add(CurrentUser.getInstance().getMuid());
+        requestParams.add(inputTime);
+        requestParams.add(Helper.isEmpty(remark)?"无":remark);
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
+    }
+
     private void initTimePicker() {
+        mTvDueTime.setText(Helper.date2String(new Date(),"yyyy-MM-dd HH:mm:00"));
+        mTvInputTime.setText(Helper.date2String(new Date(),"yyyy-MM-dd HH:mm:00"));
         pvDueTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
@@ -311,5 +371,19 @@ public class CompetitiveInputActivity extends BaseActivity implements View.OnCli
             InputMethodManager manager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
             manager.hideSoftInputFromWindow(token, InputMethodManager.HIDE_NOT_ALWAYS);
         }
+    }
+
+    @Override
+    public void requestSuccess(String result) {
+        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+        if (resp!=null && resp.getData()!=null){
+            showToastMessage("录入成功");
+            finish();
+        }
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 }

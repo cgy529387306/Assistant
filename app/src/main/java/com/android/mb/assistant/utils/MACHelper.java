@@ -2,6 +2,8 @@ package com.android.mb.assistant.utils;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.List;
+import java.util.Map;
 
 import javax.crypto.Mac;
 import javax.crypto.SecretKey;
@@ -146,11 +148,14 @@ public class MACHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String pwd(String pwd) throws Exception {
-		// 密码加密，第二个参数请填空字符串。
-		String getKeyedDigest = getKeyedDigest(pwd, "").toUpperCase();
-
-		return getKeyedDigest;
+	public static String pwd(String pwd){
+		try {
+			// 密码加密，第二个参数请填空字符串。
+			return getKeyedDigest(pwd, "").toUpperCase();
+		}catch (Exception e){
+			e.printStackTrace();
+			return "";
+		}
 	}
 
 	/**
@@ -183,18 +188,21 @@ public class MACHelper {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String workMacForApp(String data) throws Exception {
-		if (data == null) {
-			data = "";
+	public static String workMacForApp(String data){
+		try {
+			if (data == null) {
+				data = "";
+			}
+			String macblock = java.net.URLEncoder.encode(data, "UTF-8");
+			//Log.info("(MobileMACHelper)workMac()macblock=[" + macblock + "]");
+			if (macblock.length() > 64) {// 大于64位截取前64位。
+				macblock = macblock.substring(0, 64);
+			}
+			return MACHelper.encryptHMAC(macblock, "12344321");
+		}catch (Exception e){
+			e.printStackTrace();
+			return "";
 		}
-
-		String macblock = java.net.URLEncoder.encode(data, "UTF-8");
-		//Log.info("(MobileMACHelper)workMac()macblock=[" + macblock + "]");
-		if (macblock.length() > 64) {// 大于64位截取前64位。
-			macblock = macblock.substring(0, 64);
-		}
-
-		return MACHelper.encryptHMAC(macblock, "12344321");
 	}
 
 	/**
@@ -214,6 +222,7 @@ public class MACHelper {
 						.toUpperCase();
 				return getKeyedDigest;
 			} catch (Exception e) {
+				e.printStackTrace();
 			}
 		}
 
@@ -225,6 +234,21 @@ public class MACHelper {
 		String data = "sfy~C4CA4238A0B923820DCC509A6F75849B";
 		MACHelper s= new MACHelper();
         System.out.println( "加密="+s.workMacForApp(data));
+	}
+
+	public static String getData(List<String> params){
+		StringBuilder sb = new StringBuilder();
+		if (Helper.isNotEmpty(params)){
+			for (int i=0;i<params.size();i++){
+				String data = params.get(i);
+				if (i>=params.size()-1){
+					sb.append(data);
+				}else{
+					sb.append(data).append(KEY_SPLIT);
+				}
+			}
+		}
+		return sb.toString();
 	}
 
 }
