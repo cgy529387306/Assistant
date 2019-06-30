@@ -21,10 +21,12 @@ import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.LoginResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.RxBus;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.MACHelper;
@@ -377,6 +379,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     public void requestSuccess(String result) {
         CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
         if (resp!=null && resp.getData()!=null){
+            sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
             showToastMessage("录入成功");
             finish();
         }

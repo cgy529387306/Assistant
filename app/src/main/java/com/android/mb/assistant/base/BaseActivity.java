@@ -66,6 +66,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     // 网络状态
     private boolean mIsNetworkAvailable = false;
     private BroadcastReceiver mNetWorkStateChangeReceiver;
+
+    protected int mCurrentPage;
+    protected int mPageSize;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -89,11 +89,11 @@ public class CompetitiveBrowseActivity extends BaseActivity{
     }
     private void initTabViewPager(){
         mFragmentArrayList = new ArrayList<>();
-        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(0));
+        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(99));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(1));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(2));
+        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(5));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(3));
-        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(4));
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
