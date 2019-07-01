@@ -98,10 +98,14 @@ public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView>
     @Override
     public void requestSuccess(String result) {
         LoginResp resp = JsonHelper.fromJson(result,LoginResp.class);
-        if (resp!=null && resp.getData()!=null){
-            CurrentUser.getInstance().login(resp.getData());
-            showToastMessage("登录成功");
-            NavigationHelper.startActivity(this, MainActivity.class,null,true);
+        if (resp!=null){
+            if (resp.isSuccess() && resp.getData()!=null){
+                CurrentUser.getInstance().login(resp.getData());
+                showToastMessage("登录成功");
+                NavigationHelper.startActivity(this, MainActivity.class,null,true);
+            }else{
+                showToastMessage(resp.getMessage());
+            }
         }
     }
 }

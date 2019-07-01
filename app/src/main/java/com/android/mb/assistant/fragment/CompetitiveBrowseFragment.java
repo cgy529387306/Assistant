@@ -104,6 +104,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     private void getListFormServer(){
         List<String> requestParams = new ArrayList<>();
         requestParams.add(CurrentUser.getInstance().getMuid());
+        requestParams.add(CurrentUser.getInstance().getUname());
         requestParams.add(String.valueOf(mState));
         requestParams.add(String.valueOf(mCurrentPage));
         requestParams.add(String.valueOf(mPageSize));

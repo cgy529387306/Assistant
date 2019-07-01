@@ -15,6 +15,7 @@ import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseFragment;
+import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
@@ -36,7 +37,7 @@ import java.util.List;
  */
 public class CompetitiveManageFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
-    private CompetitiveOrderAdapter mCompetitiveOrderAdapter;
+    private CompetitiveOrderAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private NestedGridView mGridCate;
     private SmartRefreshLayout mRefreshLayout;
@@ -61,12 +62,12 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mCompetitiveOrderAdapter = new CompetitiveOrderAdapter(getList());
-        mRecyclerView.setAdapter(mCompetitiveOrderAdapter);
+        mAdapter = new CompetitiveOrderAdapter(getList());
+        mRecyclerView.setAdapter(mAdapter);
         //添加Header
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_competitive_header, mRecyclerView, false);
         mGridCate = header.findViewById(R.id.gridCate);
-        mCompetitiveOrderAdapter.addHeaderView(header);
+        mAdapter.addHeaderView(header);
 
         mTvTitle = view.findViewById(R.id.tv_title);
         mTvBack = view.findViewById(R.id.iv_back);
@@ -87,12 +88,12 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         });
     }
 
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("陈秋梅");
-        list.add("蔡桂有");
+    private List<CompetitiveBean> getList(){
+        List<CompetitiveBean> list = new ArrayList<CompetitiveBean>();
+        list.add(new CompetitiveBean());
+        list.add(new CompetitiveBean());
+        list.add(new CompetitiveBean());
         return list;
-
     }
 
     @Override

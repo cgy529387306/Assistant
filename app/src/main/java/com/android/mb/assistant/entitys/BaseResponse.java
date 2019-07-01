@@ -1,5 +1,7 @@
 package com.android.mb.assistant.entitys;
 
+import com.android.mb.assistant.utils.Helper;
+
 import java.io.Serializable;
 
 /**
@@ -20,6 +22,8 @@ public class BaseResponse implements Serializable{
      * 返回信息
      */
     private String message;
+
+    private boolean isSuccess;
 
     public String getCode() {
         return code == null ? "" : code;
@@ -43,5 +47,13 @@ public class BaseResponse implements Serializable{
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public boolean isSuccess() {
+        return Helper.isNotEmpty(code) && code.equals("00");
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
     }
 }

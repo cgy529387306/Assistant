@@ -267,6 +267,9 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.add(CurrentUser.getInstance().getMuid());
         requestParams.add(inputTime);
         requestParams.add(Helper.isEmpty(remark)?"无":remark);
+        requestParams.add("无");
+        requestParams.add("无");
+        requestParams.add("无");
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
@@ -378,10 +381,14 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     @Override
     public void requestSuccess(String result) {
         CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
-        if (resp!=null && resp.getData()!=null){
-            sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
-            showToastMessage("录入成功");
-            finish();
+        if (resp!=null){
+            if (resp.isSuccess()){
+                sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
+                showToastMessage("录入成功");
+                finish();
+            }else{
+                showToastMessage(resp.getMessage());
+            }
         }
     }
 

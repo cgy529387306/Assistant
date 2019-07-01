@@ -7,7 +7,7 @@ import java.util.List;
  * Created by cgy on 19/6/30.
  */
 
-public class CompetitiveListResp {
+public class CompetitiveListResp extends BaseResponse{
     private List<CompetitiveBean> data;
 
     public List<CompetitiveBean> getData() {

@@ -68,7 +68,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private BroadcastReceiver mNetWorkStateChangeReceiver;
 
     protected int mCurrentPage;
-    protected int mPageSize;
+    protected int mPageSize = 20;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

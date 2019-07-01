@@ -31,7 +31,7 @@ public abstract class BaseFragment extends SimpleImmersionFragment {
     protected boolean mIsFirstVisible = true;
     protected View rootView;
     protected int mCurrentPage;
-    protected int mPageSize;
+    protected int mPageSize = 20;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
