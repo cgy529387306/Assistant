@@ -56,25 +56,39 @@
             android:value="51adbf67841ba6e83868a89ed3e2e2cb" />
 
         <activity android:name=".activity.SplashActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.LoginActivity"/>
-        <activity android:name=".activity.MainActivity"/>
-        <activity android:name=".activity.goods.ChapterApprovalActivity"/>
-        <activity android:name=".activity.goods.GoodsBrowseActivity"/>
-        <activity android:name=".activity.goods.GoodsDetailsActivity"/>
-        <activity android:name=".activity.goods.GoodsInputActivity"/>
-        <activity android:name=".activity.goods.GoodsShoppingCartActivity"/>
-        <activity android:name=".activity.competitive.CompetitiveInputActivity"/>
-        <activity android:name=".activity.competitive.CompetitiveBrowseActivity"/>
-        <activity android:name=".activity.competitive.CompetitiveDetailsActivity"/>
-        <activity android:name=".activity.goods.GoodsApplyUseActivity"/>
-        <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"/>
-        <activity android:name=".activity.goods.MyApplyUseDeailsActivity"/>
+        <activity android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MainActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.ChapterApprovalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsBrowseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsShoppingCartActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveBrowseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsApplyUseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.MyApplyUseDeailsActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 
