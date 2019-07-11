@@ -1,8 +1,5 @@
 package com.android.mb.assistant.api;
 
-import com.android.mb.assistant.entitys.UserBean;
-import com.android.mb.assistant.retrofit.http.entity.HttpResult;
-
 import java.util.Map;
 
 import retrofit2.http.POST;
@@ -14,7 +11,7 @@ import rx.Observable;
  */
 public interface IScheduleService {
 
-    @POST("/ServletDispatcher")
+    @POST("/MoveHelper/AppServletDispatcher")
     Observable<String> baseRequest(@QueryMap Map<String, String> requestMap);
 
 

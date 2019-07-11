@@ -5,7 +5,6 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,7 +12,6 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
-import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CompetitiveListResp;
@@ -108,7 +106,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
         requestParams.add(String.valueOf(mState));
         requestParams.add(String.valueOf(mCurrentPage));
         requestParams.add(String.valueOf(mPageSize));
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,true);
+//        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,true);
     }
 
     @Override

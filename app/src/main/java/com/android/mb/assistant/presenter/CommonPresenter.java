@@ -20,7 +20,7 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
 
 
     @Override
-    public void requestData(String requestCode, List<String> params, boolean isShowLoading) {
+    public void requestData(String requestCode, Map<String,String> params, boolean isShowLoading) {
         if (isShowLoading){
             mMvpView.showProgressDialog("请稍后...");
         }

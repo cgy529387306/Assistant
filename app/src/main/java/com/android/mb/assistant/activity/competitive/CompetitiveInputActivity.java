@@ -270,7 +270,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.add("无");
         requestParams.add("无");
         requestParams.add("无");
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
+//        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
     private void initTimePicker() {

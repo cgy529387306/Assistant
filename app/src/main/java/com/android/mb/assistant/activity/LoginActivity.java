@@ -19,7 +19,9 @@ import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.ClearableEditText;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
 
@@ -83,9 +85,9 @@ public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView>
             showToastMessage("请输入密码");
             return;
         }
-        List<String> requestParams = new ArrayList<>();
-        requestParams.add(account);
-        requestParams.add(MACHelper.pwd(pwd));
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("userName",account);
+        requestParams.put("userPwd",MACHelper.pwd(pwd));
         mPresenter.requestData(CodeConstants.KEY_LOGIN,requestParams,true);
     }
 

@@ -1,5 +1,11 @@
 package com.android.mb.assistant.utils;
 
+import android.text.TextUtils;
+
+import com.luck.picture.lib.tools.StringUtils;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.List;
@@ -245,6 +251,27 @@ public class MACHelper {
 					sb.append(data);
 				}else{
 					sb.append(data).append(KEY_SPLIT);
+				}
+			}
+		}
+		return sb.toString();
+	}
+
+	public static String buildMap(Map<String, String> map) {
+		StringBuffer sb = new StringBuffer();
+		if (map.size() > 0) {
+			for (String key : map.keySet()) {
+				sb.append(key + "=");
+				if (TextUtils.isEmpty(map.get(key))) {
+					sb.append("&");
+				} else {
+					String value = map.get(key);
+					try {
+						value = URLEncoder.encode(value, "UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						e.printStackTrace();
+					}
+					sb.append(value + "&");
 				}
 			}
 		}

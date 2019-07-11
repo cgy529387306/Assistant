@@ -19,7 +19,7 @@ import rx.functions.Func1;
 
 public class BaseHttp {
 
-    public static final String BASE_URL = "http://tdiff24.com:8085";
+    public static final String BASE_URL = "http://114.115.136.72:8080";
 
     public String getServerHost() {
         return BASE_URL;
