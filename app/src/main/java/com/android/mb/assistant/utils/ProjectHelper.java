@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
@@ -401,5 +402,37 @@ public class ProjectHelper {
             return String.format(Locale.getDefault(), "%02d", (int) item);
         }
         return item.toString();
+    }
+
+    public final static String SPLIT = "、";
+
+    /**
+     * List 转 string分隔
+     * @param dataList
+     * @return
+     */
+    public static String listToStr(List<String> dataList){
+        if (Helper.isEmpty(dataList)){
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < dataList.size(); i++) {
+            sb.append(dataList.get(i)).append(SPLIT);
+
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
+    }
+
+    /**
+     * String 转 list
+     * @param dataStr
+     * @return
+     */
+    public static List<String> strToList(String dataStr){
+        if (Helper.isEmpty(dataStr)){
+            return new ArrayList<>();
+        }
+        String[] dataArray = dataStr.split(SPLIT);
+        return Arrays.asList(dataArray);
     }
 }

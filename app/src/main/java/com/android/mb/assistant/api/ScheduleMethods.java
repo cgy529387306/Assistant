@@ -2,6 +2,7 @@ package com.android.mb.assistant.api;
 
 import com.android.mb.assistant.retrofit.cache.transformer.CacheTransformer;
 import com.android.mb.assistant.retrofit.http.RetrofitHttpClient;
+import com.android.mb.assistant.utils.MACHelper;
 
 import java.util.Map;
 
@@ -42,7 +43,7 @@ public class ScheduleMethods extends BaseHttp {
      */
     public Observable baseRequest(String requestCode,Map<String,String> requestMap){
         requestMap.put("code",requestCode);
-//        requestMap.put("mac", MACHelper.workMacForApp(requestData));
+        requestMap.put("mac", MACHelper.workMacForApp(requestCode));
         return getService().baseRequest(requestMap)
                 .compose(CacheTransformer.emptyTransformer());
     }

@@ -12,6 +12,7 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CompetitiveListResp;
@@ -31,7 +32,9 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import rx.functions.Action1;
 
@@ -100,13 +103,13 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     }
 
     private void getListFormServer(){
-        List<String> requestParams = new ArrayList<>();
-        requestParams.add(CurrentUser.getInstance().getMuid());
-        requestParams.add(CurrentUser.getInstance().getUname());
-        requestParams.add(String.valueOf(mState));
-        requestParams.add(String.valueOf(mCurrentPage));
-        requestParams.add(String.valueOf(mPageSize));
-//        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,true);
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("mUid", CurrentUser.getInstance().getMuid());
+        requestParams.put("cOpName",CurrentUser.getInstance().getUname());
+        requestParams.put("status",String.valueOf(mState));
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(mPageSize));
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,true);
     }
 
     @Override

@@ -11,7 +11,7 @@ import rx.Observable;
  */
 public interface IScheduleService {
 
-    @POST("/MoveHelper/AppServletDispatcher")
+    @POST("/MoveHelper/ServletDispatcher")
     Observable<String> baseRequest(@QueryMap Map<String, String> requestMap);
 
 

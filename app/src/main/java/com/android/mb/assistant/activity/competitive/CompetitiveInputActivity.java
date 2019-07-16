@@ -47,7 +47,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 竞情录入
@@ -250,27 +252,25 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
             showToastMessage("请输入客户地址");
             return;
         }
-
-
-        List<String> requestParams = new ArrayList<>();
-        requestParams.add(name);
-        requestParams.add(phone);
-        requestParams.add(address);
-        requestParams.add("1");//手机总数
-        requestParams.add("18650480850");//手机号码
-        requestParams.add(isCoverYes?"1":"0");
-        requestParams.add(isNetworkYes?"1":"0");
-        requestParams.add(isOperatorYes?"1":"0");
-        requestParams.add(isTogetherYes?"1":"0");
-        requestParams.add(dueTime);
-        requestParams.add(CurrentUser.getInstance().getUserid());
-        requestParams.add(CurrentUser.getInstance().getMuid());
-        requestParams.add(inputTime);
-        requestParams.add(Helper.isEmpty(remark)?"无":remark);
-        requestParams.add("无");
-        requestParams.add("无");
-        requestParams.add("无");
-//        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
+        List<String> customerInfo = new ArrayList<>();
+        customerInfo.add(name);
+        customerInfo.add(phone);
+        customerInfo.add(address);
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("customer",ProjectHelper.listToStr(customerInfo));
+        requestParams.put("cNum","1");
+        requestParams.put("cMobileStr","18650480850");
+        requestParams.put("imgStr","无");
+        requestParams.put("mUid",CurrentUser.getInstance().getMuid());
+        requestParams.put("cOpName",CurrentUser.getInstance().getUname());
+        requestParams.put("createTime",inputTime);
+        requestParams.put("remarks",remark);
+        requestParams.put("cOverlap",isCoverYes?"1":"0");
+        requestParams.put("cBroadband",isNetworkYes?"1":"0");
+        requestParams.put("cIsp",isOperatorYes?"1":"0");
+        requestParams.put("cFuse",isTogetherYes?"1":"0");
+        requestParams.put("becomeTime",dueTime);
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
     private void initTimePicker() {
