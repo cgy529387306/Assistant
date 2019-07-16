@@ -14,7 +14,6 @@ import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
-import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CompetitiveListResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
@@ -33,7 +32,6 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import rx.functions.Action1;
@@ -79,23 +77,16 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     }
 
     private void initView(View view) {
-        mState = getActivity().getIntent().getIntExtra(KEY_STATE,99);
+        mState = getArguments().getInt(KEY_STATE,99);
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
-        mRefreshLayout.setEnableLoadMore(false);
+        mRefreshLayout.setEnableLoadMore(true);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mAdapter = new CompetitiveOrderAdapter(getList());
+        mAdapter = new CompetitiveOrderAdapter(new ArrayList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
-    private List<CompetitiveBean> getList(){
-        List<CompetitiveBean> list = new ArrayList<CompetitiveBean>();
-        list.add(new CompetitiveBean());
-        list.add(new CompetitiveBean());
-        list.add(new CompetitiveBean());
-        return list;
-    }
 
     @Override
     protected void processLogic() {
@@ -109,7 +100,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
         requestParams.put("status",String.valueOf(mState));
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,true);
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,false);
     }
 
     @Override

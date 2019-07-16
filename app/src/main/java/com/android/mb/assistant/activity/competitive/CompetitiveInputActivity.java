@@ -252,24 +252,26 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
             showToastMessage("请输入客户地址");
             return;
         }
-        List<String> customerInfo = new ArrayList<>();
-        customerInfo.add(name);
-        customerInfo.add(phone);
-        customerInfo.add(address);
+        if (ProjectHelper.isMobiPhoneNum(phone)){
+            showToastMessage("手机号码输入有误");
+            return;
+        }
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("customer",ProjectHelper.listToStr(customerInfo));
+        requestParams.put("cUserName",name);
+        requestParams.put("cMobile",phone);
+        requestParams.put("cAdd",address);
         requestParams.put("cNum","1");
         requestParams.put("cMobileStr","18650480850");
-        requestParams.put("imgStr","无");
-        requestParams.put("mUid",CurrentUser.getInstance().getMuid());
-        requestParams.put("cOpName",CurrentUser.getInstance().getUname());
-        requestParams.put("createTime",inputTime);
-        requestParams.put("remarks",remark);
         requestParams.put("cOverlap",isCoverYes?"1":"0");
         requestParams.put("cBroadband",isNetworkYes?"1":"0");
         requestParams.put("cIsp",isOperatorYes?"1":"0");
         requestParams.put("cFuse",isTogetherYes?"1":"0");
         requestParams.put("becomeTime",dueTime);
+        requestParams.put("createTime",inputTime);
+        requestParams.put("mUid",CurrentUser.getInstance().getMuid());
+        requestParams.put("cOpName",CurrentUser.getInstance().getUname());
+        requestParams.put("remarks",remark);
+        requestParams.put("imgStr","无");
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
