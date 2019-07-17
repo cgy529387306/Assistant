@@ -11,6 +11,7 @@ import android.provider.MediaStore.MediaColumns;
 import android.view.View;
 import android.view.ViewParent;
 
+import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -434,5 +435,20 @@ public class ProjectHelper {
         }
         String[] dataArray = dataStr.split(SPLIT);
         return Arrays.asList(dataArray);
+    }
+
+    public static String getOrderStatus(CompetitiveBean item){
+        if (item == null){
+            return "未派单";
+        }
+        if (item.getCDispatchStatus() == 2){
+            return "已派单";
+        }else if (item.getCDispatchStatus() == 3){
+            return "反抢成功";
+        }else if (item.getCDispatchStatus() == 4){
+            return "反抢失败";
+        }else{
+            return "未派单";
+        }
     }
 }
