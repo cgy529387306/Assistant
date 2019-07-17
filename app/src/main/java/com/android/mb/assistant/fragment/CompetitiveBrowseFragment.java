@@ -161,7 +161,8 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        //TODO
-        NavigationHelper.startActivity(getActivity(), CompetitiveDetailsActivity.class,null,false);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("cometitive",mAdapter.getItem(position));
+        NavigationHelper.startActivity(getActivity(), CompetitiveDetailsActivity.class,bundle,false);
     }
 }

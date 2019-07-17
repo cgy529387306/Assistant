@@ -23,10 +23,10 @@ public class CompetitiveBrowseActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
-
+    private int mCurrentPage;
     @Override
     protected void loadIntent() {
-
+        mCurrentPage = getIntent().getIntExtra("page",0);
     }
 
     @Override
@@ -56,10 +56,8 @@ public class CompetitiveBrowseActivity extends BaseActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()==0){
-                    //月视图
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
                 }else if (tab.getPosition()==1){
-                    //周视图
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
                 }else if (tab.getPosition()==2){
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
@@ -97,6 +95,7 @@ public class CompetitiveBrowseActivity extends BaseActivity{
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        mFragmentViewPager.setCurrentItem(mCurrentPage);
         setViewTabs();
     }
     /**

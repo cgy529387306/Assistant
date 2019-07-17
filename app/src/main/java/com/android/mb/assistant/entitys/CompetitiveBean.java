@@ -44,7 +44,7 @@ public class CompetitiveBean implements Serializable{
     private int CDispatchStatus;
     private int CFuse;
     private int CHandlingStatus;
-    private int CId;
+    private String CId;
     private String CImg;
     private int CIsBroadband;
     private int CIsOverlap;
@@ -106,11 +106,11 @@ public class CompetitiveBean implements Serializable{
         this.CHandlingStatus = CHandlingStatus;
     }
 
-    public int getCId() {
-        return CId;
+    public String getCId() {
+        return CId == null ? "" : CId;
     }
 
-    public void setCId(int CId) {
+    public void setCId(String CId) {
         this.CId = CId;
     }
 

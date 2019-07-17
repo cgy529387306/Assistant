@@ -1,5 +1,6 @@
 package com.android.mb.assistant.fragment;
 
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -76,13 +77,19 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         mGridCate.setAdapter(new ITypeAdapter(getActivity(),getCompetitiveTypeList()));
         mGridCate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                if (i == 7) {
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position == 7) {
                     //竞情录入
                     NavigationHelper.startActivity(getActivity(), CompetitiveInputActivity.class,null,false);
                 }else{
                     //竞情浏览
-                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,null,false);
+                    int page = 0;
+                    if (position < 5){
+                        page = position;
+                    }
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("page",page);
+                    NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,bundle,false);
                 }
             }
         });

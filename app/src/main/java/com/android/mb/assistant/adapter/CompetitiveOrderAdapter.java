@@ -21,11 +21,20 @@ public class CompetitiveOrderAdapter extends BaseQuickAdapter<CompetitiveBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, CompetitiveBean item) {
+        String yys = item.getCIsp()==0?"电信":"联通";
+        String dqs = item.getCBecomeTime();
+        String kd = yys+"-"+dqs+"到期";
+
+        String yfg = item.getCIsOverlap()==0?"已覆盖":"未覆盖";
+        String yw = item.getCIsBroadband()==0?"异网":"未异网";
+        String ywfg = yfg +"-"+yw;
         helper.setText(R.id.tv_order_state, ProjectHelper.getOrderStatus(item));
         helper.setText(R.id.tv_order_time, item.getCCreateTime());
         helper.setText(R.id.tv_name,item.getCUsername());
+        helper.setText(R.id.tv_kd,kd);
         helper.setText(R.id.tv_tel,item.getCMobile());
         helper.setText(R.id.tv_address,item.getCAdd());
+        helper.setText(R.id.tv_ywfg,ywfg);
 
     }
 }

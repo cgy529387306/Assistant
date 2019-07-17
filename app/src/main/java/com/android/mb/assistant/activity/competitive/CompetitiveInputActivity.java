@@ -67,7 +67,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private TextView mTvConfirm;
     private boolean isCoverYes = true;//是否移动端宽带覆盖
     private boolean isNetworkYes = true;//是否有异网宽带
-    private boolean isOperatorYes = true;//是否是异网宽带运营商
+    private boolean isOperatorYes = true;//异网宽带运营商
     private boolean isTogetherYes = true;//是否宽带融合
     private EditText mEtName;
     private EditText mEtPhone;
@@ -252,7 +252,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
             showToastMessage("请输入客户地址");
             return;
         }
-        if (ProjectHelper.isMobiPhoneNum(phone)){
+        if (!ProjectHelper.isMobiPhoneNum(phone)){
             showToastMessage("手机号码输入有误");
             return;
         }
@@ -262,10 +262,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("cAdd",address);
         requestParams.put("cNum","1");
         requestParams.put("cMobileStr","18650480850");
-        requestParams.put("cOverlap",isCoverYes?"1":"0");
-        requestParams.put("cBroadband",isNetworkYes?"1":"0");
-        requestParams.put("cIsp",isOperatorYes?"1":"0");
-        requestParams.put("cFuse",isTogetherYes?"1":"0");
+        requestParams.put("cOverlap",isCoverYes?"0":"1");
+        requestParams.put("cBroadband",isNetworkYes?"0":"1");
+        requestParams.put("cIsp",isOperatorYes?"0":"1");
+        requestParams.put("cFuse",isTogetherYes?"0":"1");
         requestParams.put("becomeTime",dueTime);
         requestParams.put("createTime",inputTime);
         requestParams.put("mUid",CurrentUser.getInstance().getMuid());

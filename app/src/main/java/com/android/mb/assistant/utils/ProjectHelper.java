@@ -451,4 +451,19 @@ public class ProjectHelper {
             return "未派单";
         }
     }
+
+    public static String getOrderType(CompetitiveBean item){
+        if (item == null){
+            return "未派单";
+        }
+        if (item.getCDispatchStatus() == 2){
+            return "已派单";
+        }else if (item.getCDispatchStatus() == 3){
+            return "反抢成功";
+        }else if (item.getCDispatchStatus() == 4){
+            return "反抢失败";
+        }else{
+            return "未派单";
+        }
+    }
 }
