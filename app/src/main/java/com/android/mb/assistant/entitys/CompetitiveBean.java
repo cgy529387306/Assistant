@@ -39,8 +39,9 @@ public class CompetitiveBean implements Serializable{
      */
 
     private String CAdd;
-    private String CBecomeTime;
-    private String CCreateTime;
+    private String cAddMoblie;
+    private long CBecomeTime;
+    private long cCreateTime;
     private int CDispatchStatus;
     private int CFuse;
     private int CHandlingStatus;
@@ -66,20 +67,28 @@ public class CompetitiveBean implements Serializable{
         this.CAdd = CAdd;
     }
 
-    public String getCBecomeTime() {
-        return CBecomeTime == null ? "" : CBecomeTime;
+    public String getcAddMoblie() {
+        return cAddMoblie == null ? "" : cAddMoblie;
     }
 
-    public void setCBecomeTime(String CBecomeTime) {
+    public void setcAddMoblie(String cAddMoblie) {
+        this.cAddMoblie = cAddMoblie;
+    }
+
+    public long getCBecomeTime() {
+        return CBecomeTime;
+    }
+
+    public void setCBecomeTime(long CBecomeTime) {
         this.CBecomeTime = CBecomeTime;
     }
 
-    public String getCCreateTime() {
-        return CCreateTime == null ? "" : CCreateTime;
+    public long getCCreateTime() {
+        return cCreateTime;
     }
 
-    public void setCCreateTime(String CCreateTime) {
-        this.CCreateTime = CCreateTime;
+    public void setCCreateTime(long CCreateTime) {
+        this.cCreateTime = CCreateTime;
     }
 
     public int getCDispatchStatus() {
@@ -90,6 +99,10 @@ public class CompetitiveBean implements Serializable{
         this.CDispatchStatus = CDispatchStatus;
     }
 
+    /**
+     *  异网宽带是否融合
+     * @return
+     */
     public int getCFuse() {
         return CFuse;
     }
@@ -122,6 +135,10 @@ public class CompetitiveBean implements Serializable{
         this.CImg = CImg;
     }
 
+    /**
+     * 是否有异网移动宽带
+     * @return
+     */
     public int getCIsBroadband() {
         return CIsBroadband;
     }
@@ -130,6 +147,10 @@ public class CompetitiveBean implements Serializable{
         this.CIsBroadband = CIsBroadband;
     }
 
+    /**
+     * 是否覆盖移动宽带
+     * @return
+     */
     public int getCIsOverlap() {
         return CIsOverlap;
     }
@@ -137,6 +158,7 @@ public class CompetitiveBean implements Serializable{
     public void setCIsOverlap(int CIsOverlap) {
         this.CIsOverlap = CIsOverlap;
     }
+
 
     public int getCIschange() {
         return CIschange;
@@ -146,6 +168,10 @@ public class CompetitiveBean implements Serializable{
         this.CIschange = CIschange;
     }
 
+    /**
+     *  异网宽带运营商0：电信1：联通2：其他
+     * @return
+     */
     public int getCIsp() {
         return CIsp;
     }
@@ -154,6 +180,10 @@ public class CompetitiveBean implements Serializable{
         this.CIsp = CIsp;
     }
 
+    /**
+     *  是否已读
+     * @return
+     */
     public int getCIsread() {
         return CIsread;
     }

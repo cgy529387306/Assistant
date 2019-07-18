@@ -163,6 +163,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -187,6 +188,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_tel"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -224,6 +226,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -271,6 +274,7 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_tel_num"
                     android:textSize="13sp"
                     android:textColor="#333333"
                     android:layout_width="wrap_content"
@@ -334,94 +338,115 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:orientation="horizontal">
                 <LinearLayout
-                    android:layout_width="104dp"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
                         android:text="移动宽带是否覆盖"
-                        android:gravity="center|left"
+                        android:gravity="center_vertical"
                         android:textColor="#999999"
                         android:textSize="13sp"/>
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:text="是否有异网宽带"
-                        android:gravity="center|left"
-                        android:textColor="#999999"
+                        android:id="@+id/tv_cover"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#333333"
                         android:textSize="13sp"/>
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="50dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
                     <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="是"
-                        android:gravity="center"
-                        android:textColor="#333333"
-                        android:textSize="13sp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="是"
-                        android:gravity="center"
-                        android:textColor="#333333"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="104dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="46dp"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:text="异网宽带运营商"
-                        android:gravity="center|left"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="是否有异网宽带"
+                        android:gravity="center_vertical"
                         android:textColor="#999999"
                         android:textSize="13sp"/>
                     <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="40dp"
-                        android:text="异网宽带是否融合"
-                        android:gravity="center|left"
-                        android:textColor="#999999"
-                        android:textSize="13sp"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:orientation="vertical">
-                    <TextView
+                        android:id="@+id/tv_network"
                         android:layout_width="wrap_content"
-                        android:layout_height="40dp"
+                        android:layout_height="wrap_content"
                         android:text="是"
-                        android:gravity="center"
-                        android:textColor="#333333"
-                        android:textSize="13sp"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="40dp"
-                        android:text="是"
-                        android:gravity="center"
+                        android:gravity="center_vertical|right"
                         android:textColor="#333333"
                         android:textSize="13sp"/>
                 </LinearLayout>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="36dp"
+                android:gravity="center_vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:orientation="horizontal">
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="异网宽带运营商"
+                        android:gravity="center_vertical"
+                        android:textColor="#999999"
+                        android:textSize="13sp"/>
+                    <TextView
+                        android:id="@+id/tv_operator"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#333333"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="50dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:text="异网宽带是否融合"
+                        android:gravity="center_vertical"
+                        android:textColor="#999999"
+                        android:textSize="13sp"/>
+                    <TextView
+                        android:id="@+id/tv_together"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="是"
+                        android:gravity="center_vertical|right"
+                        android:textColor="#333333"
+                        android:textSize="13sp"/>
+                </LinearLayout>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:orientation="horizontal">
@@ -432,8 +457,8 @@
                     android:gravity="center"
                     android:textColor="#999999"
                     android:textSize="13sp"/>
-
                 <TextView
+                    android:id="@+id/tv_due_time"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -441,7 +466,6 @@
                     android:gravity="center|right"
                     android:textColor="#333333"
                     android:textSize="13sp"/>
-
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -502,6 +526,7 @@
                     android:layout_marginLeft="25dp"
                     android:orientation="vertical">
                     <TextView
+                        android:id="@+id/tv_city"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="福州市"
@@ -509,6 +534,7 @@
                         android:textColor="#333333"
                         android:textSize="13sp"/>
                     <TextView
+                        android:id="@+id/tv_code"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="工号123456"
@@ -543,6 +569,7 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/tv_dep"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:gravity="center|right"
@@ -550,6 +577,7 @@
                         android:textColor="#333333"
                         android:textSize="13sp" />
                     <TextView
+                        android:id="@+id/tv_input_time"
                         android:layout_width="match_parent"
                         android:layout_height="40dp"
                         android:text="2019-06-03"

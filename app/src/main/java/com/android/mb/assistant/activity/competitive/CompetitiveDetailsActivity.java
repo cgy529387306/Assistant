@@ -1,6 +1,7 @@
 package com.android.mb.assistant.activity.competitive;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.base.BaseActivity;
@@ -9,6 +10,7 @@ import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 
 import java.util.HashMap;
@@ -20,6 +22,10 @@ import java.util.Map;
 public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView{
 
     private CompetitiveBean mCompetitiveBean;
+
+    private TextView mTvName,mTvTel,mTvAddress;
+    private TextView mTvTelNum,mTvCover,mTvNetwork,mTvOperator,mTvTogether,mTvDueTime,mTvInputTime;
+
 
     @Override
     protected void loadIntent() {
@@ -38,16 +44,21 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     @Override
     protected void bindViews() {
-        initView();
+        mTvName = findViewById(R.id.tv_name);
+        mTvTel = findViewById(R.id.tv_tel);
+        mTvAddress = findViewById(R.id.tv_address);
+        mTvTelNum = findViewById(R.id.tv_tel_num);
+        mTvCover = findViewById(R.id.tv_cover);
+        mTvNetwork = findViewById(R.id.tv_network);
+        mTvOperator = findViewById(R.id.tv_operator);
+        mTvTogether = findViewById(R.id.tv_together);
+        mTvDueTime = findViewById(R.id.tv_due_time);
+        mTvInputTime = findViewById(R.id.tv_input_time);
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-        if (mCompetitiveBean!=null){
-            Map<String,String> requestParams = new HashMap<>();
-            requestParams.put("cId",mCompetitiveBean.getCId());
-            mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DETAIL,requestParams,false);
-        }
+        initData();
     }
 
     @Override
@@ -55,7 +66,19 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     }
 
-    private void initView() {
+    private void initData(){
+        if (mCompetitiveBean!=null){
+            mTvName.setText(mCompetitiveBean.getCUsername());
+            mTvTel.setText(mCompetitiveBean.getcAddMoblie());
+            mTvAddress.setText(mCompetitiveBean.getCAdd());
+            mTvTelNum.setText(String.valueOf(mCompetitiveBean.getCNum()));
+            mTvCover.setText(mCompetitiveBean.getCIsOverlap()==0?"是":"否");
+            mTvNetwork.setText(mCompetitiveBean.getCIsBroadband()==0?"是":"否");
+            mTvOperator.setText(mCompetitiveBean.getCIsOverlap()==0?"电信":"联通");
+            mTvTogether.setText(mCompetitiveBean.getCFuse()==0?"是":"否");
+            mTvDueTime.setText(Helper.long2DateString(mCompetitiveBean.getCBecomeTime(),Helper.DATE_FORMAT1));
+            mTvInputTime.setText(Helper.long2DateString(mCompetitiveBean.getCCreateTime(),Helper.DATE_FORMAT1));
+        }
     }
 
     @Override
@@ -66,5 +89,11 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     @Override
     protected CommonPresenter createPresenter() {
         return new CommonPresenter();
+    }
+
+    private void requestData(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("cId",mCompetitiveBean.getCId());
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DETAIL,requestParams,false);
     }
 }
