@@ -32,8 +32,8 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:id="@+id/et_account"
+                <EditText
+                    android:id="@+id/et_name"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
@@ -63,7 +63,8 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
+                    android:id="@+id/et_brand"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
@@ -95,21 +96,16 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_select_category"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_arraw_right"
+                    android:drawablePadding="6dp"
                     android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
+                    android:textColor="@color/base_gray"
                     android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
                     android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_arraw_right"/>
+                    android:text="请选择"/>
             </LinearLayout>
             <include layout="@layout/common_divider"/>
             <LinearLayout
@@ -127,21 +123,16 @@
                     android:textSize="13sp"/>
 
                 <TextView
+                    android:id="@+id/tv_select_company"
                     android:layout_width="0dp"
                     android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_arraw_right"
+                    android:drawablePadding="6dp"
                     android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
+                    android:textColor="@color/base_gray"
                     android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
                     android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_arraw_right"/>
+                    android:text="请选择"/>
             </LinearLayout>
 
             <include layout="@layout/common_divider"/>
@@ -159,7 +150,8 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
+                    android:id="@+id/et_address"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
@@ -168,7 +160,7 @@
                     android:imeOptions="actionNext"
                     android:singleLine="true"
                     android:inputType="text"
-                    android:hint="请选择"
+                    android:hint="请输入"
                     android:textColor="#333333"
                     android:gravity="center|right"
                     android:textColorHint="@color/base_gray"
@@ -196,14 +188,15 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
+                    android:id="@+id/et_number"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
                     android:background="@null"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
-                    android:inputType="text"
+                    android:inputType="number"
                     android:hint="请输入"
                     android:textColor="#333333"
                     android:gravity="center|right"
@@ -225,14 +218,15 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
+                    android:id="@+id/et_price"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
                     android:background="@null"
                     android:imeOptions="actionNext"
                     android:singleLine="true"
-                    android:inputType="text"
+                    android:inputType="numberDecimal"
                     android:hint="请输入"
                     android:textColor="#333333"
                     android:gravity="center|right"
@@ -292,19 +286,17 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_select_department"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_arraw_right"
+                    android:drawablePadding="6dp"
                     android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
+                    android:textColor="@color/base_gray"
                     android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
+                    android:textSize="13sp"
+                    android:text="请选择"/>
             </LinearLayout>
             <include layout="@layout/common_divider"/>
             <LinearLayout
@@ -323,22 +315,17 @@
                     android:textSize="13sp"/>
 
                 <TextView
-                    android:id="@+id/tv_date"
+                    android:id="@+id/tv_select_date"
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:layout_height="match_parent"
+                    android:drawableRight="@mipmap/icon_date"
+                    android:drawablePadding="6dp"
                     android:hint="请选择"
-                    android:textColor="#333333"
+                    android:textColor="@color/base_gray"
                     android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
                     android:textSize="13sp"
                     android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_date"/>
             </LinearLayout>
 
             <include layout="@layout/common_divider"/>
@@ -356,7 +343,8 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <com.android.mb.assistant.widget.ClearableEditText
+                <EditText
+                    android:id="@+id/et_contact"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:maxLength="20"
@@ -383,7 +371,7 @@
                 android:textSize="13sp"/>
 
             <TextView
-                android:id="@+id/tv_login"
+                android:id="@+id/tv_confirm"
                 android:layout_width="match_parent"
                 android:layout_height="46dp"
                 android:layout_marginLeft="38dp"
