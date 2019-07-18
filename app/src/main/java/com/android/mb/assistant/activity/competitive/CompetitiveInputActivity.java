@@ -8,6 +8,7 @@ import android.support.annotation.CallSuper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.MainActivity;
 import com.android.mb.assistant.adapter.CompetitiveTelAdapter;
@@ -34,6 +36,7 @@ import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.MACHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
+import com.android.mb.assistant.utils.ToastUtils;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.ClearableEditText;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
@@ -165,7 +168,6 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mLlyInputTime = findViewById(R.id.lly_input_time);
         mTvInputTime = findViewById(R.id.tv_input_time);
 
-        mTelList.add("");
         mTelAdapter = new CompetitiveTelAdapter(mTelList);
         mRvTel.setAdapter(mTelAdapter);
         initTimePicker();
@@ -226,15 +228,20 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
             mTvTogetherNo.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
             isTogetherYes = !isTogetherYes;
         }else if (id == R.id.iv_reduce){
-            if (mTelNum > 1){
-                mTelNum--;
+            if (mTelNum > 0){
+                if (mTelList.size()>mTelNum-1){
+                    mTelNum = mTelNum -1;
+                    mTvNum.setText(String.valueOf(mTelNum));
+                    mTelList.remove(mTelList.size()-1);
+                    mTelAdapter.notifyDataSetChanged();
+                }
             }
-            mTvNum.setText(String.valueOf(mTelNum));
         }else if (id == R.id.iv_add){
             if (mTelNum < 3){
-                mTelNum++;
+                addTel();
+            }else{
+                showToastMessage("最多输入三个异网号码");
             }
-            mTvNum.setText(String.valueOf(mTelNum));
         }else if (id == R.id.lly_due_time){
             pvDueTime.show(view);
         }else if (id == R.id.lly_input_time){
@@ -273,7 +280,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("cMobile",phone);
         requestParams.put("cAdd",address);
         requestParams.put("cNum","1");
-        requestParams.put("cMobileStr","18650480850");
+        requestParams.put("cMobileStr",ProjectHelper.listToStr(mTelList));
         requestParams.put("cOverlap",isCoverYes?"0":"1");
         requestParams.put("cBroadband",isNetworkYes?"0":"1");
         requestParams.put("cIsp",isOperatorYes?"0":"1");
@@ -409,5 +416,30 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     @Override
     protected CommonPresenter createPresenter() {
         return new CommonPresenter();
+    }
+
+    private void addTel(){
+        String addNum = String.valueOf((mTelNum+1));
+        new MaterialDialog.Builder(this)
+                .title("异网号码"+addNum)
+                .inputType(InputType.TYPE_CLASS_NUMBER)
+                .input("请输入异网号码", null, new MaterialDialog.InputCallback() {
+                    @Override
+                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                        String tel = input.toString();
+                        if (Helper.isEmpty(tel)){
+                            showToastMessage("异网号码不能为空");
+                        }else if (!ProjectHelper.isMobiPhoneNum(tel)){
+                            showToastMessage("异网号码输入有误");
+                        }else{
+                            mTelNum = mTelNum+1;
+                            mTvNum.setText(String.valueOf(mTelNum));
+                            mTelList.add(tel);
+                            mTelAdapter.notifyDataSetChanged();
+                        }
+                    }
+                })
+                .positiveText("确定")
+                .show();
     }
 }

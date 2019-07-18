@@ -62,6 +62,7 @@ public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView>
         mTvLogin = findViewById(R.id.tv_login);
         mEtAccount = findViewById(R.id.et_account);
         mEtPwd = findViewById(R.id.et_pwd);
+        mEtAccount.setSelection(mEtAccount.getText().length());
     }
 
 
