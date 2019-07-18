@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.MainActivity;
+import com.android.mb.assistant.adapter.CompetitiveTelAdapter;
 import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
@@ -76,7 +78,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private TextView mTvNum;
     private ImageView mIvReduce;
     private ImageView mIvAdd;
-    private int num = 1;
+    private int mTelNum = 1;
     private TextView mTvUserId;
     private LinearLayout mLlyDueTime;
     private TextView mTvDueTime;
@@ -87,6 +89,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private RecyclerView mRecyclerView;
     private GridImageAdapter mImageAdapter;
     private List<LocalMedia> mSelectImageList = new ArrayList<>();
+
+    private RecyclerView mRvTel;
+    private CompetitiveTelAdapter mTelAdapter;
+    private List<String> mTelList = new ArrayList<>();
     @Override
     protected void loadIntent() {
 
@@ -131,6 +137,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     }
 
     private void initView() {
+        mRvTel = findViewById(R.id.rv_tel);
+        mRvTel.setLayoutManager(new LinearLayoutManager(this));
         mTvCoverYes = findViewById(R.id.tv_cover_yes);
         mTvCoverNo = findViewById(R.id.tv_cover_no);
         mTvNetworkYes = findViewById(R.id.tv_network_yes);
@@ -147,7 +155,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mTvNum = findViewById(R.id.tv_num);
         mIvReduce = findViewById(R.id.iv_reduce);
         mIvAdd = findViewById(R.id.iv_add);
-        num = Integer.parseInt(mTvNum.getText().toString());
+        mTelNum = Integer.parseInt(mTvNum.getText().toString());
         mTvUserId = findViewById(R.id.tv_userId);
         if(CurrentUser.getInstance().isLogin()) {
             mTvUserId.setText("员工号" + CurrentUser.getInstance().getUserid());
@@ -156,6 +164,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mTvDueTime = findViewById(R.id.tv_due_time);
         mLlyInputTime = findViewById(R.id.lly_input_time);
         mTvInputTime = findViewById(R.id.tv_input_time);
+
+        mTelList.add("");
+        mTelAdapter = new CompetitiveTelAdapter(mTelList);
+        mRvTel.setAdapter(mTelAdapter);
         initTimePicker();
     }
 
@@ -214,15 +226,15 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
             mTvTogetherNo.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
             isTogetherYes = !isTogetherYes;
         }else if (id == R.id.iv_reduce){
-            if (num > 1){
-                num--;
+            if (mTelNum > 1){
+                mTelNum--;
             }
-            mTvNum.setText(String.valueOf(num));
+            mTvNum.setText(String.valueOf(mTelNum));
         }else if (id == R.id.iv_add){
-            if (num < 3){
-                num++;
+            if (mTelNum < 3){
+                mTelNum++;
             }
-            mTvNum.setText(String.valueOf(num));
+            mTvNum.setText(String.valueOf(mTelNum));
         }else if (id == R.id.lly_due_time){
             pvDueTime.show(view);
         }else if (id == R.id.lly_input_time){
@@ -238,8 +250,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         String phone = mEtPhone.getText().toString().trim();
         String address = mEtAddress.getText().toString().trim();
         String remark = mEtRemark.getText().toString().trim();
-        String dueTime = Helper.date2String(Helper.string2Date(mTvDueTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00"),"yyyyMMddHHmmss");
-        String inputTime = Helper.date2String(Helper.string2Date(mTvInputTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00"),"yyyyMMddHHmmss");
+        long dueTime = Helper.dateString2Long(mTvDueTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00");
+        long inputTime = Helper.dateString2Long(mTvInputTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00");
         if (Helper.isEmpty(name)){
             showToastMessage("请输入客户姓名");
             return;
@@ -266,8 +278,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("cBroadband",isNetworkYes?"0":"1");
         requestParams.put("cIsp",isOperatorYes?"0":"1");
         requestParams.put("cFuse",isTogetherYes?"0":"1");
-        requestParams.put("becomeTime",dueTime);
-        requestParams.put("createTime",inputTime);
+        requestParams.put("becomeTime",String.valueOf(dueTime));
+        requestParams.put("createTime",String.valueOf(inputTime));
         requestParams.put("mUid",CurrentUser.getInstance().getMuid());
         requestParams.put("cOpName",CurrentUser.getInstance().getUname());
         requestParams.put("remarks",remark);
