@@ -69,6 +69,14 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.ChapterApprovalActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveBrowseActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveDetailsActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.SelectPersonActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsBrowseActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsDetailsActivity"
@@ -76,12 +84,6 @@
         <activity android:name=".activity.goods.GoodsInputActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsShoppingCartActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.competitive.CompetitiveInputActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.competitive.CompetitiveBrowseActivity"
-            android:screenOrientation="portrait"/>
-        <activity android:name=".activity.competitive.CompetitiveDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsApplyUseActivity"
             android:screenOrientation="portrait"/>

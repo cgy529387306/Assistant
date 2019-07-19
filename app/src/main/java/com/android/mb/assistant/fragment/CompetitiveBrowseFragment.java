@@ -111,6 +111,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
         regiestEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
+                mCurrentPage = 1;
                 getListFormServer();
             }
         });

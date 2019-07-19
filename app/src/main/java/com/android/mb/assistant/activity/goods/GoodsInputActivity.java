@@ -3,17 +3,25 @@ package com.android.mb.assistant.activity.goods;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
-import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
+import com.bigkoo.pickerview.builder.TimePickerBuilder;
+import com.bigkoo.pickerview.listener.OnTimeSelectListener;
+import com.bigkoo.pickerview.view.TimePickerView;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,6 +43,8 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     private TextView mTvSelectDepartment;
     private TextView mTvSelectDate;
     private TextView mTvConfirm;
+    private TimePickerView pvInputTime;
+    private TextView mTvInputTime;
 
     private boolean isYes = false;
 
@@ -55,6 +65,11 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
 
     @Override
     protected void bindViews() {
+        initView();
+        initTimePicker();
+    }
+
+    private void initView(){
         mEtName = findViewById(R.id.et_name);
         mEtBrand = findViewById(R.id.et_brand);
         mEtAddress = findViewById(R.id.et_address);
@@ -100,7 +115,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         }else if (id == R.id.tv_select_department){
 
         }else if (id == R.id.tv_select_date){
-
+            pvInputTime.show(view);
         }else if (id == R.id.tv_confirm){
             ProjectHelper.disableViewDoubleClick(view);
             doSubmit();
@@ -151,17 +166,53 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         requestParams.put("createTime","20190701225700");
         requestParams.put("contacts",contact);
         requestParams.put("imgStr","无");
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
+        mPresenter.requestData(CodeConstants.KEY_GOODS_ADD,requestParams,true);
 
     }
 
     @Override
     public void requestSuccess(String result) {
-
+        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+        if (resp!=null){
+            if (resp.isSuccess()){
+                sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
+                showToastMessage("录入成功");
+                finish();
+            }else{
+                showToastMessage(resp.getMessage());
+            }
+        }
     }
 
     @Override
     protected CommonPresenter createPresenter() {
         return new CommonPresenter();
+    }
+
+    private void initTimePicker() {
+        mTvInputTime.setText(Helper.date2String(new Date(),"yyyy-MM-dd HH:mm:00"));
+        pvInputTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date, View v) {//选中事件回调
+                mTvInputTime.setText(Helper.date2String(date,"yyyy-MM-dd HH:mm:00"));
+            }
+        })
+                .setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示
+                .setCancelText("取消")//取消按钮文字
+                .setSubmitText("确定")//确认按钮文字
+                .setTitleSize(20)//标题文字大小
+                .setTitleText("请选择日期")//标题文字
+                .setOutSideCancelable(true)//点击屏幕，点在控件外部范围时，是否取消显示
+                .isCyclic(true)//是否循环滚动
+                .setTitleColor(0xFF333333)//标题文字颜色
+                .setSubmitColor(0xFF2aaeff)//确定按钮文字颜色
+                .setCancelColor(0xFF2aaeff)//取消按钮文字颜色
+                .setTitleBgColor(0xFFffffff)//标题背景颜色 Night mode
+                .setBgColor(0xFFffffff)//滚轮背景颜色 Night mode
+                .setDate(Calendar.getInstance())// 如果不设置的话，默认是系统时间*/
+                .setLabel("年","月","日","时","分","秒")//默认设置为年月日时分秒
+                .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
+                .isDialog(false)//是否显示为对话框样式
+                .build();
     }
 }

@@ -1,6 +1,7 @@
 package com.android.mb.assistant.activity.competitive;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
@@ -11,6 +12,7 @@ import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 
 import java.util.HashMap;
@@ -19,13 +21,13 @@ import java.util.Map;
 /**
  * 竞情详情
  */
-public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView{
+public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
 
     private CompetitiveBean mCompetitiveBean;
 
     private TextView mTvName,mTvTel,mTvAddress;
     private TextView mTvTelNum,mTvCover,mTvNetwork,mTvOperator,mTvTogether,mTvDueTime,mTvInputTime;
-
+    private TextView mTvConfirm;
 
     @Override
     protected void loadIntent() {
@@ -54,6 +56,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         mTvTogether = findViewById(R.id.tv_together);
         mTvDueTime = findViewById(R.id.tv_due_time);
         mTvInputTime = findViewById(R.id.tv_input_time);
+        mTvConfirm = findViewById(R.id.tv_confirm);
     }
 
     @Override
@@ -63,7 +66,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     @Override
     protected void setListener() {
-
+        mTvConfirm.setOnClickListener(this);
     }
 
     private void initData(){
@@ -95,5 +98,13 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("cId",mCompetitiveBean.getCId());
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DETAIL,requestParams,false);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+        if (id == R.id.tv_confirm){
+            NavigationHelper.startActivity(this, SelectPersonActivity.class,null,false);
+        }
     }
 }

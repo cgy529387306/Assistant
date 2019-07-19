@@ -114,6 +114,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     @Override
     protected void bindViews() {
         initView();
+        initTimePicker();
         initRecycleView();
     }
 
@@ -170,7 +171,6 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
 
         mTelAdapter = new CompetitiveTelAdapter(mTelList);
         mRvTel.setAdapter(mTelAdapter);
-        initTimePicker();
     }
 
     private void initRecycleView(){
