@@ -44,7 +44,7 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     if (Helper.isNotEmpty(result)){
-                        mMvpView.requestSuccess(result);
+                        mMvpView.requestSuccess(requestCode,result);
                     }else{
                         mMvpView.showToastMessage("服务端数据异常");
                     }

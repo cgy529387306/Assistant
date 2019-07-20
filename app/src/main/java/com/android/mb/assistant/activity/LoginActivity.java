@@ -99,7 +99,7 @@ public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView>
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         LoginResp resp = JsonHelper.fromJson(result,LoginResp.class);
         if (resp!=null){
             if (resp.isSuccess() && resp.getData()!=null){

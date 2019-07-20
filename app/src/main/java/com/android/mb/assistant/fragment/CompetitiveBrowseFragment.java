@@ -135,7 +135,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         CompetitiveListResp listResp = JsonHelper.fromJson(result,CompetitiveListResp.class);
         if (listResp!=null){
             if (mCurrentPage == 1) {
@@ -151,7 +151,6 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
                 }
             }
         }
-        
     }
 
 
@@ -163,7 +162,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("cometitive",mAdapter.getItem(position));
+        bundle.putSerializable("competitive",mAdapter.getItem(position));
         NavigationHelper.startActivity(getActivity(), CompetitiveDetailsActivity.class,bundle,false);
     }
 }

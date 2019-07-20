@@ -130,7 +130,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         GoodsListResp listResp = JsonHelper.fromJson(result,GoodsListResp.class);
         if (listResp!=null){
             if (mCurrentPage == 1) {

@@ -31,7 +31,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     @Override
     protected void loadIntent() {
-        mCompetitiveBean = (CompetitiveBean) getIntent().getSerializableExtra("cometitive");
+        mCompetitiveBean = (CompetitiveBean) getIntent().getSerializableExtra("competitive");
     }
 
     @Override
@@ -85,7 +85,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
 
     }
 
@@ -104,7 +104,9 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     public void onClick(View v) {
         int id = v.getId();
         if (id == R.id.tv_confirm){
-            NavigationHelper.startActivity(this, SelectPersonActivity.class,null,false);
+            Bundle bundle = new Bundle();
+            bundle.putString("competitiveId",mCompetitiveBean.getCId());
+            NavigationHelper.startActivity(this, SelectPersonActivity.class,bundle,false);
         }
     }
 }

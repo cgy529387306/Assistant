@@ -400,7 +400,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
         if (resp!=null){
             if (resp.isSuccess()){

@@ -171,7 +171,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
         if (resp!=null){
             if (resp.isSuccess()){
