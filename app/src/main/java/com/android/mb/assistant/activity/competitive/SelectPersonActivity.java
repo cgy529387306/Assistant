@@ -121,10 +121,10 @@ public class SelectPersonActivity extends BaseMvpActivity<CommonPresenter, IComm
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("cId",mCompetitiveId);
         requestParams.put("mUid",CurrentUser.getInstance().getMuid());
-        requestParams.put("authority",String.valueOf(userBean.getAuthority()));
-        requestParams.put("receiveId",userBean.getUid());
+        requestParams.put("authority",String.valueOf(CurrentUser.getInstance().getAuthority()));
+        requestParams.put("receiveId",userBean.getMuid());
         requestParams.put("receiveName",userBean.getUname());
-        requestParams.put("department",userBean.getDepartmentName());
+        requestParams.put("department",userBean.getUid());
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DISPATCH,requestParams,true);
     }
 

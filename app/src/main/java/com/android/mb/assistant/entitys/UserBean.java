@@ -7,13 +7,13 @@ public class UserBean implements Serializable {
     private String ctime;
     private String email;
     private String mobile;
-    private String muid;
+    private String muid;//是用户id
     private int status;
-    private int authority;
-    private String uid;
+    private int authority;//authority  权限0：无改派权限1：管理权限（改派、分派）2：有改派权限3：分派权限
+    private String uid;//部门ID 关联z_department 表
     private String uname;
     private String upwd;
-    private String userid;
+    private String userid;//用户账号
     private String usertype;
     private String departmentName;
 
