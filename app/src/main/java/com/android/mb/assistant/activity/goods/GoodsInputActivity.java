@@ -44,7 +44,6 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     private TextView mTvSelectDate;
     private TextView mTvConfirm;
     private TimePickerView pvInputTime;
-    private TextView mTvInputTime;
 
     private boolean isYes = false;
 
@@ -190,11 +189,11 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     }
 
     private void initTimePicker() {
-        mTvInputTime.setText(Helper.date2String(new Date(),"yyyy-MM-dd HH:mm:00"));
+        mTvSelectDate.setText(Helper.date2String(new Date(),"yyyy-MM-dd HH:mm:00"));
         pvInputTime = new TimePickerBuilder(this, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {//选中事件回调
-                mTvInputTime.setText(Helper.date2String(date,"yyyy-MM-dd HH:mm:00"));
+                mTvSelectDate.setText(Helper.date2String(date,"yyyy-MM-dd HH:mm:00"));
             }
         })
                 .setType(new boolean[]{true, true, true, true, true, false})// 默认全部显示

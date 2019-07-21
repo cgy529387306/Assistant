@@ -14,6 +14,7 @@ import com.android.mb.assistant.activity.MainActivity;
 import com.android.mb.assistant.adapter.PersonAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.LoginResp;
@@ -163,6 +164,7 @@ public class SelectPersonActivity extends BaseMvpActivity<CommonPresenter, IComm
             if (resp!=null){
                 if (resp.isSuccess()){
                     showToastMessage("派单成功");
+                    sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
                     finish();
                 }else{
                     showToastMessage(resp.getMessage());

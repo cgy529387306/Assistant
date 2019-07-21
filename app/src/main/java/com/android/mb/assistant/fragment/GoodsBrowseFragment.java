@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.activity.goods.GoodsDetailsActivity;
 import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
@@ -150,6 +151,8 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
 
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-        NavigationHelper.startActivity(getActivity(), GoodsDetailsActivity.class,null,false);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goods",mAdapter.getItem(position));
+        NavigationHelper.startActivity(getActivity(), GoodsDetailsActivity.class,bundle,false);
     }
 }

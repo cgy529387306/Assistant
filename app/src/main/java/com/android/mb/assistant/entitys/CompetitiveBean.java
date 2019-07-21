@@ -42,9 +42,9 @@ public class CompetitiveBean implements Serializable{
     private String cAddMoblie;
     private long CBecomeTime;
     private long cCreateTime;
-    private int CDispatchStatus;
+    private int CDispatchStatus;//派单状态1：未派单2：已派单3：反抢成功4：反抢失败
     private int CFuse;
-    private int CHandlingStatus;
+    private int CHandlingStatus;//处理情况0:已处理1：未处理
     private String CId;
     private String CImg;
     private int CIsBroadband;
