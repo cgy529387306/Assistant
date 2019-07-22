@@ -59,10 +59,8 @@ public class ChapterApprovalActivity extends BaseActivity{
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
                 if (tab.getPosition()==0){
-                    //月视图
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
                 }else if (tab.getPosition()==1){
-                    //周视图
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
                 }else if (tab.getPosition()==2){
                     mFragmentViewPager.setCurrentItem(tab.getPosition(),true);

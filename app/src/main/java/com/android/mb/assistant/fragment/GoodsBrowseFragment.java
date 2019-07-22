@@ -134,17 +134,16 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     public void requestSuccess(String requestCode,String result) {
         GoodsListResp listResp = JsonHelper.fromJson(result,GoodsListResp.class);
         if (listResp!=null){
+            if (listResp.isLast()){
+                mRefreshLayout.finishLoadMoreWithNoMoreData();
+            }
             if (mCurrentPage == 1) {
                 mRefreshLayout.finishRefresh();
                 mAdapter.setNewData(listResp.getData());
                 mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
             } else {
-                if (Helper.isEmpty(result)) {
-                    mRefreshLayout.finishLoadMoreWithNoMoreData();
-                } else {
-                    mAdapter.addData(listResp.getData());
-                    mRefreshLayout.finishLoadMore();
-                }
+                mAdapter.addData(listResp.getData());
+                mRefreshLayout.finishLoadMore();
             }
         }
     }

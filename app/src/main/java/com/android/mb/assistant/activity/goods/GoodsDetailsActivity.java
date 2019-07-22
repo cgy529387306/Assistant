@@ -73,7 +73,7 @@ public class GoodsDetailsActivity extends BaseActivity{
             mTvDepartment.setText(mGoodsBean.getGsDepartment());
             mTvCategory.setText(mGoodsBean.getGsDepartment());
             mTvStorageSite.setText(mGoodsBean.getStorageSite());
-            mTvNumber.setText(mGoodsBean.getMum());
+            mTvNumber.setText(String.valueOf(mGoodsBean.getMum()));
             mTvIsAsset.setText(mGoodsBean.getAsset()==0?"是":"否");
             mTvGsDepartment.setText(mGoodsBean.getGsDepartment());
             mTvInputTime.setText(Helper.long2DateString(mGoodsBean.getCreateTime(),Helper.DATE_FORMAT1));

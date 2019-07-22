@@ -19,26 +19,18 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.MainActivity;
 import com.android.mb.assistant.adapter.CompetitiveTelAdapter;
 import com.android.mb.assistant.adapter.GridImageAdapter;
-import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
-import com.android.mb.assistant.entitys.LoginResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
-import com.android.mb.assistant.rxbus.RxBus;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
-import com.android.mb.assistant.utils.MACHelper;
-import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
-import com.android.mb.assistant.utils.ToastUtils;
 import com.android.mb.assistant.view.interfaces.ICommonView;
-import com.android.mb.assistant.widget.ClearableEditText;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
@@ -48,7 +40,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -290,7 +281,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("mUid",CurrentUser.getInstance().getMuid());
         requestParams.put("cOpName",CurrentUser.getInstance().getUname());
         requestParams.put("remarks",remark);
-        requestParams.put("imgStr","无");
+        requestParams.put("imgStr","https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg");
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 

@@ -2,11 +2,17 @@ package com.android.mb.assistant.activity.competitive;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.adapter.GridImageAdapter;
+import com.android.mb.assistant.adapter.ImageListAdapter;
+import com.android.mb.assistant.adapter.YyTelAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
@@ -19,8 +25,16 @@ import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
+import com.android.mb.assistant.widget.FullyGridLayoutManager;
+import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import rx.functions.Action1;
@@ -33,11 +47,17 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     private CompetitiveBean mCompetitiveBean;
 
     private TextView mTvName,mTvTel,mTvAddress;
-    private TextView mTvTelNum,mTvCover,mTvNetwork,mTvOperator,mTvTogether,mTvDueTime,mTvInputTime;
+    private TextView mTvTelNum,mTvCover,mTvNetwork,mTvOperator,mTvTogether,mTvDueTime;
+    private TextView mTvCity,mTvDep,mTvPerson,mTvInputTime,mTvRemark;
     private TextView mTvConfirm;
     private ImageView mIvStatus1,mIvStatus2,mIvStatus3;
     private TextView mTvStatus1,mTvStatus2,mTvStatus3;
     private View mViewStatus1,mViewStatus2;
+    private RecyclerView mRvTel;
+    private YyTelAdapter mTelAdapter;
+
+    private RecyclerView mRecyclerView;
+    private ImageListAdapter mImageAdapter;
     @Override
     protected void loadIntent() {
         mCompetitiveBean = (CompetitiveBean) getIntent().getSerializableExtra("competitive");
@@ -55,6 +75,17 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     @Override
     protected void bindViews() {
+        mRvTel = findViewById(R.id.rv_tel);
+        mRvTel.setLayoutManager(new LinearLayoutManager(this));
+        mTelAdapter = new YyTelAdapter(new ArrayList());
+        mRvTel.setAdapter(mTelAdapter);
+
+        mRecyclerView = findViewById(R.id.recyclerView);
+        FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this, 4, GridLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mImageAdapter = new ImageListAdapter(new ArrayList());
+        mRecyclerView.setAdapter(mImageAdapter);
+
         mIvStatus1 = findViewById(R.id.iv_status1);
         mIvStatus2 = findViewById(R.id.iv_status2);
         mIvStatus3 = findViewById(R.id.iv_status3);
@@ -72,7 +103,11 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         mTvOperator = findViewById(R.id.tv_operator);
         mTvTogether = findViewById(R.id.tv_together);
         mTvDueTime = findViewById(R.id.tv_due_time);
+        mTvCity = findViewById(R.id.tv_city);
+        mTvDep = findViewById(R.id.tv_dep);
+        mTvPerson = findViewById(R.id.tv_person);
         mTvInputTime = findViewById(R.id.tv_input_time);
+        mTvRemark = findViewById(R.id.tv_remark);
         mTvConfirm = findViewById(R.id.tv_confirm);
     }
 
@@ -93,20 +128,48 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
                 requestData();
             }
         });
+        mImageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                if (mImageAdapter.getData().size() > 0 && mImageAdapter.getData().size()>position) {
+                    List<LocalMedia> dataList = new ArrayList<>();
+                    for (String imageUrl:mImageAdapter.getData()){
+                        LocalMedia media = new LocalMedia();
+                        media.setPath(imageUrl);
+                        media.setCompressed(false);
+                        media.setPictureType("image/jpeg");
+                        dataList.add(media);
+                    }
+                    PictureSelector.create(CompetitiveDetailsActivity.this).externalPicturePreview(position, dataList);
+                }
+            }
+        });
     }
 
     private void initData(){
         if (mCompetitiveBean!=null){
             mTvName.setText(mCompetitiveBean.getCUsername());
-            mTvTel.setText(mCompetitiveBean.getcAddMoblie());
+            mTvTel.setText(mCompetitiveBean.getCMobile());
             mTvAddress.setText(mCompetitiveBean.getCAdd());
             mTvTelNum.setText(String.valueOf(mCompetitiveBean.getCNum()));
             mTvCover.setText(mCompetitiveBean.getCIsOverlap()==0?"是":"否");
             mTvNetwork.setText(mCompetitiveBean.getCIsBroadband()==0?"是":"否");
             mTvOperator.setText(mCompetitiveBean.getCIsOverlap()==0?"电信":"联通");
             mTvTogether.setText(mCompetitiveBean.getCFuse()==0?"是":"否");
+//            mTvCity.setText(mCompetitiveBean.getCUsername());
+//            mTvDep.setText(mCompetitiveBean.getCUsername());
+            mTvPerson.setText(mCompetitiveBean.getCOpName());
+            mTvRemark.setText(Helper.isEmpty(mCompetitiveBean.getCRemarks())?"无":mCompetitiveBean.getCRemarks());
             mTvDueTime.setText(Helper.long2DateString(mCompetitiveBean.getCBecomeTime(),Helper.DATE_FORMAT1));
             mTvInputTime.setText(Helper.long2DateString(mCompetitiveBean.getCCreateTime(),Helper.DATE_FORMAT1));
+            if (mCompetitiveBean.getCNum()>0 && Helper.isNotEmpty(mCompetitiveBean.getcAddMoblie())){
+                List<String> telList = ProjectHelper.strToList(mCompetitiveBean.getcAddMoblie());
+                mTelAdapter.setNewData(telList);
+            }
+            if (Helper.isNotEmpty(mCompetitiveBean.getcSituationImg())){
+                List<String> imageList = ProjectHelper.strToList(mCompetitiveBean.getcSituationImg());
+                mImageAdapter.setNewData(imageList);
+            }
         }
     }
 
@@ -174,8 +237,8 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
             bundle.putString("competitiveId",mCompetitiveBean.getCId());
             NavigationHelper.startActivity(this, SelectPersonActivity.class,bundle,false);
         }else if (id == R.id.tv_call){
-            if (mCompetitiveBean!=null && Helper.isNotEmpty(mCompetitiveBean.getcAddMoblie())){
-                ProjectHelper.callPhone(mContext,mCompetitiveBean.getcAddMoblie());
+            if (mCompetitiveBean!=null && Helper.isNotEmpty(mCompetitiveBean.getCMobile())){
+                ProjectHelper.callPhone(mContext,mCompetitiveBean.getCMobile());
             }
         }else if (id == R.id.tv_navigation){
 

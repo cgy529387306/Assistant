@@ -10,22 +10,18 @@ import android.view.ViewGroup;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.MainActivity;
 import com.android.mb.assistant.adapter.PersonAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
-import com.android.mb.assistant.entitys.LoginResp;
 import com.android.mb.assistant.entitys.PersonListResp;
 import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
-import com.android.mb.assistant.utils.MACHelper;
-import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -125,7 +121,7 @@ public class SelectPersonActivity extends BaseMvpActivity<CommonPresenter, IComm
         requestParams.put("authority",String.valueOf(CurrentUser.getInstance().getAuthority()));
         requestParams.put("receiveId",userBean.getMuid());
         requestParams.put("receiveName",userBean.getUname());
-        requestParams.put("department",userBean.getUid());
+        requestParams.put("department",userBean.getDepartmentName());
         mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DISPATCH,requestParams,true);
     }
 

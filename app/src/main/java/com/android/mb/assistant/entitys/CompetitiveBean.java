@@ -39,7 +39,7 @@ public class CompetitiveBean implements Serializable{
      */
 
     private String CAdd;
-    private String cAddMoblie;
+    private String cAddMoblie;//异网号码
     private long CBecomeTime;
     private long cCreateTime;
     private int CDispatchStatus;//派单状态1：未派单2：已派单3：反抢成功4：反抢失败
@@ -47,12 +47,13 @@ public class CompetitiveBean implements Serializable{
     private int CHandlingStatus;//处理情况0:已处理1：未处理
     private String CId;
     private String CImg;
+    private String cSituationImg;//图片
     private int CIsBroadband;
     private int CIsOverlap;
     private int CIschange;
     private int CIsp;
     private int CIsread;
-    private String CMobile;
+    private String CMobile;//客户号码
     private int CNum;
     private int COpId;
     private String COpName;
@@ -238,5 +239,13 @@ public class CompetitiveBean implements Serializable{
 
     public void setCUsername(String CUsername) {
         this.CUsername = CUsername;
+    }
+
+    public String getcSituationImg() {
+        return cSituationImg == null ? "" : cSituationImg;
+    }
+
+    public void setcSituationImg(String cSituationImg) {
+        this.cSituationImg = cSituationImg;
     }
 }

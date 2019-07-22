@@ -13,7 +13,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.WindowManager;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.luck.picture.lib.PictureSelector;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -28,6 +30,8 @@ public class SplashActivity extends Activity{
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        //统一设置选图控件主题
+        PictureSelector.create(SplashActivity.this).themeStyle(R.style.picture_default_style);
     }
 
 
