@@ -481,4 +481,15 @@ public class ProjectHelper {
             e.printStackTrace();
         }
     }
+
+    public static void navWithMap(Context context,String address) {
+        try {
+            Uri mUri = Uri.parse("geo:0,0?q="+address);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, mUri);
+            context.startActivity(mapIntent);
+        }catch (Exception e){
+            e.printStackTrace();
+            ToastHelper.showToast("您还没有下载地图导航软件");
+        }
+    }
 }

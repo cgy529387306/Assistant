@@ -10,7 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.adapter.ImageListAdapter;
 import com.android.mb.assistant.adapter.YyTelAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
@@ -28,8 +27,6 @@ import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.luck.picture.lib.PictureSelector;
-import com.luck.picture.lib.config.PictureConfig;
-import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
 import java.util.ArrayList;
@@ -241,7 +238,9 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
                 ProjectHelper.callPhone(mContext,mCompetitiveBean.getCMobile());
             }
         }else if (id == R.id.tv_navigation){
-
+            if (mCompetitiveBean!=null && Helper.isNotEmpty(mCompetitiveBean.getCAdd())){
+                ProjectHelper.navWithMap(mContext,mCompetitiveBean.getCAdd());
+            }
         }
     }
 }

@@ -92,6 +92,8 @@ public class CompetitiveBrowseActivity extends BaseActivity{
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(2));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(5));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(3));
+        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(4));
+        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(5));
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
@@ -102,7 +104,7 @@ public class CompetitiveBrowseActivity extends BaseActivity{
      * @description: 设置添加Tab
      */
     private void setViewTabs(){
-        int[] tabTitles = new int[]{R.string.tab_all,R.string.tab_no_order,R.string.tab_have_order,R.string.tab_my_order,R.string.tab_get_success};
+        int[] tabTitles = new int[]{R.string.tab_all,R.string.tab_no_order,R.string.tab_have_order,R.string.tab_my_order,R.string.tab_get_success,R.string.tab_get_fail,R.string.tab_no_read};
         for (int i = 0; i < tabTitles.length; i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
             View view = LayoutInflater.from(CompetitiveBrowseActivity.this).inflate(R.layout.chapter_approval_tab,null);

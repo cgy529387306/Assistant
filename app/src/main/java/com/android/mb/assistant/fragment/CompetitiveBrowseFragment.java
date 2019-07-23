@@ -19,7 +19,6 @@ import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
-import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
