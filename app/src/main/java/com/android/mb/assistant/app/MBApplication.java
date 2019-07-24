@@ -7,7 +7,9 @@ import android.support.multidex.MultiDex;
 import com.android.mb.assistant.BuildConfig;
 import com.android.mb.assistant.R;
 import com.orhanobut.logger.AndroidLogAdapter;
+import com.orhanobut.logger.FormatStrategy;
 import com.orhanobut.logger.Logger;
+import com.orhanobut.logger.PrettyFormatStrategy;
 import com.pgyersdk.crash.PgyCrashManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -62,15 +64,22 @@ public class MBApplication extends Application {
 		super.onCreate();
 		sInstance = this;
 		PgyCrashManager.register(this);
-		Logger.addLogAdapter(new AndroidLogAdapter() {
-			@Override public boolean isLoggable(int priority, String tag) {
-				return BuildConfig.DEBUG;
-			}
-		});
+		initLog();
 		initJPush();
 	}
 
 	private void initJPush(){
+	}
+
+	private void initLog(){
+		FormatStrategy formatStrategy = PrettyFormatStrategy.newBuilder()
+				.tag("mbLog")
+				.build();
+		Logger.addLogAdapter(new AndroidLogAdapter(formatStrategy) {
+			@Override public boolean isLoggable(int priority, String tag) {
+				return BuildConfig.DEBUG;
+			}
+		});
 	}
 
 //	//static 代码段可以防止内存泄露
