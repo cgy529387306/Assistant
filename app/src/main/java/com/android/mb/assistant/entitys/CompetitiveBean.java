@@ -59,6 +59,8 @@ public class CompetitiveBean implements Serializable{
     private String COpName;
     private String CRemarks;
     private String CUsername;
+    private String cAreaName;
+    private String cDepartmentName;
 
     public String getCAdd() {
         return CAdd == null ? "" : CAdd;
@@ -247,5 +249,29 @@ public class CompetitiveBean implements Serializable{
 
     public void setcSituationImg(String cSituationImg) {
         this.cSituationImg = cSituationImg;
+    }
+
+    public long getcCreateTime() {
+        return cCreateTime;
+    }
+
+    public void setcCreateTime(long cCreateTime) {
+        this.cCreateTime = cCreateTime;
+    }
+
+    public String getcAreaName() {
+        return cAreaName == null ? "" : cAreaName;
+    }
+
+    public void setcAreaName(String cAreaName) {
+        this.cAreaName = cAreaName;
+    }
+
+    public String getcDepartmentName() {
+        return cDepartmentName == null ? "" : cDepartmentName;
+    }
+
+    public void setcDepartmentName(String cDepartmentName) {
+        this.cDepartmentName = cDepartmentName;
     }
 }

@@ -63,21 +63,17 @@
                     android:textColor="#ff333333"
                     android:textSize="13sp"/>
 
-                <EditText
-                    android:id="@+id/et_brand"
-                    android:layout_width="match_parent"
+                <TextView
+                    android:id="@+id/tv_select_pattern"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:drawableRight="@mipmap/icon_arraw_right"
+                    android:drawablePadding="6dp"
                     android:layout_height="match_parent"
-                    android:maxLength="20"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
+                    android:textColor="@color/base_gray"
                     android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
                     android:textSize="13sp"
-                    android:text=""/>
+                    android:text="请选择"/>
             </LinearLayout>
 
             <include layout="@layout/common_divider"/>

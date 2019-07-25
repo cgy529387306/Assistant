@@ -24,11 +24,13 @@ import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
@@ -80,6 +82,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private TimePickerView pvInputTime;
     private LinearLayout mLlyInputTime;
     private TextView mTvInputTime;
+    private TextView mTvSelectCity;
+    private TextView mTvSelectDep;
+
+
     private RecyclerView mRecyclerView;
     private GridImageAdapter mImageAdapter;
     private List<LocalMedia> mSelectImageList = new ArrayList<>();
@@ -87,6 +93,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private RecyclerView mRvTel;
     private CompetitiveTelAdapter mTelAdapter;
     private List<String> mTelList = new ArrayList<>();
+
+    private static final int REQUEST_CITY = 0x11;
+    private static final int REQUEST_DEP = 0x22;
+
     @Override
     protected void loadIntent() {
 
@@ -129,6 +139,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mIvAdd.setOnClickListener(this);
         mLlyDueTime.setOnClickListener(this);
         mLlyInputTime.setOnClickListener(this);
+        mTvSelectCity.setOnClickListener(this);
+        mTvSelectDep.setOnClickListener(this);
     }
 
     private void initView() {
@@ -152,6 +164,9 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mIvAdd = findViewById(R.id.iv_add);
         mTelNum = Integer.parseInt(mTvNum.getText().toString());
         mTvUserId = findViewById(R.id.tv_userId);
+        mTvSelectCity = findViewById(R.id.tv_select_city);
+        mTvSelectDep = findViewById(R.id.tv_select_department);
+
         if(CurrentUser.getInstance().isLogin()) {
             mTvUserId.setText("员工号" + CurrentUser.getInstance().getUserid());
         }
@@ -240,6 +255,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         }else if (id == R.id.tv_confirm){
             ProjectHelper.disableViewDoubleClick(view);
             doConfirm();
+        }else if (id == R.id.tv_select_city){
+            NavigationHelper.startActivityForResult(CompetitiveInputActivity.this,SelectCityActivity.class,null,REQUEST_CITY);
+        }else if (id == R.id.tv_select_department){
+            NavigationHelper.startActivityForResult(CompetitiveInputActivity.this,SelectDepActivity.class,null,REQUEST_DEP);
         }
     }
 
@@ -248,6 +267,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         String phone = mEtPhone.getText().toString().trim();
         String address = mEtAddress.getText().toString().trim();
         String remark = mEtRemark.getText().toString().trim();
+        String areaName = mTvSelectCity.getText().toString().trim();
+        String depName = mTvSelectDep.getText().toString().trim();
         long dueTime = Helper.dateString2Long(mTvDueTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00");
         long inputTime = Helper.dateString2Long(mTvInputTime.getText().toString().trim(),"yyyy-MM-dd HH:mm:00");
         if (Helper.isEmpty(name)){
@@ -260,6 +281,14 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         }
         if (Helper.isEmpty(address)){
             showToastMessage("请输入客户地址");
+            return;
+        }
+        if (Helper.isEmpty(areaName) || areaName.equals("请选择")){
+            showToastMessage("请选择区县");
+            return;
+        }
+        if (Helper.isEmpty(depName) || depName.equals("请选择")){
+            showToastMessage("请选择部门");
             return;
         }
         if (!ProjectHelper.isMobiPhoneNum(phone)){
@@ -281,8 +310,10 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("mUid",CurrentUser.getInstance().getMuid());
         requestParams.put("cOpName",CurrentUser.getInstance().getUname());
         requestParams.put("remarks",remark);
-        requestParams.put("imgStr","https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg");
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
+        requestParams.put("cAreaName",areaName);
+        requestParams.put("cDepartmentName",depName);
+//        requestParams.put("imgStr","https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg");
+        mPresenter.requestCompetitive(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
     private void initTimePicker() {
@@ -346,6 +377,14 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                     List<LocalMedia> images = PictureSelector.obtainMultipleResult(data);
                     mSelectImageList.addAll(images);
                     mImageAdapter.setList(mSelectImageList);
+                    break;
+                case REQUEST_CITY:
+                    CityBean cityBean = (CityBean) data.getSerializableExtra("city");
+                    mTvSelectCity.setText(cityBean.getAreaName());
+                    break;
+                case REQUEST_DEP:
+                    CityBean depBean = (CityBean) data.getSerializableExtra("city");
+                    mTvSelectDep.setText(depBean.getdDepartmentName());
                     break;
             }
         }

@@ -153,8 +153,8 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
             mTvNetwork.setText(mCompetitiveBean.getCIsBroadband()==0?"是":"否");
             mTvOperator.setText(mCompetitiveBean.getCIsOverlap()==0?"电信":"联通");
             mTvTogether.setText(mCompetitiveBean.getCFuse()==0?"是":"否");
-//            mTvCity.setText(mCompetitiveBean.getCUsername());
-//            mTvDep.setText(mCompetitiveBean.getCUsername());
+            mTvCity.setText(mCompetitiveBean.getcAreaName());
+            mTvDep.setText(mCompetitiveBean.getcDepartmentName());
             mTvPerson.setText(mCompetitiveBean.getCOpName());
             mTvRemark.setText(Helper.isEmpty(mCompetitiveBean.getCRemarks())?"无":mCompetitiveBean.getCRemarks());
             mTvDueTime.setText(Helper.long2DateString(mCompetitiveBean.getCBecomeTime(),Helper.DATE_FORMAT1));

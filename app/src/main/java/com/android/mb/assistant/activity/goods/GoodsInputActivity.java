@@ -1,6 +1,7 @@
 package com.android.mb.assistant.activity.goods;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.CallSuper;
@@ -12,22 +13,32 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
+import com.android.mb.assistant.activity.competitive.SelectCityActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
+import com.android.mb.assistant.entitys.DicBean;
+import com.android.mb.assistant.entitys.PatternBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.entity.LocalMedia;
 
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,13 +47,13 @@ import java.util.Map;
 public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
 
     private EditText mEtName;
-    private EditText mEtBrand;
     private EditText mEtAddress;
     private EditText mEtNumber;
     private EditText mEtPrice;
     private EditText mEtContact;
     private TextView mTvYes;
     private TextView mTvNo;
+    private TextView mTvSelectPattern;
     private TextView mTvSelectCategory;
     private TextView mTvSelectCompany;
     private TextView mTvSelectDepartment;
@@ -51,6 +62,12 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     private TimePickerView pvInputTime;
 
     private boolean isYes = false;
+
+    private static final int REQUEST_PATTERN = 0x11;
+    private static final int REQUEST_CATEGORY = 0x22;
+    private static final int REQUEST_COMPANY = 0x33;
+    private static final int REQUEST_GS_DEP = 0x44;
+
 
     @Override
     protected void loadIntent() {
@@ -75,13 +92,13 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
 
     private void initView(){
         mEtName = findViewById(R.id.et_name);
-        mEtBrand = findViewById(R.id.et_brand);
         mEtAddress = findViewById(R.id.et_address);
         mEtNumber = findViewById(R.id.et_number);
         mEtPrice = findViewById(R.id.et_price);
         mEtContact = findViewById(R.id.et_contact);
         mTvYes = findViewById(R.id.tv_yes);
         mTvNo = findViewById(R.id.tv_no);
+        mTvSelectPattern = findViewById(R.id.tv_select_pattern);
         mTvSelectCategory = findViewById(R.id.tv_select_category);
         mTvSelectCompany = findViewById(R.id.tv_select_company);
         mTvSelectDepartment = findViewById(R.id.tv_select_department);
@@ -98,6 +115,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     protected void setListener() {
         mTvYes.setOnClickListener(this);
         mTvNo.setOnClickListener(this);
+        mTvSelectPattern.setOnClickListener(this);
         mTvSelectCategory.setOnClickListener(this);
         mTvSelectCompany.setOnClickListener(this);
         mTvSelectDepartment.setOnClickListener(this);
@@ -112,12 +130,18 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
             mTvYes.setBackgroundResource(isYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
             mTvNo.setBackgroundResource(isYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
             isYes = !isYes;
+        }else if (id == R.id.tv_select_pattern){
+            //选择型号
+            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectPatternActivity.class,null,REQUEST_PATTERN);
         }else if (id == R.id.tv_select_category){
-
+            //选择类型
+            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectCategoryActivity.class,null,REQUEST_CATEGORY);
         }else if (id == R.id.tv_select_company){
-
+            //选择保管单位
+            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectCompanyActivity.class,null,REQUEST_COMPANY);
         }else if (id == R.id.tv_select_department){
-
+            //选择归属部门
+            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectGsDepActivity.class,null,REQUEST_GS_DEP);
         }else if (id == R.id.tv_select_date){
             pvInputTime.show(view);
         }else if (id == R.id.tv_confirm){
@@ -128,17 +152,17 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
 
     private void doSubmit(){
         String name = mEtName.getText().toString();
-        String brand = mEtBrand.getText().toString();
         String address = mEtAddress.getText().toString();
         String number = mEtNumber.getText().toString();
         String price = mEtPrice.getText().toString();
         String contact = mEtContact.getText().toString();
+        String pattern = mTvSelectPattern.getText().toString();
+        String category = mTvSelectCategory.getText().toString();
+        String company = mTvSelectCompany.getText().toString();
+        String department = mTvSelectDepartment.getText().toString();
+        long inputTime = Helper.dateString2Long(mTvSelectDate.getText().toString().trim(),"yyyy-MM-dd HH:mm:00");
         if (Helper.isEmpty(name)){
             showToastMessage("请输入物资名称");
-            return;
-        }
-        if (Helper.isEmpty(brand)){
-            showToastMessage("请输入物资型号");
             return;
         }
         if (Helper.isEmpty(address)){
@@ -157,20 +181,36 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
             showToastMessage("请输入物资联系人");
             return;
         }
+        if (Helper.isEmpty(pattern) || pattern.equals("请选择")){
+            showToastMessage("请选择物资型号");
+            return;
+        }
+        if (Helper.isEmpty(category) || category.equals("请选择")){
+            showToastMessage("请选择物资类别");
+            return;
+        }
+        if (Helper.isEmpty(company) || company.equals("请选择")){
+            showToastMessage("请选择物资保管单位");
+            return;
+        }
+        if (Helper.isEmpty(department) || department.equals("请选择")){
+            showToastMessage("请选择物资归属部门");
+            return;
+        }
 
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("materialName",name);
-        requestParams.put("materialType","1");
-        requestParams.put("pattern",brand);
-        requestParams.put("unitName","春华科教园");
+        requestParams.put("materialType",category);
+        requestParams.put("pattern",pattern);
+        requestParams.put("unitName",company);
         requestParams.put("storageSite",address);
         requestParams.put("mum",number);
-        requestParams.put("asset","1");
-        requestParams.put("dePartment","设计部");
-        requestParams.put("createTime","20190701225700");
+        requestParams.put("asset",isYes?"1":"0");
+        requestParams.put("dePartment",department);
+        requestParams.put("createTime",String.valueOf(inputTime));
         requestParams.put("contacts",contact);
-        requestParams.put("imgStr","无");
-        mPresenter.requestData(CodeConstants.KEY_GOODS_ADD,requestParams,true);
+//        requestParams.put("imgStr","无");
+        mPresenter.requestGoods(CodeConstants.KEY_GOODS_ADD,requestParams,true);
 
     }
 
@@ -218,6 +258,34 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
                 .isCenterLabel(false) //是否只显示中间选中项的label文字，false则每项item全部都带有label。
                 .isDialog(false)//是否显示为对话框样式
                 .build();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case REQUEST_PATTERN:
+                    PatternBean item = (PatternBean) data.getSerializableExtra("pattern");
+                    mTvSelectPattern.setText(item.getPatternName());
+                    break;
+                case REQUEST_CATEGORY:
+                    DicBean category = (DicBean) data.getSerializableExtra("dic");
+                    mTvSelectCategory.setText(category.getDictname());
+                    break;
+                case REQUEST_COMPANY:
+                    DicBean company = (DicBean) data.getSerializableExtra("dic");
+                    mTvSelectCompany.setText(company.getDictname());
+                    break;
+                case REQUEST_GS_DEP:
+                    DicBean department = (DicBean) data.getSerializableExtra("dic");
+                    mTvSelectDepartment.setText(department.getDictname());
+                    break;
+
+                default:
+                    break;
+            }
+        }
     }
 
     /**

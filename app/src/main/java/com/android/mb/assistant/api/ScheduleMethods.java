@@ -36,15 +36,27 @@ public class ScheduleMethods extends BaseHttp {
     }
 
 
-    /**
-     * 登录
-     * @param params
-     * @return
-     */
+
     public Observable baseRequest(String requestCode,Map<String,String> requestMap){
         requestMap.put("code",requestCode);
         requestMap.put("mac", MACHelper.workMacForApp(requestCode));
         return getService().baseRequest(requestMap)
+                .compose(CacheTransformer.emptyTransformer());
+    }
+
+
+    public Observable competitiveRequest(String requestCode,Map<String,String> requestMap){
+        requestMap.put("code",requestCode);
+        requestMap.put("mac", MACHelper.workMacForApp(requestCode));
+        return getService().competitiveRequest(requestMap)
+                .compose(CacheTransformer.emptyTransformer());
+    }
+
+
+    public Observable goodsRequest(String requestCode,Map<String,String> requestMap){
+        requestMap.put("code",requestCode);
+        requestMap.put("mac", MACHelper.workMacForApp(requestCode));
+        return getService().goodsRequest(requestMap)
                 .compose(CacheTransformer.emptyTransformer());
     }
 

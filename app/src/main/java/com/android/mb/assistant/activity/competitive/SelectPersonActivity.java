@@ -16,11 +16,10 @@ import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
-import com.android.mb.assistant.entitys.PersonListResp;
 import com.android.mb.assistant.entitys.UserBean;
+import com.android.mb.assistant.entitys.UserListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
-import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
@@ -140,19 +139,18 @@ public class SelectPersonActivity extends BaseMvpActivity<CommonPresenter, IComm
     @Override
     public void requestSuccess(String requestCode, String result) {
         if (CodeConstants.KEY_COMPETITIVE_DISPATCHERS.equals(requestCode)){
-            PersonListResp listResp = JsonHelper.fromJson(result,PersonListResp.class);
+            UserListResp listResp = JsonHelper.fromJson(result, UserListResp.class);
             if (listResp!=null){
+                if (listResp.isLast()){
+                    mRefreshLayout.finishLoadMoreWithNoMoreData();
+                }
                 if (mCurrentPage == 1) {
                     mRefreshLayout.finishRefresh();
                     mAdapter.setNewData(listResp.getData());
                     mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
                 } else {
-                    if (Helper.isEmpty(result)) {
-                        mRefreshLayout.finishLoadMoreWithNoMoreData();
-                    } else {
-                        mAdapter.addData(listResp.getData());
-                        mRefreshLayout.finishLoadMore();
-                    }
+                    mAdapter.addData(listResp.getData());
+                    mRefreshLayout.finishLoadMore();
                 }
             }
         }else if (CodeConstants.KEY_COMPETITIVE_DISPATCH.equals(requestCode)){
