@@ -94,6 +94,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private CompetitiveTelAdapter mTelAdapter;
     private List<String> mTelList = new ArrayList<>();
 
+    private String mAreaId;
+
     private static final int REQUEST_CITY = 0x11;
     private static final int REQUEST_DEP = 0x22;
 
@@ -258,7 +260,13 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         }else if (id == R.id.tv_select_city){
             NavigationHelper.startActivityForResult(CompetitiveInputActivity.this,SelectCityActivity.class,null,REQUEST_CITY);
         }else if (id == R.id.tv_select_department){
-            NavigationHelper.startActivityForResult(CompetitiveInputActivity.this,SelectDepActivity.class,null,REQUEST_DEP);
+            if (Helper.isEmpty(mAreaId)){
+                showToastMessage("请先选择区县");
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putString("areaId",mAreaId);
+            NavigationHelper.startActivityForResult(CompetitiveInputActivity.this,SelectDepActivity.class,bundle,REQUEST_DEP);
         }
     }
 
@@ -381,6 +389,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                 case REQUEST_CITY:
                     CityBean cityBean = (CityBean) data.getSerializableExtra("city");
                     mTvSelectCity.setText(cityBean.getAreaName());
+                    mTvSelectDep.setText("请选择");
+                    mAreaId = cityBean.getAreaId();
                     break;
                 case REQUEST_DEP:
                     CityBean depBean = (CityBean) data.getSerializableExtra("city");

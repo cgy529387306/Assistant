@@ -38,8 +38,11 @@ public class SelectDepActivity extends BaseMvpActivity<CommonPresenter, ICommonV
     private DepAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
+    private String mAreaId;
+
     @Override
     protected void loadIntent() {
+        mAreaId = getIntent().getStringExtra("areaId");
     }
 
     @Override
@@ -84,9 +87,10 @@ public class SelectDepActivity extends BaseMvpActivity<CommonPresenter, ICommonV
 
     private void getListFormServer(){
         Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("dAreaId",mAreaId);
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
-        mPresenter.requestData(CodeConstants.KEY_COMMON_CITY,requestParams,false);
+        mPresenter.requestData(CodeConstants.KEY_COMMON_YXB,requestParams,false);
     }
 
     @Override

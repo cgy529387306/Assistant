@@ -87,9 +87,14 @@ public class CodeConstants {
     public static final String KEY_GOODS_APPLY_APPROVAL = "300006";
 
     /**
-     * 竞情录入 区县、营销部(300006)
+     * 竞情录入 区县(300006)
      */
     public static final String KEY_COMMON_CITY = "300006";
+
+    /**
+     * 竞情录入 营销部(200007)
+     */
+    public static final String KEY_COMMON_YXB = "200007";
 
     /**
      * 物资录入 物资型号(300007)
