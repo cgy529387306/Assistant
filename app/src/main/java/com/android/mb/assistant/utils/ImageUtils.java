@@ -125,4 +125,12 @@ public class ImageUtils {
         Glide.with(context).load(url).apply(options).into(imageView);
     }
 
+    public static void displayImage(Context context, String url, ImageView imageView){
+        RequestOptions options = new RequestOptions()
+                .placeholder(R.mipmap.icon_image_loading)// 正在加载中的图片
+                .error(R.mipmap.icon_image_loading) // 加载失败的图片
+                .diskCacheStrategy(DiskCacheStrategy.ALL); // 磁盘缓存策略
+        Glide.with(context).load(url).apply(options).into(imageView);
+    }
+
 }

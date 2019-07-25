@@ -8,5 +8,5 @@ import com.android.mb.assistant.entitys.UserBean;
  */
 
 public interface ICommonView extends BaseMvpView {
-    void requestSuccess(String result);
+    void requestSuccess(String requestCode,String result);
 }

@@ -1,0 +1,26 @@
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="40dp"
+android:paddingLeft="16dp"
+android:paddingRight="16dp"
+android:orientation="horizontal">
+<TextView
+    android:id="@+id/tv_tel_name"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:text="异网号码1"
+    android:gravity="center"
+    android:textColor="#999999"
+    android:textSize="13sp"/>
+
+<TextView
+    android:id="@+id/tv_tel"
+    android:layout_width="0dp"
+    android:layout_weight="1"
+    android:layout_height="match_parent"
+    android:text="14785296332"
+    android:gravity="center|right"
+    android:textColor="#333333"
+    android:textSize="13sp"/>
+</LinearLayout>

@@ -1,20 +1,21 @@
 package com.android.mb.assistant.entitys;
 
-import android.os.Parcel;
-import android.os.Parcelable;
+import java.io.Serializable;
 
-public class UserBean implements Parcelable {
+public class UserBean implements Serializable {
 
     private String ctime;
     private String email;
     private String mobile;
-    private String muid;
+    private String muid;//是用户id
     private int status;
-    private String uid;
+    private int authority;//authority  权限0：无改派权限1：管理权限（改派、分派）2：有改派权限3：分派权限
+    private String uid;//部门ID 关联z_department 表
     private String uname;
     private String upwd;
-    private String userid;
+    private String userid;//用户账号
     private String usertype;
+    private String departmentName;
 
     public String getCtime() {
         return ctime == null ? "" : ctime;
@@ -96,51 +97,19 @@ public class UserBean implements Parcelable {
         this.usertype = usertype;
     }
 
-
-    @Override
-    public int describeContents() {
-        return 0;
+    public int getAuthority() {
+        return authority;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.ctime);
-        dest.writeString(this.email);
-        dest.writeString(this.mobile);
-        dest.writeString(this.muid);
-        dest.writeInt(this.status);
-        dest.writeString(this.uid);
-        dest.writeString(this.uname);
-        dest.writeString(this.upwd);
-        dest.writeString(this.userid);
-        dest.writeString(this.usertype);
+    public void setAuthority(int authority) {
+        this.authority = authority;
     }
 
-    public UserBean() {
+    public String getDepartmentName() {
+        return departmentName == null ? "" : departmentName;
     }
 
-    protected UserBean(Parcel in) {
-        this.ctime = in.readString();
-        this.email = in.readString();
-        this.mobile = in.readString();
-        this.muid = in.readString();
-        this.status = in.readInt();
-        this.uid = in.readString();
-        this.uname = in.readString();
-        this.upwd = in.readString();
-        this.userid = in.readString();
-        this.usertype = in.readString();
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
-
-    public static final Parcelable.Creator<UserBean> CREATOR = new Parcelable.Creator<UserBean>() {
-        @Override
-        public UserBean createFromParcel(Parcel source) {
-            return new UserBean(source);
-        }
-
-        @Override
-        public UserBean[] newArray(int size) {
-            return new UserBean[size];
-        }
-    };
 }

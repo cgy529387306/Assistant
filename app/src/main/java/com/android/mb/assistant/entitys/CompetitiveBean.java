@@ -39,25 +39,28 @@ public class CompetitiveBean implements Serializable{
      */
 
     private String CAdd;
-    private String cAddMoblie;
+    private String cAddMoblie;//异网号码
     private long CBecomeTime;
     private long cCreateTime;
-    private int CDispatchStatus;
+    private int CDispatchStatus;//派单状态1：未派单2：已派单3：反抢成功4：反抢失败
     private int CFuse;
-    private int CHandlingStatus;
+    private int CHandlingStatus;//处理情况0:已处理1：未处理
     private String CId;
     private String CImg;
+    private String cSituationImg;//图片
     private int CIsBroadband;
     private int CIsOverlap;
     private int CIschange;
     private int CIsp;
     private int CIsread;
-    private String CMobile;
+    private String CMobile;//客户号码
     private int CNum;
     private int COpId;
     private String COpName;
     private String CRemarks;
     private String CUsername;
+    private String cAreaName;
+    private String cDepartmentName;
 
     public String getCAdd() {
         return CAdd == null ? "" : CAdd;
@@ -238,5 +241,37 @@ public class CompetitiveBean implements Serializable{
 
     public void setCUsername(String CUsername) {
         this.CUsername = CUsername;
+    }
+
+    public String getcSituationImg() {
+        return cSituationImg == null ? "" : cSituationImg;
+    }
+
+    public void setcSituationImg(String cSituationImg) {
+        this.cSituationImg = cSituationImg;
+    }
+
+    public long getcCreateTime() {
+        return cCreateTime;
+    }
+
+    public void setcCreateTime(long cCreateTime) {
+        this.cCreateTime = cCreateTime;
+    }
+
+    public String getcAreaName() {
+        return cAreaName == null ? "" : cAreaName;
+    }
+
+    public void setcAreaName(String cAreaName) {
+        this.cAreaName = cAreaName;
+    }
+
+    public String getcDepartmentName() {
+        return cDepartmentName == null ? "" : cDepartmentName;
+    }
+
+    public void setcDepartmentName(String cDepartmentName) {
+        this.cDepartmentName = cDepartmentName;
     }
 }

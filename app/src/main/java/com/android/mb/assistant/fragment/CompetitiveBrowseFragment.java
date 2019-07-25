@@ -19,7 +19,6 @@ import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
-import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
@@ -111,6 +110,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
         regiestEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
+                mCurrentPage = 1;
                 getListFormServer();
             }
         });
@@ -134,23 +134,21 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     }
 
     @Override
-    public void requestSuccess(String result) {
+    public void requestSuccess(String requestCode,String result) {
         CompetitiveListResp listResp = JsonHelper.fromJson(result,CompetitiveListResp.class);
         if (listResp!=null){
+            if (listResp.isLast()){
+                mRefreshLayout.finishLoadMoreWithNoMoreData();
+            }
             if (mCurrentPage == 1) {
                 mRefreshLayout.finishRefresh();
                 mAdapter.setNewData(listResp.getData());
                 mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
             } else {
-                if (Helper.isEmpty(result)) {
-                    mRefreshLayout.finishLoadMoreWithNoMoreData();
-                } else {
-                    mAdapter.addData(listResp.getData());
-                    mRefreshLayout.finishLoadMore();
-                }
+                mAdapter.addData(listResp.getData());
+                mRefreshLayout.finishLoadMore();
             }
         }
-        
     }
 
 
@@ -162,7 +160,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         Bundle bundle = new Bundle();
-        bundle.putSerializable("cometitive",mAdapter.getItem(position));
+        bundle.putSerializable("competitive",mAdapter.getItem(position));
         NavigationHelper.startActivity(getActivity(), CompetitiveDetailsActivity.class,bundle,false);
     }
 }

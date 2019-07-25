@@ -83,12 +83,16 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
                     NavigationHelper.startActivity(getActivity(), CompetitiveInputActivity.class,null,false);
                 }else{
                     //竞情浏览
-                    int page = 0;
-                    if (position < 5){
-                        page = position;
-                    }
                     Bundle bundle = new Bundle();
-                    bundle.putInt("page",page);
+                    if (position==0){
+                        //未读竞情
+                        bundle.putInt("page",6);
+                    }else if (position==6){
+                        //全部竞情
+                        bundle.putInt("page",0);
+                    }else{
+                        bundle.putInt("page",position);
+                    }
                     NavigationHelper.startActivity(getActivity(), CompetitiveBrowseActivity.class,bundle,false);
                 }
             }

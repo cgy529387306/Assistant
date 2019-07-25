@@ -19,4 +19,6 @@
     <string name="tab_have_order">已派单</string>
     <string name="tab_my_order">我的工单</string>
     <string name="tab_get_success">反抢成功</string>
+    <string name="tab_get_fail">反抢失败</string>
+    <string name="tab_no_read">未读竞情</string>
 </resources>

@@ -32,7 +32,7 @@ public class CompetitiveOrderAdapter extends BaseQuickAdapter<CompetitiveBean, B
         helper.setText(R.id.tv_order_time, Helper.long2DateString(item.getCCreateTime(),Helper.DATE_FORMAT1));
         helper.setText(R.id.tv_name,item.getCUsername());
         helper.setText(R.id.tv_kd,kd);
-        helper.setText(R.id.tv_tel,item.getcAddMoblie());
+        helper.setText(R.id.tv_tel,item.getCMobile());
         helper.setText(R.id.tv_address,item.getCAdd());
         helper.setText(R.id.tv_ywfg,ywfg);
 

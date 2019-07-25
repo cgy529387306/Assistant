@@ -53,6 +53,8 @@ public class CurrentUser extends UserBean{
             me.setUpwd(entity.getUpwd());
             me.setUserid(entity.getUserid());
             me.setUsertype(entity.getUsertype());
+            me.setAuthority(entity.getAuthority());
+            me.setDepartmentName(entity.getDepartmentName());
             json = JsonHelper.toJson(me);
             born = me != null;
         }

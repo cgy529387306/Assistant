@@ -14,5 +14,10 @@ public interface IScheduleService {
     @POST("/MoveHelper/ServletDispatcher")
     Observable<String> baseRequest(@QueryMap Map<String, String> requestMap);
 
+    @POST("/MoveHelper/ServletAddCompetion")
+    Observable<String> competitiveRequest(@QueryMap Map<String, String> requestMap);
+
+    @POST("/MoveHelper/ServletAddMaterial")
+    Observable<String> goodsRequest(@QueryMap Map<String, String> requestMap);
 
 }

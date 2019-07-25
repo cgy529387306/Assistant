@@ -8,4 +8,8 @@ import java.util.Map;
 
 public interface ICommonPresenter {
     void requestData(String requestCode, Map<String,String> params, boolean isShowLoading);
+
+    void requestCompetitive(String requestCode, Map<String,String> params, boolean isShowLoading);
+
+    void requestGoods(String requestCode, Map<String,String> params, boolean isShowLoading);
 }

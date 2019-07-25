@@ -466,4 +466,30 @@ public class ProjectHelper {
             return "未派单";
         }
     }
+
+    /**
+     * 拨打电话（跳转到拨号界面，用户手动点击拨打）
+     * @param phoneNum 电话号码
+     */
+    public static void callPhone(Context context,String phoneNum) {
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL);
+            Uri data = Uri.parse("tel:" + phoneNum);
+            intent.setData(data);
+            context.startActivity(intent);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void navWithMap(Context context,String address) {
+        try {
+            Uri mUri = Uri.parse("geo:0,0?q="+address);
+            Intent mapIntent = new Intent(Intent.ACTION_VIEW, mUri);
+            context.startActivity(mapIntent);
+        }catch (Exception e){
+            e.printStackTrace();
+            ToastHelper.showToast("您还没有下载地图导航软件");
+        }
+    }
 }
