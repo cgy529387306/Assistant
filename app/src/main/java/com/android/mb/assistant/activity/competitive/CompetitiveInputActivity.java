@@ -27,6 +27,7 @@ import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.ImageResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.Helper;
@@ -47,6 +48,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -105,6 +107,8 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
 
     private static final int REQUEST_CITY = 0x11;
     private static final int REQUEST_DEP = 0x22;
+
+    private List<String> mImageList = new ArrayList<>();
 
     @Override
     protected void loadIntent() {
@@ -336,7 +340,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("remarks",remark);
         requestParams.put("cAreaName",areaName);
         requestParams.put("cDepartmentName",depName);
-//        requestParams.put("imgStr","https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg、https://ss0.baidu.com/-Po3dSag_xI4khGko9WTAnF6hhy/image/h%3D300/sign=a6f5fec84d10b912a0c1f0fef3fcfcb5/42a98226cffc1e17e16635424090f603728de9ec.jpg");
+        requestParams.put("imgStr",ProjectHelper.listToStr(mImageList));
         mPresenter.requestCompetitive(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
@@ -401,6 +405,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                     List<LocalMedia> images = PictureSelector.obtainMultipleResult(data);
                     mSelectImageList.addAll(images);
                     mImageAdapter.setList(mSelectImageList);
+                    uploadImageList(images);
                     break;
                 case REQUEST_CITY:
                     CityBean cityBean = (CityBean) data.getSerializableExtra("city");
@@ -413,6 +418,13 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                     mTvSelectDep.setText(depBean.getdDepartmentName());
                     break;
             }
+        }
+    }
+
+    private void uploadImageList(List<LocalMedia> dataList){
+        for (LocalMedia localMedia:dataList) {
+            String imagePath = localMedia.isCompressed()?localMedia.getCompressPath():localMedia.getPath();
+            mPresenter.uploadImg(CodeConstants.KEY_COMMON_UPLOAD,new HashMap<>(),new File(imagePath),true);
         }
     }
 
@@ -457,14 +469,21 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
 
     @Override
     public void requestSuccess(String requestCode,String result) {
-        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
-        if (resp!=null){
-            if (resp.isSuccess()){
-                sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
-                showToastMessage("录入成功");
-                finish();
-            }else{
-                showToastMessage(resp.getMessage());
+        if (CodeConstants.KEY_COMMON_UPLOAD.equals(requestCode)){
+            ImageResp resp = JsonHelper.fromJson(result,ImageResp.class);
+            if (resp!=null && resp.getData()!=null){
+                mImageList.add("http://114.115.136.72:8080/MoveHelper/"+resp.getData().getImages0());
+            }
+        }else {
+            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+            if (resp!=null){
+                if (resp.isSuccess()){
+                    sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
+                    showToastMessage("录入成功");
+                    finish();
+                }else{
+                    showToastMessage(resp.getMessage());
+                }
             }
         }
     }

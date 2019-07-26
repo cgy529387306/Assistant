@@ -1,5 +1,6 @@
 package com.android.mb.assistant.presenter.interfaces;
 
+import java.io.File;
 import java.util.Map;
 
 /**
@@ -12,4 +13,6 @@ public interface ICommonPresenter {
     void requestCompetitive(String requestCode, Map<String,String> params, boolean isShowLoading);
 
     void requestGoods(String requestCode, Map<String,String> params, boolean isShowLoading);
+
+    void uploadImg(String requestCode, Map<String,String> params, File file, boolean isShowLoading);
 }

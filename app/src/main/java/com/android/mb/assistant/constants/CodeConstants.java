@@ -107,4 +107,9 @@ public class CodeConstants {
      */
     public static final String KEY_COMMON_DIC = "300008";
 
+    /**
+     * 上传图片
+     */
+    public static final String KEY_COMMON_UPLOAD = "100004";
+
 }
