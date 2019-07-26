@@ -99,7 +99,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
-        regiestEvent(ProjectConstants.EVENT_UPDATE_GOODS, new Action1<Events<?>>() {
+        registerEvent(ProjectConstants.EVENT_UPDATE_GOODS, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
                 mCurrentPage = 1;

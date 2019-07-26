@@ -15,6 +15,7 @@ import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.fragment.CompetitiveManageFragment;
 import com.android.mb.assistant.fragment.GoodsManageFragment;
 import com.android.mb.assistant.fragment.HomeFragment;
+import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.widget.FragmentViewPager;
 import com.pgyersdk.update.PgyUpdateManager;
@@ -53,6 +54,7 @@ public class MainActivity extends BaseActivity{
     protected void processLogic(Bundle savedInstanceState) {
         PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
         PgyUpdateManager.register(this);
+        LocationUtils.instance().startLocation();
     }
 
     @Override

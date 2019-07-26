@@ -119,7 +119,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         findViewById(R.id.tv_call).setOnClickListener(this);
         findViewById(R.id.tv_navigation).setOnClickListener(this);
         mTvConfirm.setOnClickListener(this);
-        regiestEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
+        registerEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
                 requestData();

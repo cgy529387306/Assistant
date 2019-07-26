@@ -297,7 +297,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param event
      * @param onNext
      */
-    public void regiestEvent(int event, Action1<Events<?>> onNext){
+    public void registerEvent(int event, Action1<Events<?>> onNext){
         RxBus.init()
                 .setEvent(event)
                 .onNext(onNext)

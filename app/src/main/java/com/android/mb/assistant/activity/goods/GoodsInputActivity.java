@@ -23,8 +23,10 @@ import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.DicBean;
 import com.android.mb.assistant.entitys.PatternBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
@@ -40,6 +42,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rx.functions.Action1;
 
 /**
  * 物资录入
@@ -108,7 +112,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
+        LocationUtils.instance().startLocation();
     }
 
     @Override
@@ -121,6 +125,15 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         mTvSelectDepartment.setOnClickListener(this);
         mTvSelectDate.setOnClickListener(this);
         mTvConfirm.setOnClickListener(this);
+        registerEvent(ProjectConstants.EVENT_UPDATE_LOCATION, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                if (events.code==ProjectConstants.EVENT_UPDATE_LOCATION){
+                    String location = events.getContent();
+                    mEtAddress.setText(location);
+                }
+            }
+        });
     }
 
     @Override

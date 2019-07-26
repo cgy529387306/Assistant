@@ -107,7 +107,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
-        regiestEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
+        registerEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
                 mCurrentPage = 1;

@@ -28,12 +28,17 @@ import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.NavigationHelper;
+import com.android.mb.assistant.utils.PreferencesHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
+import com.baidu.location.BDAbstractLocationListener;
+import com.baidu.location.BDLocation;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
@@ -48,6 +53,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rx.functions.Action1;
 
 /**
  * 竞情录入
@@ -123,7 +130,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
+        LocationUtils.instance().startLocation();
     }
 
     @Override
@@ -143,6 +150,15 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mLlyInputTime.setOnClickListener(this);
         mTvSelectCity.setOnClickListener(this);
         mTvSelectDep.setOnClickListener(this);
+        registerEvent(ProjectConstants.EVENT_UPDATE_LOCATION, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                if (events.code==ProjectConstants.EVENT_UPDATE_LOCATION){
+                    String location = events.getContent();
+                    mEtAddress.setText(location);
+                }
+            }
+        });
     }
 
     private void initView() {

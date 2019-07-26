@@ -104,6 +104,15 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectGsDepActivity"
             android:screenOrientation="portrait"/>
+
+        <service
+            android:name="com.baidu.location.f"
+            android:enabled="true"
+            android:process=":remote"/>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="oBLTqh5gtsLPkItty77nAEiq1mbzmK8e" >
+        </meta-data>
     </application>
 
 
