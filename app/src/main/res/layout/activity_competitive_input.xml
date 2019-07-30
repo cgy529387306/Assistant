@@ -1,550 +1,544 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.NestedScrollView
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <View
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="8dp"
-        android:background="#F8F8F8"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#F8F8F8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="客户概况"
+            android:paddingLeft="16dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        <include layout="@layout/common_divider"/>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="客户概况"
-                android:paddingLeft="16dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
-
-            <include layout="@layout/common_divider"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="姓名"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <EditText
-                    android:id="@+id/et_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLength="10"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
-                    android:gravity="center_vertical|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="手机号码"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <EditText
-                    android:id="@+id/et_phone"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLength="11"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:singleLine="true"
-                    android:inputType="number"
-                    android:hint="请输入"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp"
-                    android:text=""/>
-            </LinearLayout>
-
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="地址"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <EditText
-                    android:id="@+id/et_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:maxLength="50"
-                    android:background="@null"
-                    android:imeOptions="actionNext"
-                    android:inputType="text"
-                    android:hint="请输入"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="@color/base_gray"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="手机总数"
-                    android:gravity="center|left"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <ImageView
-                    android:id="@+id/iv_reduce"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/icon_reduce"/>
-
-                <TextView
-                    android:id="@+id/tv_num"
-                    android:textSize="13sp"
-                    android:textColor="#333333"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="12dp"
-                    android:gravity="center"
-                    android:layout_marginRight="12dp"
-                    android:text="0"/>
-
-                <ImageView
-                    android:id="@+id/iv_add"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:src="@mipmap/icon_add"/>
-            </LinearLayout>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv_tel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="#F8F8F8"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="宽带情况"
-                android:paddingLeft="16dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="移动宽带是否覆盖"
-                    android:gravity="center|left"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-                <TextView
-                    android:id="@+id/tv_cover_yes"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="是"
-                    android:background="@drawable/goods_input_border_left_blue"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_cover_no"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="否"
-                    android:gravity="center"
-                    android:background="@drawable/goods_input_border_right_gray"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="是否有异网宽带"
-                    android:gravity="center|left"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_network_yes"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="是"
-                    android:background="@drawable/goods_input_border_left_blue"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_network_no"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="否"
-                    android:gravity="center"
-                    android:background="@drawable/goods_input_border_right_gray"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="异网宽带运营商"
-                    android:gravity="center|left"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_operator_yes"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="电信"
-                    android:background="@drawable/goods_input_border_left_blue"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_operator_no"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="联通"
-                    android:gravity="center"
-                    android:background="@drawable/goods_input_border_right_gray"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:text="异网宽带是否融合"
-                    android:gravity="center|left"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_together_yes"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="是"
-                    android:background="@drawable/goods_input_border_left_blue"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_together_no"
-                    android:layout_width="60dp"
-                    android:layout_height="26dp"
-                    android:text="否"
-                    android:gravity="center"
-                    android:background="@drawable/goods_input_border_right_gray"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-            </LinearLayout>
-
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:id="@+id/lly_due_time"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="异网宽带到期时间"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_due_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_date"/>
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="8dp"
-                android:background="#F8F8F8"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="录入情况"
-                android:paddingLeft="16dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:textColor="#000000"
-                android:textSize="16sp"/>
-            <include layout="@layout/common_divider"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="区县"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_select_city"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:drawableRight="@mipmap/icon_arraw_right"
-                    android:drawablePadding="10dp"
-                    android:textColor="#999999"
-                    android:gravity="center|right"
-                    android:textSize="13sp"
-                    android:text="请选择"/>
-            </LinearLayout>
-            <include layout="@layout/common_divider" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="营销部"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-                <TextView
-                    android:id="@+id/tv_select_department"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:drawableRight="@mipmap/icon_arraw_right"
-                    android:drawablePadding="10dp"
-                    android:textColor="#999999"
-                    android:gravity="center|right"
-                    android:textSize="13sp"
-                    android:text="请选择"/>
-            </LinearLayout>
-            <include layout="@layout/common_divider" />
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="录入人员"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_userId"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textSize="13sp" />
-            </LinearLayout>
-
-            <include layout="@layout/common_divider"/>
-            <LinearLayout
-                android:id="@+id/lly_input_time"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:orientation="horizontal">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:text="录入时间"
-                    android:gravity="center"
-                    android:textColor="#ff333333"
-                    android:textSize="13sp"/>
-
-                <TextView
-                    android:id="@+id/tv_input_time"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="match_parent"
-                    android:hint="请选择"
-                    android:textColor="#333333"
-                    android:gravity="center|right"
-                    android:textColorHint="#D7D8E1"
-                    android:textSize="13sp"
-                    android:text=""/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="10dp"
-                    android:src="@mipmap/icon_date"/>
-            </LinearLayout>
-            <include layout="@layout/common_divider"/>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="备注"
-                android:paddingLeft="16dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="姓名"
+                android:gravity="center"
                 android:textColor="#ff333333"
                 android:textSize="13sp"/>
 
             <EditText
-                android:id="@+id/et_remark"
+                android:id="@+id/et_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:maxLength="10"
                 android:background="@null"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                android:paddingTop="9dp"
-                android:paddingBottom="9dp"
-                android:imeOptions="actionDone"
-                android:minLines="3"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
                 android:inputType="text"
                 android:hint="请输入"
                 android:textColor="#333333"
+                android:gravity="center_vertical|right"
                 android:textColorHint="@color/base_gray"
                 android:textSize="13sp" />
+        </LinearLayout>
 
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
+                android:layout_height="match_parent"
+                android:text="手机号码"
                 android:gravity="center"
-                android:text="上传照片"
                 android:textColor="#ff333333"
                 android:textSize="13sp"/>
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+
+            <EditText
+                android:id="@+id/et_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:overScrollMode="never"/>
-            <TextView
-                android:id="@+id/tv_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:layout_marginLeft="38dp"
-                android:layout_marginRight="37dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginBottom="22dp"
-                android:background="@drawable/border_btn_bg_login"
-                android:gravity="center"
-                android:text="提交"
-                android:textColor="@color/white"
-                android:textSize="16sp" />
+                android:layout_height="match_parent"
+                android:maxLength="11"
+                android:background="@null"
+                android:imeOptions="actionNext"
+                android:singleLine="true"
+                android:inputType="number"
+                android:hint="请输入"
+                android:textColor="#333333"
+                android:gravity="center|right"
+                android:textColorHint="@color/base_gray"
+                android:textSize="13sp"
+                android:text=""/>
         </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="地址"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <EditText
+                android:id="@+id/et_address"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:maxLength="50"
+                android:background="@null"
+                android:imeOptions="actionNext"
+                android:inputType="text"
+                android:hint="请输入"
+                android:textColor="#333333"
+                android:gravity="center|right"
+                android:textColorHint="@color/base_gray"
+                android:textSize="13sp"
+                android:text=""/>
+
+        </LinearLayout>
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="手机总数"
+                android:gravity="center|left"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <ImageView
+                android:id="@+id/iv_reduce"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_reduce"/>
+
+            <TextView
+                android:id="@+id/tv_num"
+                android:textSize="13sp"
+                android:textColor="#333333"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:gravity="center"
+                android:layout_marginRight="12dp"
+                android:text="0"/>
+
+            <ImageView
+                android:id="@+id/iv_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/icon_add"/>
+        </LinearLayout>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_tel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"/>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#F8F8F8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="宽带情况"
+            android:paddingLeft="16dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="移动宽带是否覆盖"
+                android:gravity="center|left"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/tv_cover_yes"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="是"
+                android:background="@drawable/goods_input_border_left_blue"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_cover_no"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="否"
+                android:gravity="center"
+                android:background="@drawable/goods_input_border_right_gray"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="是否有异网宽带"
+                android:gravity="center|left"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_network_yes"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="是"
+                android:background="@drawable/goods_input_border_left_blue"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_network_no"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="否"
+                android:gravity="center"
+                android:background="@drawable/goods_input_border_right_gray"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="异网宽带运营商"
+                android:gravity="center|left"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_operator_yes"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="电信"
+                android:background="@drawable/goods_input_border_left_blue"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_operator_no"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="联通"
+                android:gravity="center"
+                android:background="@drawable/goods_input_border_right_gray"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="异网宽带是否融合"
+                android:gravity="center|left"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_together_yes"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="是"
+                android:background="@drawable/goods_input_border_left_blue"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_together_no"
+                android:layout_width="60dp"
+                android:layout_height="26dp"
+                android:text="否"
+                android:gravity="center"
+                android:background="@drawable/goods_input_border_right_gray"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+        </LinearLayout>
+
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:id="@+id/lly_due_time"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="异网宽带到期时间"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_due_time"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:hint="请选择"
+                android:textColor="#333333"
+                android:gravity="center|right"
+                android:textColorHint="#D7D8E1"
+                android:textSize="13sp"
+                android:text=""/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/icon_date"/>
+        </LinearLayout>
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="8dp"
+            android:background="#F8F8F8"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="录入情况"
+            android:paddingLeft="16dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:textColor="#000000"
+            android:textSize="16sp"/>
+        <include layout="@layout/common_divider"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="区县"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_select_city"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:drawableRight="@mipmap/icon_arraw_right"
+                android:drawablePadding="10dp"
+                android:textColor="#999999"
+                android:gravity="center|right"
+                android:textSize="13sp"
+                android:text="请选择"/>
+        </LinearLayout>
+        <include layout="@layout/common_divider" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="营销部"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+            <TextView
+                android:id="@+id/tv_select_department"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:drawableRight="@mipmap/icon_arraw_right"
+                android:drawablePadding="10dp"
+                android:textColor="#999999"
+                android:gravity="center|right"
+                android:textSize="13sp"
+                android:text="请选择"/>
+        </LinearLayout>
+        <include layout="@layout/common_divider" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="录入人员"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_userId"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="#333333"
+                android:gravity="center|right"
+                android:textSize="13sp" />
+        </LinearLayout>
+
+        <include layout="@layout/common_divider"/>
+        <LinearLayout
+            android:id="@+id/lly_input_time"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="录入时间"
+                android:gravity="center"
+                android:textColor="#ff333333"
+                android:textSize="13sp"/>
+
+            <TextView
+                android:id="@+id/tv_input_time"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:hint="请选择"
+                android:textColor="#333333"
+                android:gravity="center|right"
+                android:textColorHint="#D7D8E1"
+                android:textSize="13sp"
+                android:text=""/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:src="@mipmap/icon_date"/>
+        </LinearLayout>
+        <include layout="@layout/common_divider"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="备注"
+            android:paddingLeft="16dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:textColor="#ff333333"
+            android:textSize="13sp"/>
+
+        <EditText
+            android:id="@+id/et_remark"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:paddingTop="9dp"
+            android:paddingBottom="9dp"
+            android:imeOptions="actionDone"
+            android:minLines="3"
+            android:inputType="text"
+            android:hint="请输入"
+            android:textColor="#333333"
+            android:textColorHint="@color/base_gray"
+            android:textSize="13sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:gravity="center"
+            android:text="上传照片"
+            android:textColor="#ff333333"
+            android:textSize="13sp"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:overScrollMode="never"/>
+        <TextView
+            android:id="@+id/tv_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:layout_marginLeft="38dp"
+            android:layout_marginRight="37dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginBottom="22dp"
+            android:background="@drawable/border_btn_bg_login"
+            android:gravity="center"
+            android:text="提交"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

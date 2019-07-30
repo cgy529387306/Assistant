@@ -34,12 +34,9 @@ import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.NavigationHelper;
-import com.android.mb.assistant.utils.PreferencesHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
-import com.baidu.location.BDAbstractLocationListener;
-import com.baidu.location.BDLocation;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
@@ -205,6 +202,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         mRecyclerView = findViewById(R.id.recyclerView);
         FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
         mImageAdapter = new GridImageAdapter(this, new GridImageAdapter.onAddPicClickListener() {
             @Override
             public void onAddPicClick() {
@@ -239,22 +237,39 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.tv_cover_yes || id == R.id.tv_cover_no){
+
+        if (id == R.id.tv_cover_yes){
+            isCoverYes = true;
             mTvCoverYes.setBackgroundResource(isCoverYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
             mTvCoverNo.setBackgroundResource(isCoverYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
-            isCoverYes = !isCoverYes;
-        }else if (id == R.id.tv_network_yes || id == R.id.tv_network_no){
+        }else if (id == R.id.tv_cover_no){
+            isCoverYes = false;
+            mTvCoverYes.setBackgroundResource(isCoverYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
+            mTvCoverNo.setBackgroundResource(isCoverYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
+        }else if (id == R.id.tv_network_yes){
+            isNetworkYes = true;
             mTvNetworkYes.setBackgroundResource(isNetworkYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
             mTvNetworkNo.setBackgroundResource(isNetworkYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
-            isNetworkYes = !isNetworkYes;
-        }else if (id == R.id.tv_operator_yes || id == R.id.tv_operator_no){
+        }else if (id == R.id.tv_network_no){
+            isNetworkYes = false;
+            mTvNetworkYes.setBackgroundResource(isNetworkYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
+            mTvNetworkNo.setBackgroundResource(isNetworkYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
+        }else if (id == R.id.tv_operator_yes){
+            isOperatorYes = true;
             mTvOperatorYes.setBackgroundResource(isOperatorYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
             mTvOperatorNo.setBackgroundResource(isOperatorYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
-            isOperatorYes = !isOperatorYes;
-        }else if (id == R.id.tv_together_yes || id == R.id.tv_together_no){
+        }else if (id == R.id.tv_operator_no){
+            isOperatorYes = false;
+            mTvOperatorYes.setBackgroundResource(isOperatorYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
+            mTvOperatorNo.setBackgroundResource(isOperatorYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
+        }else if (id == R.id.tv_together_yes){
+            isTogetherYes = true;
             mTvTogetherYes.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
             mTvTogetherNo.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
-            isTogetherYes = !isTogetherYes;
+        }else if (id == R.id.tv_together_no){
+            isTogetherYes = false;
+            mTvTogetherYes.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_left_blue:R.drawable.goods_input_border_left_gray);
+            mTvTogetherNo.setBackgroundResource(isTogetherYes?R.drawable.goods_input_border_right_gray:R.drawable.goods_input_border_right_blue);
         }else if (id == R.id.iv_reduce){
             if (mTelNum > 0){
                 if (mTelList.size()>mTelNum-1){

@@ -5,22 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.CallSuper;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
-import com.android.mb.assistant.activity.competitive.SelectCityActivity;
+import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
-import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.DicBean;
+import com.android.mb.assistant.entitys.ImageResp;
 import com.android.mb.assistant.entitys.PatternBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
@@ -30,13 +30,17 @@ import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
+import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -72,7 +76,10 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     private static final int REQUEST_COMPANY = 0x33;
     private static final int REQUEST_GS_DEP = 0x44;
 
-
+    private RecyclerView mRecyclerView;
+    private GridImageAdapter mImageAdapter;
+    private List<LocalMedia> mSelectImageList = new ArrayList<>();
+    private List<String> mImageList = new ArrayList<>();
     @Override
     protected void loadIntent() {
 
@@ -92,6 +99,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
     protected void bindViews() {
         initView();
         initTimePicker();
+        initRecycleView();
     }
 
     private void initView(){
@@ -108,6 +116,42 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         mTvSelectDepartment = findViewById(R.id.tv_select_department);
         mTvSelectDate = findViewById(R.id.tv_select_date);
         mTvConfirm = findViewById(R.id.tv_confirm);
+    }
+
+    private void initRecycleView(){
+        mRecyclerView = findViewById(R.id.recyclerView);
+        FullyGridLayoutManager gridLayoutManager = new FullyGridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false);
+        mRecyclerView.setLayoutManager(gridLayoutManager);
+        mRecyclerView.setNestedScrollingEnabled(false);
+        mImageAdapter = new GridImageAdapter(this, new GridImageAdapter.onAddPicClickListener() {
+            @Override
+            public void onAddPicClick() {
+                //拍照
+                PictureSelector.create(GoodsInputActivity.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .isCamera(true)
+                        .maxSelectNum(9)
+                        .compress(true)// 是否压缩 true or false
+                        .minimumCompressSize(100)// 小于100kb的图片不压缩
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        });
+        mImageAdapter.setList(mSelectImageList);
+        mImageAdapter.setSelectMax(6);
+        mRecyclerView.setAdapter(mImageAdapter);
+        mImageAdapter.setOnItemClickListener(new GridImageAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(int position, View v) {
+                if (mSelectImageList.size() > 0 && mSelectImageList.size()>position) {
+                    LocalMedia media = mSelectImageList.get(position);
+                    String pictureType = media.getPictureType();
+                    int mediaType = PictureMimeType.pictureToVideo(pictureType);
+                    if (mediaType == 1){
+                        PictureSelector.create(GoodsInputActivity.this).externalPicturePreview(position, mSelectImageList);
+                    }
+                }
+            }
+        });
     }
 
     @Override
@@ -210,6 +254,10 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
             showToastMessage("请选择物资归属部门");
             return;
         }
+        if (Helper.isEmpty(mImageList)){
+            showToastMessage("请上传物资照片");
+            return;
+        }
 
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("materialName",name);
@@ -222,21 +270,28 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         requestParams.put("dePartment",department);
         requestParams.put("createTime",String.valueOf(inputTime));
         requestParams.put("contacts",contact);
-//        requestParams.put("imgStr","无");
+        requestParams.put("imgStr",ProjectHelper.listToStr(mImageList));
         mPresenter.requestGoods(CodeConstants.KEY_GOODS_ADD,requestParams,true);
 
     }
 
     @Override
     public void requestSuccess(String requestCode,String result) {
-        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
-        if (resp!=null){
-            if (resp.isSuccess()){
-                sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
-                showToastMessage("录入成功");
-                finish();
-            }else{
-                showToastMessage(resp.getMessage());
+        if (CodeConstants.KEY_COMMON_UPLOAD.equals(requestCode)){
+            ImageResp resp = JsonHelper.fromJson(result,ImageResp.class);
+            if (resp!=null && resp.getData()!=null){
+                mImageList.add("http://114.115.136.72:8080/MoveHelper/"+resp.getData().getImages0());
+            }
+        }else {
+            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+            if (resp!=null){
+                if (resp.isSuccess()){
+                    sendMsg(ProjectConstants.EVENT_UPDATE_GOODS,null);
+                    showToastMessage("录入成功");
+                    finish();
+                }else{
+                    showToastMessage(resp.getMessage());
+                }
             }
         }
     }
@@ -294,10 +349,22 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
                     DicBean department = (DicBean) data.getSerializableExtra("dic");
                     mTvSelectDepartment.setText(department.getDictname());
                     break;
-
+                case PictureConfig.CHOOSE_REQUEST:
+                    List<LocalMedia> images = PictureSelector.obtainMultipleResult(data);
+                    mSelectImageList.addAll(images);
+                    mImageAdapter.setList(mSelectImageList);
+                    uploadImageList(images);
+                    break;
                 default:
                     break;
             }
+        }
+    }
+
+    private void uploadImageList(List<LocalMedia> dataList){
+        for (LocalMedia localMedia:dataList) {
+            String imagePath = localMedia.isCompressed()?localMedia.getCompressPath():localMedia.getPath();
+            mPresenter.uploadImg(CodeConstants.KEY_COMMON_UPLOAD,new HashMap<>(),new File(imagePath),true);
         }
     }
 

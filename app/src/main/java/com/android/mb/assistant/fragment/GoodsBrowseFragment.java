@@ -88,7 +88,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
 
     private void getListFormServer(){
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("type",String.valueOf(1));
+//        requestParams.put("type",String.valueOf(1));
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
         mPresenter.requestData(CodeConstants.KEY_GOODS_LIST,requestParams,false);

@@ -18,6 +18,7 @@
             android:id="@+id/iv_goods"
             android:layout_width="135dp"
             android:layout_height="80dp"
+            android:scaleType="centerCrop"
             android:src="@mipmap/icon_goods_browse"/>
 
         <LinearLayout

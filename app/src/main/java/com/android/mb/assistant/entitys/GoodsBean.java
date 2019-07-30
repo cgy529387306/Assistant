@@ -33,7 +33,7 @@ public class GoodsBean implements Serializable {
     private String mGsDepartmentId;
     private String mImg;
     private String mMaterialName;
-    private int mMaterialType;
+    private String mMaterialType;
     private int mMum;
     private String mPattern;
     private String mRemaks;
@@ -100,13 +100,6 @@ public class GoodsBean implements Serializable {
         mMaterialName = materialName;
     }
 
-    public int getMaterialType() {
-        return mMaterialType;
-    }
-
-    public void setMaterialType(int materialType) {
-        mMaterialType = materialType;
-    }
 
     public int getMum() {
         return mMum;
@@ -178,5 +171,13 @@ public class GoodsBean implements Serializable {
 
     public void setMaterialId(String materialId) {
         this.materialId = materialId;
+    }
+
+    public String getMaterialType() {
+        return mMaterialType == null ? "" : mMaterialType;
+    }
+
+    public void setMaterialType(String materialType) {
+        mMaterialType = materialType;
     }
 }

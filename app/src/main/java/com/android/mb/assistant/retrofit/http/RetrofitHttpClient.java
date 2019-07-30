@@ -122,9 +122,9 @@ public class RetrofitHttpClient {
 //        }
 
         //开启日志.
-        if(isLog) {
-            builder.addNetworkInterceptor(LogInterceptor.getLogInterceptor());
-        }
+//        if(isLog) {
+//            builder.addNetworkInterceptor(LogInterceptor.getLogInterceptor());
+//        }
 
         //添加自定义拦截器
         if(!ArrayUtil.isEmpty(interceptors)){
