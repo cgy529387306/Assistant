@@ -159,6 +159,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
             mTvRemark.setText(Helper.isEmpty(mCompetitiveBean.getCRemarks())?"无":mCompetitiveBean.getCRemarks());
             mTvDueTime.setText(Helper.long2DateString(mCompetitiveBean.getCBecomeTime(),Helper.DATE_FORMAT1));
             mTvInputTime.setText(Helper.long2DateString(mCompetitiveBean.getCCreateTime(),Helper.DATE_FORMAT1));
+            mTvConfirm.setVisibility(mCompetitiveBean.getCDispatchStatus()==1?View.VISIBLE:View.GONE);
             if (mCompetitiveBean.getCNum()>0 && Helper.isNotEmpty(mCompetitiveBean.getcAddMoblie())){
                 List<String> telList = ProjectHelper.strToList(mCompetitiveBean.getcAddMoblie());
                 mTelAdapter.setNewData(telList);

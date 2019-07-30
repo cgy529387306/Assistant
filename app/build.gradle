@@ -95,5 +95,5 @@ dependencies {
     //sweetalert
     implementation 'cn.pedant.sweetalert:library:1.3'
     //日志框架
-    implementation 'com.orhanobut:logger:2.2.0'
+//    implementation 'com.orhanobut:logger:2.2.0'
 }

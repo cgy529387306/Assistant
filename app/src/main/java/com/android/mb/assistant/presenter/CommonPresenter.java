@@ -5,10 +5,8 @@ import com.android.mb.assistant.base.BaseMvpPresenter;
 import com.android.mb.assistant.presenter.interfaces.ICommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
-import com.orhanobut.logger.Logger;
 
 import java.io.File;
-import java.util.List;
 import java.util.Map;
 
 import rx.Observable;
@@ -46,7 +44,6 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     if (Helper.isNotEmpty(result)){
-                        Logger.json(result);
                         mMvpView.requestSuccess(requestCode,result);
                     }else{
                         mMvpView.showToastMessage("服务端数据异常");
@@ -81,7 +78,6 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     if (Helper.isNotEmpty(result)){
-                        Logger.json(result);
                         mMvpView.requestSuccess(requestCode,result);
                     }else{
                         mMvpView.showToastMessage("服务端数据异常");
@@ -116,7 +112,6 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     if (Helper.isNotEmpty(result)){
-                        Logger.json(result);
                         mMvpView.requestSuccess(requestCode,result);
                     }else{
                         mMvpView.showToastMessage("服务端数据异常");
@@ -151,7 +146,6 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
                 if (mMvpView!=null){
                     mMvpView.dismissProgressDialog();
                     if (Helper.isNotEmpty(result)){
-                        Logger.json(result);
                         mMvpView.requestSuccess(requestCode,result);
                     }else{
                         mMvpView.showToastMessage("服务端数据异常");
