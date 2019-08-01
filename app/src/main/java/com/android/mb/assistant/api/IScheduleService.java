@@ -27,4 +27,7 @@ public interface IScheduleService {
     @Multipart
     Observable<String> uploadImg(@QueryMap Map<String, String> requestMap,@Part MultipartBody.Part file);
 
+    @POST("/MoveHelper/ServletQueryOrder")
+    Observable<String> workRequest(@QueryMap Map<String, String> requestMap);
+
 }

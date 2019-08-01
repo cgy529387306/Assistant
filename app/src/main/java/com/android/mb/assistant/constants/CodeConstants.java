@@ -56,6 +56,16 @@ public class CodeConstants {
     public static final String KEY_COMPETITIVE_HANDLE = "200006";
 
     /**
+     * 完成工单(200008)
+     */
+    public static final String KEY_COMPLETE_WORK = "200008";
+
+    /**
+     * 我的工单(200010)
+     */
+    public static final String KEY_WORK_LIST = "200010";
+
+    /**
      * 物资新增(300001)
      */
     public static final String KEY_GOODS_ADD = "300001";
