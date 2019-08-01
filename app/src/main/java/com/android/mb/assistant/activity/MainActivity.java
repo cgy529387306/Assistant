@@ -12,23 +12,31 @@ import android.widget.TextView;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.fragment.CompetitiveManageFragment;
 import com.android.mb.assistant.fragment.GoodsManageFragment;
 import com.android.mb.assistant.fragment.HomeFragment;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.LocationUtils;
+import com.android.mb.assistant.utils.PreferencesHelper;
 import com.android.mb.assistant.utils.ToastHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FragmentViewPager;
 import com.pgyersdk.update.PgyUpdateManager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class MainActivity extends BaseActivity{
+public class MainActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
     private HomeFragment mHomeFragment;
     private CompetitiveManageFragment mCompetitiveManageFragment;
     private GoodsManageFragment mGoodsManageFragment;
+
     @Override
     protected void loadIntent() {
 
@@ -55,6 +63,12 @@ public class MainActivity extends BaseActivity{
         PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
         PgyUpdateManager.register(this);
         LocationUtils.instance().startLocation();
+        getListFormServer();
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 
     @Override
@@ -148,4 +162,20 @@ public class MainActivity extends BaseActivity{
         }
         finish();
     }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+        if (CodeConstants.KEY_COMMON_DIC.equals(requestCode)){
+            PreferencesHelper.getInstance().putString("category",result);
+        }
+    }
+
+    private void getListFormServer(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("parno","5");
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(Integer.MAX_VALUE));
+        mPresenter.requestData(CodeConstants.KEY_COMMON_DIC,requestParams,false);
+    }
+
 }

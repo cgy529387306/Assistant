@@ -9,16 +9,27 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
-import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.DicBean;
+import com.android.mb.assistant.entitys.DicListResp;
 import com.android.mb.assistant.fragment.GoodsBrowseFragment;
+import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.PreferencesHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FragmentViewPager;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 物资浏览
  */
-public class GoodsBrowseActivity extends BaseActivity{
+public class GoodsBrowseActivity  extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
@@ -41,12 +52,16 @@ public class GoodsBrowseActivity extends BaseActivity{
     @Override
     protected void bindViews() {
         initView();
-        initTabViewPager();
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
+        String result = PreferencesHelper.getInstance().getString("category");
+        if (Helper.isNotEmpty(result)){
+            dealResult(result);
+        }else{
+            getListFormServer();
+        }
     }
 
     @Override
@@ -84,32 +99,55 @@ public class GoodsBrowseActivity extends BaseActivity{
         mFragmentViewPager = findViewById(R.id.fragmentViewPager);
         mTabLayout = findViewById(R.id.tab_layout);
     }
-    private void initTabViewPager(){
+
+    private void initTabViewPager(List<DicBean> dicBeanList){
         mFragmentArrayList = new ArrayList<>();
-        mFragmentArrayList.add(GoodsBrowseFragment.getInstance(0));
-        mFragmentArrayList.add(GoodsBrowseFragment.getInstance(1));
-        mFragmentArrayList.add(GoodsBrowseFragment.getInstance(2));
-        mFragmentArrayList.add(GoodsBrowseFragment.getInstance(3));
-        mFragmentArrayList.add(GoodsBrowseFragment.getInstance(4));
+        mFragmentArrayList.add(GoodsBrowseFragment.getInstance("全部"));
+        setTabName("全部");
+        for(DicBean dicBean:dicBeanList){
+            setTabName(dicBean.getDictname());
+            mFragmentArrayList.add(GoodsBrowseFragment.getInstance(dicBean.getDictname()));
+        }
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
-        setViewTabs();
     }
-    /**
-     * @description: 设置添加Tab
-     */
-    private void setViewTabs(){
-        int[] tabTitles = new int[]{R.string.tab_all,R.string.tab_engineer_construction,R.string.tab_network_maintenance,R.string.tab_broadband_terminal,R.string.tab_office_equipment};
-        for (int i = 0; i < tabTitles.length; i++) {
-            TabLayout.Tab tab = mTabLayout.newTab();
-            View view = LayoutInflater.from(GoodsBrowseActivity.this).inflate(R.layout.chapter_approval_tab,null);
-            tab.setCustomView(view);
 
-            TextView tvTitle = view.findViewById(R.id.tv_tab);
-            tvTitle.setText(tabTitles[i]);
-            mTabLayout.addTab(tab);
+    private void setTabName(String name){
+        if (Helper.isEmpty(name)){
+            name = "全部";
+        }
+        TabLayout.Tab tab = mTabLayout.newTab();
+        View view = LayoutInflater.from(GoodsBrowseActivity.this).inflate(R.layout.chapter_approval_tab,null);
+        tab.setCustomView(view);
+
+        TextView tvTitle = view.findViewById(R.id.tv_tab);
+        tvTitle.setText(name);
+        mTabLayout.addTab(tab);
+    }
+
+    private void getListFormServer(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("parno","5");
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(Integer.MAX_VALUE));
+        mPresenter.requestData(CodeConstants.KEY_COMMON_DIC,requestParams,false);
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+
+    }
+
+    private void dealResult(String result){
+        DicListResp listResp = JsonHelper.fromJson(result, DicListResp.class);
+        if (listResp!=null && Helper.isNotEmpty(listResp.getData())){
+            initTabViewPager(listResp.getData());
         }
     }
-
 }

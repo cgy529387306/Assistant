@@ -48,6 +48,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     private SmartRefreshLayout mRefreshLayout;
 
     private static final String KEY_STATE = "key_state";
+    private String mCategory;
 
     @Override
     protected int getLayoutId() {
@@ -55,13 +56,12 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     }
 
     /**
-     * @param state 0:今天 1:明天 2:全部
      * @return
      */
-    public static Fragment getInstance(int state) {
+    public static Fragment getInstance(String category) {
         Fragment fragment = new GoodsBrowseFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_STATE, state);
+        bundle.putString(KEY_STATE, category);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -72,6 +72,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     }
 
     private void initView(View view) {
+        mCategory = getArguments().getString(KEY_STATE);
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRefreshLayout.setEnableLoadMore(true);
         mRecyclerView = view.findViewById(R.id.recyclerView);
@@ -88,7 +89,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
 
     private void getListFormServer(){
         Map<String,String> requestParams = new HashMap<>();
-//        requestParams.put("type",String.valueOf(1));
+        requestParams.put("type",mCategory);
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
         mPresenter.requestData(CodeConstants.KEY_GOODS_LIST,requestParams,false);

@@ -54,7 +54,7 @@ public class SelectGsDepActivity extends BaseMvpActivity<CommonPresenter, ICommo
     @Override
     protected void bindViews() {
         mRefreshLayout = findViewById(R.id.refreshLayout);
-        mRefreshLayout.setEnableLoadMore(true);
+        mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(1),getResources().getColor(R.color.list_divider)));
@@ -85,7 +85,7 @@ public class SelectGsDepActivity extends BaseMvpActivity<CommonPresenter, ICommo
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("parno","12");
         requestParams.put("page",String.valueOf(mCurrentPage));
-        requestParams.put("rows",String.valueOf(mPageSize));
+        requestParams.put("rows",String.valueOf(Integer.MAX_VALUE));
         mPresenter.requestData(CodeConstants.KEY_COMMON_DIC,requestParams,false);
     }
 

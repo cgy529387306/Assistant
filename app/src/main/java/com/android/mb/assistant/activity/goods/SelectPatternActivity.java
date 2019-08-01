@@ -57,7 +57,7 @@ public class SelectPatternActivity extends BaseMvpActivity<CommonPresenter, ICom
     @Override
     protected void bindViews() {
         mRefreshLayout = findViewById(R.id.refreshLayout);
-        mRefreshLayout.setEnableLoadMore(true);
+        mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(1),getResources().getColor(R.color.list_divider)));
@@ -87,7 +87,7 @@ public class SelectPatternActivity extends BaseMvpActivity<CommonPresenter, ICom
     private void getListFormServer(){
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("page",String.valueOf(mCurrentPage));
-        requestParams.put("rows",String.valueOf(mPageSize));
+        requestParams.put("rows",String.valueOf(Integer.MAX_VALUE));
         mPresenter.requestData(CodeConstants.KEY_COMMON_PATTERN,requestParams,false);
     }
 
