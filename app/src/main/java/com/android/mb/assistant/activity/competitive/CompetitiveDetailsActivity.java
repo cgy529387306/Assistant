@@ -1,5 +1,6 @@
 package com.android.mb.assistant.activity.competitive;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
@@ -17,6 +19,7 @@ import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CompetitiveResp;
+import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.Helper;
@@ -46,9 +49,10 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     private TextView mTvName,mTvTel,mTvAddress;
     private TextView mTvTelNum,mTvCover,mTvNetwork,mTvOperator,mTvTogether,mTvDueTime;
     private TextView mTvCity,mTvDep,mTvPerson,mTvInputTime,mTvRemark;
-    private TextView mTvConfirm;
+    private TextView mTvDispatch,mTvRedispatch,mTvFinish;
     private ImageView mIvStatus1,mIvStatus2,mIvStatus3;
     private TextView mTvStatus1,mTvStatus2,mTvStatus3;
+    private LinearLayout mLlBottom;
     private View mViewStatus1,mViewStatus2;
     private RecyclerView mRvTel;
     private YyTelAdapter mTelAdapter;
@@ -83,6 +87,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         mImageAdapter = new ImageListAdapter(new ArrayList());
         mRecyclerView.setAdapter(mImageAdapter);
 
+        mLlBottom = findViewById(R.id.ll_bottom);
         mIvStatus1 = findViewById(R.id.iv_status1);
         mIvStatus2 = findViewById(R.id.iv_status2);
         mIvStatus3 = findViewById(R.id.iv_status3);
@@ -105,7 +110,9 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
         mTvPerson = findViewById(R.id.tv_person);
         mTvInputTime = findViewById(R.id.tv_input_time);
         mTvRemark = findViewById(R.id.tv_remark);
-        mTvConfirm = findViewById(R.id.tv_confirm);
+        mTvDispatch = findViewById(R.id.tv_dispatch);
+        mTvRedispatch = findViewById(R.id.tv_redispatch);
+        mTvFinish = findViewById(R.id.tv_finish);
     }
 
     @Override
@@ -118,7 +125,9 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     protected void setListener() {
         findViewById(R.id.tv_call).setOnClickListener(this);
         findViewById(R.id.tv_navigation).setOnClickListener(this);
-        mTvConfirm.setOnClickListener(this);
+        mTvDispatch.setOnClickListener(this);
+        mTvRedispatch.setOnClickListener(this);
+        mTvFinish.setOnClickListener(this);
         registerEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
@@ -159,7 +168,6 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
             mTvRemark.setText(Helper.isEmpty(mCompetitiveBean.getCRemarks())?"无":mCompetitiveBean.getCRemarks());
             mTvDueTime.setText(Helper.long2DateString(mCompetitiveBean.getCBecomeTime(),Helper.DATE_FORMAT1));
             mTvInputTime.setText(Helper.long2DateString(mCompetitiveBean.getCCreateTime(),Helper.DATE_FORMAT1));
-            mTvConfirm.setVisibility(mCompetitiveBean.getCDispatchStatus()==1?View.VISIBLE:View.GONE);
             if (mCompetitiveBean.getCNum()>0 && Helper.isNotEmpty(mCompetitiveBean.getcAddMoblie())){
                 List<String> telList = ProjectHelper.strToList(mCompetitiveBean.getcAddMoblie());
                 mTelAdapter.setNewData(telList);
@@ -173,6 +181,19 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
 
     private void initStatus(){
         if (mCompetitiveBean!=null){
+            if (CurrentUser.getInstance().getMuid().equals(mCompetitiveBean.getwReceiveId())){
+                //我的工单
+                mLlBottom.setVisibility(View.VISIBLE);
+                mTvDispatch.setVisibility(View.GONE);
+            }else if (mCompetitiveBean.getCDispatchStatus()==1){
+                //未分派
+                mLlBottom.setVisibility(View.GONE);
+                mTvDispatch.setVisibility(View.VISIBLE);
+            }else{
+                mLlBottom.setVisibility(View.GONE);
+                mTvDispatch.setVisibility(View.GONE);
+            }
+
             if (mCompetitiveBean.getCDispatchStatus()==1){
                 mIvStatus1.setImageResource(R.mipmap.icon_status_on);
                 mTvStatus1.setText("未派单");
@@ -230,7 +251,7 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
     @Override
     public void onClick(View v) {
         int id = v.getId();
-        if (id == R.id.tv_confirm){
+        if (id == R.id.tv_dispatch){
             Bundle bundle = new Bundle();
             bundle.putString("competitiveId",mCompetitiveBean.getCId());
             NavigationHelper.startActivity(this, SelectPersonActivity.class,bundle,false);
@@ -242,6 +263,14 @@ public class CompetitiveDetailsActivity extends BaseMvpActivity<CommonPresenter,
             if (mCompetitiveBean!=null && Helper.isNotEmpty(mCompetitiveBean.getCAdd())){
                 ProjectHelper.navWithMap(mContext,mCompetitiveBean.getCAdd());
             }
+        }else if (id == R.id.tv_redispatch){
+            Bundle bundle = new Bundle();
+            bundle.putString("competitiveId",mCompetitiveBean.getCId());
+            NavigationHelper.startActivity(this, SelectPersonActivity.class,bundle,false);
+        }else if (id == R.id.tv_finish){
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("competitive",mCompetitiveBean);
+            NavigationHelper.startActivity((Activity) mContext, CompetitiveFinishActivity.class,bundle,false);
         }
     }
 }

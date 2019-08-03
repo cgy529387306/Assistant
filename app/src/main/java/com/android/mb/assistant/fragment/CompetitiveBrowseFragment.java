@@ -47,7 +47,7 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
     private SmartRefreshLayout mRefreshLayout;
 
     /**
-     * 1：未派单2：已派单3:反抢成功4:反抢失败 5：未读竞情 99:查询全部
+     * 1：未派单2：已派单3:反抢成功4:反抢失败 5：未读竞情 99:查询全部 7我的工单
      */
     private static final String KEY_STATE = "key_state";
 

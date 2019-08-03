@@ -90,7 +90,7 @@ public class CompetitiveBrowseActivity extends BaseActivity{
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(99));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(1));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(2));
-        mFragmentArrayList.add(CompetitiveWorkFragment.getInstance());
+        mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(7));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(3));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(4));
         mFragmentArrayList.add(CompetitiveBrowseFragment.getInstance(5));
