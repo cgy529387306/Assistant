@@ -43,6 +43,7 @@ public class GoodsBean implements Serializable {
     private String mUnitname;
     private String mUnitnameId;
     private String materialId;
+    private String mPrice;
 
     public int getAsset() {
         return mAsset;
@@ -179,5 +180,13 @@ public class GoodsBean implements Serializable {
 
     public void setMaterialType(String materialType) {
         mMaterialType = materialType;
+    }
+
+    public String getPrice() {
+        return mPrice == null ? "" : mPrice;
+    }
+
+    public void setPrice(String price) {
+        mPrice = price;
     }
 }

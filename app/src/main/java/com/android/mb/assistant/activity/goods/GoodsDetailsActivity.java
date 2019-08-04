@@ -88,7 +88,7 @@ public class GoodsDetailsActivity extends BaseActivity{
             mTvGsDepartment.setText(mGoodsBean.getGsDepartment());
             mTvInputTime.setText(Helper.long2DateString(mGoodsBean.getCreateTime(),Helper.DATE_FORMAT1));
             mTvContacts.setText(mGoodsBean.getContacts());
-//            mTvPrice.setText(mGoodsBean.get);
+            mTvPrice.setText(mGoodsBean.getPrice());
             mImageList = ProjectHelper.strToList(mGoodsBean.getImg());
             mBanner.setImageLoader(new GlideImageLoader());
             mBanner.setImages(mImageList);
