@@ -47,7 +47,7 @@ public class CompetitiveFinishActivity extends BaseMvpActivity<CommonPresenter, 
     private TextView mTvYes;
     private TextView mTvNo;
     private TextView mTvConfirm;
-    private boolean mIsSuccess;
+    private boolean mIsSuccess = true;
 
     private RecyclerView mRecyclerView;
     private GridImageAdapter mImageAdapter;
@@ -170,10 +170,9 @@ public class CompetitiveFinishActivity extends BaseMvpActivity<CommonPresenter, 
 
     private void doConfirm(){
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("workorderId",mCompetitiveBean.getwReceiveId());
-        requestParams.put("workorderNo",mCompetitiveBean.getwReceiveId());
+        requestParams.put("workorderId",mCompetitiveBean.getWorkorderId());
         requestParams.put("status",mIsSuccess?"3":"4");
-        mPresenter.requestCompetitive(CodeConstants.KEY_COMPLETE_WORK,requestParams,true);
+        mPresenter.requestData(CodeConstants.KEY_COMPLETE_WORK,requestParams,true);
     }
 
     @Override

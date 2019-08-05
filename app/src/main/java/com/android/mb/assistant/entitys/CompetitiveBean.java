@@ -62,6 +62,7 @@ public class CompetitiveBean implements Serializable{
     private String cAreaName;
     private String cDepartmentName;
     private String wReceiveId;
+    private String workorderId;
 
     public String getCAdd() {
         return CAdd == null ? "" : CAdd;
@@ -282,5 +283,13 @@ public class CompetitiveBean implements Serializable{
 
     public void setwReceiveId(String wReceiveId) {
         this.wReceiveId = wReceiveId;
+    }
+
+    public String getWorkorderId() {
+        return workorderId == null ? "" : workorderId;
+    }
+
+    public void setWorkorderId(String workorderId) {
+        this.workorderId = workorderId;
     }
 }
