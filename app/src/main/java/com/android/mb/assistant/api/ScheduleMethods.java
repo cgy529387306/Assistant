@@ -81,4 +81,11 @@ public class ScheduleMethods extends BaseHttp {
                 .compose(CacheTransformer.emptyTransformer());
     }
 
+    public Observable cartRequest(String requestCode,Map<String,String> requestMap){
+        requestMap.put("code",requestCode);
+        requestMap.put("mac", MACHelper.workMacForApp(requestCode));
+        return getService().cartRequest(requestMap)
+                .compose(CacheTransformer.emptyTransformer());
+    }
+
 }

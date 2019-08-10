@@ -16,5 +16,7 @@ public interface ICommonPresenter {
 
     void requestWork(String requestCode, Map<String,String> params, boolean isShowLoading);
 
+    void requestCart(String requestCode, Map<String,String> params, boolean isShowLoading);
+
     void uploadImg(String requestCode, Map<String,String> params, File file, boolean isShowLoading);
 }

@@ -15,6 +15,7 @@ import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.entitys.GoodsListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
@@ -41,7 +42,7 @@ import rx.functions.Action1;
  * 物资浏览
  * Created by cgy on 16/7/18.
  */
-public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommonView> implements ICommonView,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener {
+public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommonView> implements ICommonView,BaseQuickAdapter.OnItemClickListener,OnRefreshListener, OnLoadMoreListener ,GoodsBrowseAdapter.OnItemOperateListener{
 
     private GoodsBrowseAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -100,6 +101,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
+        mAdapter.setItemOperateListener(this);
         registerEvent(ProjectConstants.EVENT_UPDATE_GOODS, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
@@ -154,5 +156,10 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
         Bundle bundle = new Bundle();
         bundle.putSerializable("goods",mAdapter.getItem(position));
         NavigationHelper.startActivity(getActivity(), GoodsDetailsActivity.class,bundle,false);
+    }
+
+    @Override
+    public void onApply(GoodsBean item) {
+        showToastMessage(item.getMaterialName());
     }
 }

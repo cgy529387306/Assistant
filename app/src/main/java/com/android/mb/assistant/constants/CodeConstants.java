@@ -122,4 +122,39 @@ public class CodeConstants {
      */
     public static final String KEY_COMMON_UPLOAD = "100004";
 
+    /**
+     * 物资购物车
+     */
+    public static final String KEY_CART_ADD = "300010";
+
+    /**
+     * 物资数量修改 减少
+     */
+    public static final String KEY_CART_MINUS = "300011";
+
+    /**
+     * 物资清除
+     */
+    public static final String KEY_CART_DELETE = "300012";
+
+    /**
+     * 清空购物车
+     */
+    public static final String KEY_CART_CLEAR = "300013";
+
+    /**
+     * 购物车列表
+     */
+    public static final String KEY_CART_LIST = "300014";
+
+    /**
+     * 物资数量修改 添加
+     */
+    public static final String KEY_CART_PLUS = "300015";
+
+    /**
+     * 购物车内申请物资
+     */
+    public static final String KEY_CART_APPLY = "300016";
+
 }

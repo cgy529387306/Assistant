@@ -1,6 +1,8 @@
 package com.android.mb.assistant.adapter;
 
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.entitys.GoodsBean;
@@ -18,6 +20,16 @@ import java.util.List;
  */
 public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHolder> {
 
+    private OnItemOperateListener mItemOperateListener;
+
+    public void setItemOperateListener(OnItemOperateListener itemOperateListener) {
+        mItemOperateListener = itemOperateListener;
+    }
+
+    public interface OnItemOperateListener{
+        void onApply(GoodsBean item);
+    }
+
     public GoodsBrowseAdapter(List data) {
         super(R.layout.item_goods_browse, data);
     }
@@ -25,6 +37,7 @@ public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHold
 
     @Override
     protected void convert(BaseViewHolder helper, GoodsBean item) {
+        TextView tvNum = helper.getView(R.id.tv_num);
         ImageView imageView = helper.getView(R.id.iv_goods);
         helper.setText(R.id.tv_name,item.getMaterialName());
         helper.setText(R.id.tv_department,item.getGsDepartment());
@@ -36,6 +49,34 @@ public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHold
                 ImageUtils.displayImage(mContext,imageList.get(0),imageView);
             }
         }
+        helper.getView(R.id.iv_minus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int num = Integer.parseInt(tvNum.getText().toString());
+                if (num>0){
+                    num--;
+                    tvNum.setText(String.valueOf(num));
+                }
+            }
+        });
+        helper.getView(R.id.iv_plus).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int num = Integer.parseInt(tvNum.getText().toString());
+                if (num<100){
+                    num++;
+                    tvNum.setText(String.valueOf(num));
+                }
+            }
+        });
+        helper.getView(R.id.tv_apply).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mItemOperateListener!=null){
+                    mItemOperateListener.onApply(item);
+                }
+            }
+        });
 
     }
 }

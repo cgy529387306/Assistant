@@ -32,7 +32,7 @@ import java.util.List;
 /**
  * 物资详情
  */
-public class GoodsDetailsActivity extends BaseActivity{
+public class GoodsDetailsActivity extends BaseActivity implements View.OnClickListener{
 
     private GoodsBean mGoodsBean;
     private Banner mBanner;
@@ -40,6 +40,8 @@ public class GoodsDetailsActivity extends BaseActivity{
     private TextView mTvCategory,mTvStorageSite,mTvNumber,mTvPrice;
     private TextView mTvIsAsset,mTvGsDepartment,mTvInputTime,mTvContacts;
     private List<String> mImageList = new ArrayList<>();
+    private ImageView mIvMinus,mIvPlus;
+    private TextView mTvNum,mTvApply;
     @Override
     protected void loadIntent() {
         mGoodsBean = (GoodsBean) getIntent().getSerializableExtra("goods");
@@ -69,6 +71,10 @@ public class GoodsDetailsActivity extends BaseActivity{
         mTvGsDepartment = findViewById(R.id.tv_gs_department);
         mTvInputTime = findViewById(R.id.tv_input_time);
         mTvContacts = findViewById(R.id.tv_contacts);
+        mIvMinus = findViewById(R.id.iv_minus);
+        mIvPlus = findViewById(R.id.iv_plus);
+        mTvNum = findViewById(R.id.tv_num);
+        mTvApply = findViewById(R.id.tv_apply);
     }
 
     @Override
@@ -96,6 +102,26 @@ public class GoodsDetailsActivity extends BaseActivity{
         }
     }
 
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.iv_plus){
+            int num = Integer.parseInt(mTvNum.getText().toString());
+            if (num<100){
+                num++;
+                mTvNum.setText(String.valueOf(num));
+            }
+        }else if (id == R.id.iv_minus){
+            int num = Integer.parseInt(mTvNum.getText().toString());
+            if (num>0){
+                num--;
+                mTvNum.setText(String.valueOf(num));
+            }
+        }else if (id == R.id.tv_apply){
+            showToastMessage(mGoodsBean.getMaterialName());
+        }
+    }
+
     public class GlideImageLoader extends ImageLoader {
         @Override
         public void displayImage(Context context, Object path, ImageView imageView) {
@@ -105,6 +131,9 @@ public class GoodsDetailsActivity extends BaseActivity{
 
     @Override
     protected void setListener() {
+        mIvMinus.setOnClickListener(this);
+        mIvPlus.setOnClickListener(this);
+        mTvApply.setOnClickListener(this);
         mBanner.setOnBannerListener(new OnBannerListener() {
             @Override
             public void OnBannerClick(int position) {
