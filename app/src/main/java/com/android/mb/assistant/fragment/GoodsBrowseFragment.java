@@ -15,6 +15,7 @@ import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
+import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.entitys.GoodsListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
@@ -135,18 +136,29 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
 
     @Override
     public void requestSuccess(String requestCode,String result) {
-        GoodsListResp listResp = JsonHelper.fromJson(result,GoodsListResp.class);
-        if (listResp!=null){
-            if (listResp.isLast()){
-                mRefreshLayout.finishLoadMoreWithNoMoreData();
+        if (CodeConstants.KEY_CART_ADD.equals(requestCode)){
+            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+            if (resp!=null){
+                if (resp.isSuccess()){
+                    showToastMessage("添加成功");
+                }else{
+                    showToastMessage(resp.getMessage());
+                }
             }
-            if (mCurrentPage == 1) {
-                mRefreshLayout.finishRefresh();
-                mAdapter.setNewData(listResp.getData());
-                mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
-            } else {
-                mAdapter.addData(listResp.getData());
-                mRefreshLayout.finishLoadMore();
+        }else{
+            GoodsListResp listResp = JsonHelper.fromJson(result,GoodsListResp.class);
+            if (listResp!=null){
+                if (listResp.isLast()){
+                    mRefreshLayout.finishLoadMoreWithNoMoreData();
+                }
+                if (mCurrentPage == 1) {
+                    mRefreshLayout.finishRefresh();
+                    mAdapter.setNewData(listResp.getData());
+                    mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
+                } else {
+                    mAdapter.addData(listResp.getData());
+                    mRefreshLayout.finishLoadMore();
+                }
             }
         }
     }
@@ -160,6 +172,8 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
 
     @Override
     public void onApply(GoodsBean item) {
-        showToastMessage(item.getMaterialName());
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("mId",item.getMaterialId());
+        mPresenter.requestCart(CodeConstants.KEY_CART_ADD,requestParams,false);
     }
 }
