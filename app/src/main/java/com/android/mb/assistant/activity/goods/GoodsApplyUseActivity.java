@@ -4,21 +4,30 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 使用申请
  */
-public class GoodsApplyUseActivity extends BaseActivity implements View.OnClickListener{
+public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener{
+
+    private EditText mEtName,mEtTel,mEtRemark;
     private RecyclerView mRecyclerView;
     private GoodsApplyUseAdapter mGoodsApplyUseAdapter;
     private TextView mTvSubmit;
@@ -40,7 +49,15 @@ public class GoodsApplyUseActivity extends BaseActivity implements View.OnClickL
 
     @Override
     protected void bindViews() {
-        initView();
+        mEtName = findViewById(R.id.et_name);
+        mEtTel = findViewById(R.id.et_tel);
+        mEtRemark = findViewById(R.id.et_remark);
+        mTvSubmit = findViewById(R.id.tv_submit);
+        mRecyclerView = findViewById(R.id.rv_goods);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
+        mGoodsApplyUseAdapter = new GoodsApplyUseAdapter(getList());
+        mRecyclerView.setAdapter(mGoodsApplyUseAdapter);
     }
 
     @Override
@@ -53,14 +70,6 @@ public class GoodsApplyUseActivity extends BaseActivity implements View.OnClickL
         mTvSubmit.setOnClickListener(this);
     }
 
-    private void initView() {
-        mTvSubmit = findViewById(R.id.tv_submit);
-        mRecyclerView = findViewById(R.id.rv_goods);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mGoodsApplyUseAdapter = new GoodsApplyUseAdapter(getList());
-        mRecyclerView.setAdapter(mGoodsApplyUseAdapter);
-    }
     private List<String> getList(){
         List<String> list = new ArrayList<>();
         list.add("苹果电脑");
@@ -73,7 +82,24 @@ public class GoodsApplyUseActivity extends BaseActivity implements View.OnClickL
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.tv_submit){
-
+            doSumbit();
         }
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
+    }
+
+    private void doSumbit(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(mPageSize));
+        mPresenter.requestCart(CodeConstants.KEY_CART_APPLY,requestParams,true);
     }
 }

@@ -2,9 +2,11 @@ package com.android.mb.assistant.activity.goods;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.widget.AppCompatCheckBox;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
@@ -38,10 +40,12 @@ import java.util.Map;
  */
 public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener, OnRefreshListener, OnLoadMoreListener {
 
-    private GoodsShoppingCartAdapter mGoodsShoppingCartAdapter;
+    private GoodsShoppingCartAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
     private TextView mTvApplyUse;
+    private AppCompatCheckBox mCbAll;
+    private TextView mTvAll;
 
     @Override
     protected void loadIntent() {
@@ -56,12 +60,22 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
     @Override
     protected void initTitle() {
         setTitleText("物资购物车");
-        setRightImage(R.mipmap.icon_edit);
     }
 
     @Override
     protected void bindViews() {
-        initView();
+        mTvApplyUse = findViewById(R.id.tv_apply_use);
+        mRefreshLayout = findViewById(R.id.refreshLayout);
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
+        mRefreshLayout.setEnableLoadMore(false);
+        mRecyclerView = findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
+        mAdapter = new GoodsShoppingCartAdapter(getList());
+        mRecyclerView.setAdapter(mAdapter);
+        mCbAll = findViewById(R.id.cb_all);
+        mTvAll = findViewById(R.id.tv_all);
     }
 
     @Override
@@ -72,27 +86,20 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
     @Override
     protected void setListener() {
         mTvApplyUse.setOnClickListener(this);
-        mGoodsShoppingCartAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                ShoppingCartData data = mGoodsShoppingCartAdapter.getItem(position);
+                ShoppingCartData data = mAdapter.getItem(position);
                 data.setSelect(!data.isSelect());
-                mGoodsShoppingCartAdapter.setData(position,data);
+                mAdapter.setData(position,data);
             }
         });
-    }
-
-    private void initView() {
-        mTvApplyUse = findViewById(R.id.tv_apply_use);
-        mRefreshLayout = findViewById(R.id.refreshLayout);
-        mRefreshLayout.setOnRefreshListener(this);
-        mRefreshLayout.setOnLoadMoreListener(this);
-        mRefreshLayout.setEnableLoadMore(false);
-        mRecyclerView = findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mGoodsShoppingCartAdapter = new GoodsShoppingCartAdapter(getList());
-        mRecyclerView.setAdapter(mGoodsShoppingCartAdapter);
+        mCbAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                mAdapter.setIsAllCheck(b);
+            }
+        });
     }
 
     @Override

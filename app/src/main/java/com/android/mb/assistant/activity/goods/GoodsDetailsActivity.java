@@ -113,7 +113,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             }
         }else if (id == R.id.iv_minus){
             int num = Integer.parseInt(mTvNum.getText().toString());
-            if (num>0){
+            if (num>1){
                 num--;
                 mTvNum.setText(String.valueOf(num));
             }

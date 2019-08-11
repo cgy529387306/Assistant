@@ -5,6 +5,7 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.entitys.ShoppingCartData;
+import com.android.mb.assistant.utils.Helper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -30,7 +31,7 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
             @Override
             public void onClick(View view) {
                 int num = Integer.parseInt(tvNum.getText().toString());
-                if (num>0){
+                if (num>1){
                     num--;
                     tvNum.setText(String.valueOf(num));
                 }
@@ -46,6 +47,15 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
                 }
             }
         });
+    }
+
+    public void setIsAllCheck(boolean isAllCheck){
+        if (Helper.isNotEmpty(getData())){
+            for (ShoppingCartData shoppingCartData:getData()) {
+                shoppingCartData.setSelect(isAllCheck);
+            }
+            notifyDataSetChanged();
+        }
     }
 }
 

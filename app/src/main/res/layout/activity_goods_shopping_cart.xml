@@ -3,60 +3,54 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
     <View
         android:layout_width="match_parent"
         android:layout_height="8dp"
         android:background="#F8F8F8"/>
-
-    <RelativeLayout
+    <include
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <include
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="50dp"
-            layout="@layout/common_recycleview"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        layout="@layout/common_recycleview"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:elevation="10dp"
+        android:background="@color/white"
+        android:orientation="horizontal">
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="bottom"
-            android:elevation="10dp"
-            android:background="@color/white"
-            android:orientation="horizontal">
-
-            <ImageView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+            <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/cb_all"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="58dp"
-                android:paddingRight="12dp"
-                android:src="@mipmap/icon_reduce"/>
-
+                android:layout_height="wrap_content"
+                android:text="全选"
+                android:screenReaderFocusable="true"/>
             <TextView
-                android:textSize="13sp"
-                android:textColor="#333333"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:id="@+id/tv_all"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_marginLeft="6dp"
+                android:layout_marginRight="6dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="1"/>
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingLeft="12dp"
-                android:paddingRight="45dp"
-                android:src="@mipmap/icon_add"/>
-
-            <TextView
-                android:id="@+id/tv_apply_use"
-                android:textSize="16sp"
-                android:textColor="#FFFFFF"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:background="#0080CC"
-                android:text="申请使用"/>
+                android:text="合计（99）"
+                android:textColor="#999999"
+                android:textSize="13sp"/>
         </LinearLayout>
-    </RelativeLayout>
+        <TextView
+            android:id="@+id/tv_apply_use"
+            android:textSize="16sp"
+            android:textColor="#FFFFFF"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:background="#0080CC"
+            android:text="申请使用"/>
+    </LinearLayout>
 </LinearLayout>

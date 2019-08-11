@@ -8,12 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
 import com.android.mb.assistant.activity.goods.ChapterApprovalDeailsActivity;
-import com.android.mb.assistant.activity.goods.MyApplyUseDeailsActivity;
 import com.android.mb.assistant.adapter.IGoodsManageAdapter;
 import com.android.mb.assistant.base.BaseFragment;
-import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -38,7 +35,8 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
 
     private static final String KEY_STATE = "key_state";
     private static final String KEY_TYPE = "key_type";
-    private int status;
+    private int mType;//0:我的审批  1:我的申请
+    private int mState;
 
     @Override
     protected int getLayoutId() {
@@ -46,14 +44,14 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
     }
 
     /**
-     * @param state 0:今天 1:明天 2:全部
+     * @param state 0:全部 1:未通过 2:通过
      * @return
      */
-    public static Fragment getInstance(int state,int type) {
+    public static Fragment getInstance(int type,int state) {
         Fragment fragment = new ChapterApprovalFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt(KEY_STATE, state);
         bundle.putInt(KEY_TYPE, type);
+        bundle.putInt(KEY_STATE, state);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -64,7 +62,8 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
     }
 
     private void initView(View view) {
-        status = (int) getArguments().get(KEY_STATE);
+        mState = (int) getArguments().get(KEY_STATE);
+        mType = (int) getArguments().get(KEY_TYPE);
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
@@ -93,12 +92,9 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
         mIGoodsmanageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                if (status == 0) { //用章审批
-                    NavigationHelper.startActivity(getActivity(), ChapterApprovalDeailsActivity.class, null, false);
-                }else if (status == 1){  // 我的使用申请
-                    NavigationHelper.startActivity(getActivity(), MyApplyUseDeailsActivity.class, null, false);
-
-                }
+                Bundle bundle = new Bundle();
+                bundle.putInt("type",mType);
+                NavigationHelper.startActivity(getActivity(), ChapterApprovalDeailsActivity.class, bundle, false);
             }
         });
     }

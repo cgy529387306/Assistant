@@ -16,16 +16,16 @@ import com.android.mb.assistant.widget.FragmentViewPager;
 import java.util.ArrayList;
 
 /**
- * 用章审批
+ * 用章审批(我的申请)
  */
 public class ChapterApprovalActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
-    private int status;
+    private int mType;
     @Override
     protected void loadIntent() {
-        status = getIntent().getIntExtra("status",0);
+        mType = getIntent().getIntExtra("type",0);
     }
 
     @Override
@@ -35,11 +35,7 @@ public class ChapterApprovalActivity extends BaseActivity{
 
     @Override
     protected void initTitle() {
-        if (status == 0) {
-            setTitleText("用章审批");
-        }else if (status == 1){
-            setTitleText("我的申请");
-        }
+        setTitleText(mType == 1?"我的申请":mType==2? "最新入库":"用章审批");
     }
 
     @Override
@@ -86,9 +82,9 @@ public class ChapterApprovalActivity extends BaseActivity{
     }
     private void initTabViewPager(){
         mFragmentArrayList = new ArrayList<>();
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,0));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,1));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(status,2));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,0));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,1));
+        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,2));
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));

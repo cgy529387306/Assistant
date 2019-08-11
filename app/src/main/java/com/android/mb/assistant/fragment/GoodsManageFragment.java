@@ -94,16 +94,10 @@ public class GoodsManageFragment extends BaseFragment implements OnRefreshListen
         mGoodsmanageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                //0:用章审批 1:我的申请 2:我的入库
                 Bundle bundle = new Bundle();
-                bundle.putInt("status",position);
+                bundle.putInt("type",position);
                 NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,bundle,false);
-//                if (position == 0){  // 用章审批
-//                    NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,null,false);
-//                }else if (position == 1){  // 我的申请
-//                    NavigationHelper.startActivity(getActivity(), ChapterApprovalActivity.class,null,false);
-//                }else if (position == 2){  // 最新入库
-//
-//                }
             }
         });
     }

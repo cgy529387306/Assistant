@@ -53,7 +53,7 @@ public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHold
             @Override
             public void onClick(View view) {
                 int num = Integer.parseInt(tvNum.getText().toString());
-                if (num>0){
+                if (num>1){
                     num--;
                     tvNum.setText(String.valueOf(num));
                 }

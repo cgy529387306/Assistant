@@ -96,8 +96,6 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.goods.MyApplyUseDeailsActivity"
-            android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectPatternActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectCategoryActivity"
