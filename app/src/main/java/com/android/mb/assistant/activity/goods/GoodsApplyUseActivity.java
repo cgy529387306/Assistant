@@ -8,12 +8,14 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.competitive.SelectPersonActivity;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
@@ -28,9 +30,11 @@ import java.util.Map;
 public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener{
 
     private EditText mEtName,mEtTel,mEtRemark;
+    private TextView mSelectApproval;
     private RecyclerView mRecyclerView;
     private GoodsApplyUseAdapter mGoodsApplyUseAdapter;
     private TextView mTvSubmit;
+
 
     @Override
     protected void loadIntent() {
@@ -52,6 +56,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         mEtName = findViewById(R.id.et_name);
         mEtTel = findViewById(R.id.et_tel);
         mEtRemark = findViewById(R.id.et_remark);
+        mSelectApproval = findViewById(R.id.tv_select_approval);
         mTvSubmit = findViewById(R.id.tv_submit);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -67,6 +72,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
 
     @Override
     protected void setListener() {
+        mSelectApproval.setOnClickListener(this);
         mTvSubmit.setOnClickListener(this);
     }
 
@@ -82,7 +88,9 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.tv_submit){
-            doSumbit();
+            doSubmit();
+        }else if (id == R.id.tv_select_approval){
+            NavigationHelper.startActivity(this, SelectApproverActivity.class,null,false);
         }
     }
 
@@ -96,7 +104,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         return new CommonPresenter();
     }
 
-    private void doSumbit(){
+    private void doSubmit(){
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));

@@ -106,6 +106,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.ChapterApprovalActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.SelectApproverActivity"
+            android:screenOrientation="portrait"/>
 
         <service
             android:name="com.baidu.location.f"

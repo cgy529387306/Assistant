@@ -196,6 +196,41 @@ public class CommonPresenter extends BaseMvpPresenter<ICommonView> implements IC
     }
 
     @Override
+    public void requestAppraise(String requestCode, Map<String, String> params, boolean isShowLoading) {
+        if (isShowLoading){
+            mMvpView.showProgressDialog("请稍后...");
+        }
+        Observable observable = ScheduleMethods.getInstance().appraiseRequest(requestCode,params);
+        toSubscribe(observable,  new Subscriber<String>() {
+            @Override
+            public void onCompleted() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                if(mMvpView!=null){
+                    mMvpView.dismissProgressDialog();
+                    mMvpView.showToastMessage(Helper.isNotEmpty(e.getMessage())?e.getMessage():"请求失败");
+                }
+            }
+
+            @Override
+            public void onNext(String result) {
+                if (mMvpView!=null){
+                    mMvpView.dismissProgressDialog();
+                    if (Helper.isNotEmpty(result)){
+                        Logger.json(result);
+                        mMvpView.requestSuccess(requestCode,result);
+                    }else{
+                        mMvpView.showToastMessage("服务端数据异常");
+                    }
+                }
+            }
+        });
+    }
+
+    @Override
     public void uploadImg(String requestCode, Map<String, String> params, File file, boolean isShowLoading) {
         if (isShowLoading){
             mMvpView.showProgressDialog("请稍后...");

@@ -18,5 +18,7 @@ public interface ICommonPresenter {
 
     void requestCart(String requestCode, Map<String,String> params, boolean isShowLoading);
 
+    void requestAppraise(String requestCode, Map<String,String> params, boolean isShowLoading);
+
     void uploadImg(String requestCode, Map<String,String> params, File file, boolean isShowLoading);
 }
