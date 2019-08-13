@@ -13,13 +13,16 @@ import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.CartBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,14 +34,15 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
 
     private EditText mEtName,mEtTel,mEtRemark;
     private TextView mSelectApproval;
+    private TextView mTvTime;
     private RecyclerView mRecyclerView;
     private GoodsApplyUseAdapter mGoodsApplyUseAdapter;
     private TextView mTvSubmit;
-
+    private List<CartBean> mCartBeanList = new ArrayList<>();
 
     @Override
     protected void loadIntent() {
-
+        mCartBeanList = (List<CartBean>) getIntent().getSerializableExtra("dataList");
     }
 
     @Override
@@ -56,13 +60,15 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         mEtName = findViewById(R.id.et_name);
         mEtTel = findViewById(R.id.et_tel);
         mEtRemark = findViewById(R.id.et_remark);
+        mTvTime = findViewById(R.id.tv_time);
         mSelectApproval = findViewById(R.id.tv_select_approval);
         mTvSubmit = findViewById(R.id.tv_submit);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mGoodsApplyUseAdapter = new GoodsApplyUseAdapter(getList());
+        mGoodsApplyUseAdapter = new GoodsApplyUseAdapter(mCartBeanList);
         mRecyclerView.setAdapter(mGoodsApplyUseAdapter);
+        mTvTime.setText(Helper.date2String(new Date(),Helper.DATE_FORMAT1));
     }
 
     @Override
@@ -74,14 +80,6 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
     protected void setListener() {
         mSelectApproval.setOnClickListener(this);
         mTvSubmit.setOnClickListener(this);
-    }
-
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("苹果电脑");
-        list.add("华硕电脑");
-        return list;
-
     }
 
     @Override

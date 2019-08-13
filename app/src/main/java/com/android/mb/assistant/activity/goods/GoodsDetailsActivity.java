@@ -13,12 +13,20 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
 import com.android.mb.assistant.base.BaseActivity;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CompetitiveBean;
+import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.fragment.GoodsBrowseFragment;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.ImageUtils;
+import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FragmentViewPager;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.entity.LocalMedia;
@@ -27,12 +35,14 @@ import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 物资详情
  */
-public class GoodsDetailsActivity extends BaseActivity implements View.OnClickListener{
+public class GoodsDetailsActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener{
 
     private GoodsBean mGoodsBean;
     private Banner mBanner;
@@ -95,6 +105,7 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             mTvInputTime.setText(Helper.long2DateString(mGoodsBean.getCreateTime(),Helper.DATE_FORMAT1));
             mTvContacts.setText(mGoodsBean.getContacts());
             mTvPrice.setText(mGoodsBean.getPrice());
+            mTvNum.setText(String.valueOf(mGoodsBean.getAddMum()));
             mImageList = ProjectHelper.strToList(mGoodsBean.getImg());
             mBanner.setImageLoader(new GlideImageLoader());
             mBanner.setImages(mImageList);
@@ -110,16 +121,46 @@ public class GoodsDetailsActivity extends BaseActivity implements View.OnClickLi
             if (num<100){
                 num++;
                 mTvNum.setText(String.valueOf(num));
+                mGoodsBean.setAddMum(num);
             }
         }else if (id == R.id.iv_minus){
             int num = Integer.parseInt(mTvNum.getText().toString());
             if (num>1){
                 num--;
                 mTvNum.setText(String.valueOf(num));
+                mGoodsBean.setAddMum(num);
             }
         }else if (id == R.id.tv_apply){
-            showToastMessage(mGoodsBean.getMaterialName());
+            doApply(mGoodsBean);
         }
+    }
+
+    public void doApply(GoodsBean item) {
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("materialId",item.getMaterialId());
+        requestParams.put("mUid", CurrentUser.getInstance().getMuid());
+        requestParams.put("materialNum",String.valueOf(item.getAddMum()));
+        mPresenter.requestCart(CodeConstants.KEY_CART_ADD,requestParams,false);
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+        if (CodeConstants.KEY_CART_ADD.equals(requestCode)){
+            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+            if (resp!=null){
+                if (resp.isSuccess()){
+                    showToastMessage("添加购物车成功!");
+                    NavigationHelper.startActivity(GoodsDetailsActivity.this, GoodsShoppingCartActivity.class,null,false);
+                }else{
+                    showToastMessage(resp.getMessage());
+                }
+            }
+        }
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 
     public class GlideImageLoader extends ImageLoader {

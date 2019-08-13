@@ -258,6 +258,20 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
             showToastMessage("请上传物资照片");
             return;
         }
+        try {
+            int num = Integer.parseInt(number);
+            double p = Double.parseDouble(price);
+            if (num == 0){
+                showToastMessage("数量不能为0");
+                return;
+            }
+            if (p == 0){
+                showToastMessage("价格不能为0");
+                return;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("materialName",name);

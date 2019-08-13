@@ -56,6 +56,7 @@ public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHold
                 if (num>1){
                     num--;
                     tvNum.setText(String.valueOf(num));
+                    item.setAddMum(num);
                 }
             }
         });
@@ -66,6 +67,7 @@ public class GoodsBrowseAdapter extends BaseQuickAdapter<GoodsBean, BaseViewHold
                 if (num<100){
                     num++;
                     tvNum.setText(String.valueOf(num));
+                    item.setAddMum(num);
                 }
             }
         });

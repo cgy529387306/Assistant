@@ -29,6 +29,7 @@ import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
+import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,6 +38,7 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -124,9 +126,17 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
     public void onClick(View view) {
         int id = view.getId();
         if (id == R.id.tv_apply_use){
-            NavigationHelper.startActivity(this, GoodsApplyUseActivity.class,null,false);
+            if (Helper.isEmpty(mAdapter.getSelectList())){
+                ToastHelper.showToast("请选择申请物资");
+                return;
+            }
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("dataList", (Serializable) mAdapter.getSelectList());
+            NavigationHelper.startActivity(this, GoodsApplyUseActivity.class,bundle,false);
         }
     }
+
+
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {

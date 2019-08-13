@@ -44,6 +44,7 @@ public class GoodsBean implements Serializable {
     private String mUnitnameId;
     private String materialId;
     private String mPrice;
+    private int mAddMum;
 
     public int getAsset() {
         return mAsset;
@@ -188,5 +189,13 @@ public class GoodsBean implements Serializable {
 
     public void setPrice(String price) {
         mPrice = price;
+    }
+
+    public int getAddMum() {
+        return mAddMum==0?1:mAddMum;
+    }
+
+    public void setAddMum(int addMum) {
+        mAddMum = addMum;
     }
 }

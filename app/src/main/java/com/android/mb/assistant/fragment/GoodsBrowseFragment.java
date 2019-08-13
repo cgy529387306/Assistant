@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.activity.goods.GoodsDetailsActivity;
+import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
 import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
@@ -142,6 +143,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
             if (resp!=null){
                 if (resp.isSuccess()){
                     showToastMessage("添加购物车成功!");
+                    NavigationHelper.startActivity(getActivity(), GoodsShoppingCartActivity.class,null,false);
                 }else{
                     showToastMessage(resp.getMessage());
                 }
@@ -176,6 +178,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("materialId",item.getMaterialId());
         requestParams.put("mUid", CurrentUser.getInstance().getMuid());
+        requestParams.put("materialNum",String.valueOf(item.getAddMum()));
         mPresenter.requestCart(CodeConstants.KEY_CART_ADD,requestParams,false);
     }
 }
