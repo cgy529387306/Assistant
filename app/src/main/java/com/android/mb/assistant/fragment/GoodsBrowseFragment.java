@@ -16,6 +16,7 @@ import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CommonResp;
+import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.entitys.GoodsListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
@@ -140,7 +141,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
             CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
             if (resp!=null){
                 if (resp.isSuccess()){
-                    showToastMessage("添加成功");
+                    showToastMessage("添加购物车成功!");
                 }else{
                     showToastMessage(resp.getMessage());
                 }
@@ -173,7 +174,8 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
     @Override
     public void onApply(GoodsBean item) {
         Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("mId",item.getMaterialId());
+        requestParams.put("materialId",item.getMaterialId());
+        requestParams.put("mUid", CurrentUser.getInstance().getMuid());
         mPresenter.requestCart(CodeConstants.KEY_CART_ADD,requestParams,false);
     }
 }

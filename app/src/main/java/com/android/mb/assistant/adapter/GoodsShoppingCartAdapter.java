@@ -4,7 +4,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.entitys.ShoppingCartData;
+import com.android.mb.assistant.entitys.CartBean;
+import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.utils.Helper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -15,7 +16,18 @@ import java.util.List;
 /**
  * Created by necer on 2017/6/7.
  */
-public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData, BaseViewHolder> {
+public class GoodsShoppingCartAdapter extends BaseQuickAdapter<CartBean, BaseViewHolder> {
+
+    private OnItemOperateListener mItemOperateListener;
+
+    public void setItemOperateListener(OnItemOperateListener itemOperateListener) {
+        mItemOperateListener = itemOperateListener;
+    }
+
+    public interface OnItemOperateListener{
+        void plusNum(CartBean item);
+        void minusNum(CartBean item);
+    }
 
     public GoodsShoppingCartAdapter(List data) {
         super(R.layout.item_goods_shopping_cart, data);
@@ -23,9 +35,12 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
 
 
     @Override
-    protected void convert(BaseViewHolder helper, ShoppingCartData item) {
+    protected void convert(BaseViewHolder helper, CartBean item) {
         TextView tvNum = helper.getView(R.id.tv_num);
-        helper.setText(R.id.tv_name,item.getName());
+        helper.setText(R.id.tv_name,item.getMaterialName());
+        helper.setText(R.id.tv_price,"￥"+item.getMaterialPrice());
+        helper.setText(R.id.tv_time,Helper.long2DateString(item.getTime(),Helper.DATE_FORMAT1));
+        helper.setText(R.id.tv_num,String.valueOf(item.getMaterialNum()));
         helper.setImageResource(R.id.iv_check,item.isSelect()?R.mipmap.icon_select_on:R.mipmap.icon_select_off);
         helper.getView(R.id.iv_minus).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,6 +49,9 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
                 if (num>1){
                     num--;
                     tvNum.setText(String.valueOf(num));
+                    if (mItemOperateListener!=null){
+                        mItemOperateListener.minusNum(item);
+                    }
                 }
             }
         });
@@ -44,6 +62,9 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
                 if (num<100){
                     num++;
                     tvNum.setText(String.valueOf(num));
+                    if (mItemOperateListener!=null){
+                        mItemOperateListener.plusNum(item);
+                    }
                 }
             }
         });
@@ -51,8 +72,8 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<ShoppingCartData,
 
     public void setIsAllCheck(boolean isAllCheck){
         if (Helper.isNotEmpty(getData())){
-            for (ShoppingCartData shoppingCartData:getData()) {
-                shoppingCartData.setSelect(isAllCheck);
+            for (CartBean cartBean:getData()) {
+                cartBean.setSelect(isAllCheck);
             }
             notifyDataSetChanged();
         }
