@@ -100,6 +100,16 @@ public class GoodsShoppingCartAdapter extends BaseQuickAdapter<CartBean, BaseVie
         }
         return result;
     }
+
+    public int getTotalCount(){
+        int count = 0;
+        for (CartBean cartBean:getData()){
+            if (cartBean.isSelect()){
+                count+=cartBean.getMaterialNum();
+            }
+        }
+        return count;
+    }
 }
 
 

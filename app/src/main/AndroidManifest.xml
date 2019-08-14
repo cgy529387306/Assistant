@@ -69,7 +69,8 @@
             android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.competitive.CompetitiveInputActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".activity.competitive.CompetitiveBrowseActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.competitive.CompetitiveDetailsActivity"
@@ -89,11 +90,13 @@
         <activity android:name=".activity.goods.GoodsDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsInputActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".activity.goods.GoodsShoppingCartActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.GoodsApplyUseActivity"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
         <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectPatternActivity"
@@ -106,7 +109,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.ChapterApprovalActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.goods.SelectApproverActivity"
+        <activity android:name=".activity.goods.SelectApprovalActivity"
             android:screenOrientation="portrait"/>
 
         <service

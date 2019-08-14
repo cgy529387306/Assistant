@@ -38,7 +38,7 @@
                 android:layout_marginRight="6dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="合计（99）"
+                android:text="合计(0)"
                 android:textColor="#999999"
                 android:textSize="13sp"/>
         </LinearLayout>

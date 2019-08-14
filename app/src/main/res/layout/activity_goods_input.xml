@@ -182,7 +182,7 @@
                 android:id="@+id/et_number"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:maxLength="20"
+                android:maxLength="9"
                 android:background="@null"
                 android:imeOptions="actionNext"
                 android:singleLine="true"

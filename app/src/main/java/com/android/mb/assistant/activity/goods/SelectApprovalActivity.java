@@ -1,5 +1,6 @@
 package com.android.mb.assistant.activity.goods;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,17 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.PersonAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
-import com.android.mb.assistant.constants.ProjectConstants;
-import com.android.mb.assistant.entitys.CommonResp;
+import com.android.mb.assistant.entitys.ApprovalListResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.UserBean;
-import com.android.mb.assistant.entitys.UserListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.JsonHelper;
@@ -36,7 +33,7 @@ import java.util.Map;
 /**
  * 选择审批人
  */
-public class SelectApproverActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, BaseQuickAdapter.OnItemClickListener, OnRefreshListener, OnLoadMoreListener {
+public class SelectApprovalActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, BaseQuickAdapter.OnItemClickListener, OnRefreshListener, OnLoadMoreListener {
 
     private PersonAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -101,29 +98,10 @@ public class SelectApproverActivity extends BaseMvpActivity<CommonPresenter, ICo
     @Override
     public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
         UserBean userBean = mAdapter.getItem(position);
-        new MaterialDialog.Builder(this)
-                .title("派单")
-                .content("确认派单给"+userBean.getUname()+"吗？")
-                .positiveText("确认")
-                .negativeText("取消")
-                .onPositive(new MaterialDialog.SingleButtonCallback() {
-                    @Override
-                    public void onClick(MaterialDialog dialog, DialogAction which) {
-                        doSubmit(userBean);
-                    }
-                })
-                .show();
-    }
-
-    private void doSubmit(UserBean userBean){
-        Map<String,String> requestParams = new HashMap<>();
-        requestParams.put("cId",mCompetitiveId);
-        requestParams.put("mUid",CurrentUser.getInstance().getMuid());
-        requestParams.put("authority",String.valueOf(CurrentUser.getInstance().getAuthority()));
-        requestParams.put("receiveId",userBean.getMuid());
-        requestParams.put("receiveName",userBean.getUname());
-        requestParams.put("department",userBean.getDepartmentName());
-        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_DISPATCH,requestParams,true);
+        Intent intent = new Intent();
+        intent.putExtra("userBean",userBean);
+        setResult(RESULT_OK,intent);
+        finish();
     }
 
     @Override
@@ -141,7 +119,7 @@ public class SelectApproverActivity extends BaseMvpActivity<CommonPresenter, ICo
     @Override
     public void requestSuccess(String requestCode, String result) {
         if (CodeConstants.KEY_COMPETITIVE_DISPATCHERS.equals(requestCode)){
-            UserListResp listResp = JsonHelper.fromJson(result, UserListResp.class);
+            ApprovalListResp listResp = JsonHelper.fromJson(result, ApprovalListResp.class);
             if (listResp!=null){
                 if (listResp.isLast()){
                     mRefreshLayout.finishLoadMoreWithNoMoreData();
@@ -155,18 +133,6 @@ public class SelectApproverActivity extends BaseMvpActivity<CommonPresenter, ICo
                     mRefreshLayout.finishLoadMore();
                 }
             }
-        }else if (CodeConstants.KEY_COMPETITIVE_DISPATCH.equals(requestCode)){
-            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
-            if (resp!=null){
-                if (resp.isSuccess()){
-                    showToastMessage("派单成功");
-                    sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
-                    finish();
-                }else{
-                    showToastMessage(resp.getMessage());
-                }
-            }
         }
-
     }
 }

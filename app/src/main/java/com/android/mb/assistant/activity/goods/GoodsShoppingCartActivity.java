@@ -112,12 +112,14 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                 CartBean cartBean = mAdapter.getItem(position);
                 cartBean.setSelect(!cartBean.isSelect());
                 mAdapter.setData(position,cartBean);
+                mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
             }
         });
         mCbAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mAdapter.setIsAllCheck(b);
+                mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
             }
         });
     }
@@ -158,6 +160,7 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
             if (resp!=null){
                 if (resp.isSuccess()){
                     onRefresh(null);
+                    mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
                 }else{
                     showToastMessage(resp.getMessage());
                 }

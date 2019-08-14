@@ -155,6 +155,6 @@ public class CodeConstants {
     /**
      * 购物车内申请物资
      */
-    public static final String KEY_CART_APPLY = "300016";
+    public static final String KEY_CART_APPLY = "300017";
 
 }

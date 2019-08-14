@@ -7,6 +7,7 @@ import android.os.IBinder;
 import android.support.annotation.CallSuper;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputFilter;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -31,6 +32,8 @@ import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
+import com.android.mb.assistant.widget.MoneyValueFilter;
+import com.android.mb.assistant.widget.NumberValueFilter;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
 import com.bigkoo.pickerview.view.TimePickerView;
@@ -116,6 +119,8 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         mTvSelectDepartment = findViewById(R.id.tv_select_department);
         mTvSelectDate = findViewById(R.id.tv_select_date);
         mTvConfirm = findViewById(R.id.tv_confirm);
+        mEtNumber.setFilters(new InputFilter[]{new NumberValueFilter()});
+        mEtPrice.setFilters(new InputFilter[]{new MoneyValueFilter()});
     }
 
     private void initRecycleView(){
@@ -280,6 +285,7 @@ public class GoodsInputActivity extends BaseMvpActivity<CommonPresenter, ICommon
         requestParams.put("unitName",company);
         requestParams.put("storageSite",address);
         requestParams.put("mum",number);
+        requestParams.put("mprice",price);
         requestParams.put("asset",isYes?"1":"0");
         requestParams.put("dePartment",department);
         requestParams.put("createTime",String.valueOf(inputTime));
