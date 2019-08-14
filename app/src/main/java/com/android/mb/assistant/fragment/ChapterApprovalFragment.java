@@ -6,12 +6,19 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.goods.ChapterApprovalDeailsActivity;
 import com.android.mb.assistant.adapter.IGoodsManageAdapter;
-import com.android.mb.assistant.base.BaseFragment;
+import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.ApplyListResp;
+import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -20,16 +27,17 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 
 /**
  * 用章审批
  * Created by cgy on 16/7/18.
  */
-public class ChapterApprovalFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener {
 
-    private IGoodsManageAdapter mIGoodsmanageAdapter;
+    private IGoodsManageAdapter mAdapter;
     private RecyclerView mRecyclerView;
     private SmartRefreshLayout mRefreshLayout;
 
@@ -71,25 +79,27 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.list_divider)));
-        mIGoodsmanageAdapter = new IGoodsManageAdapter(getList());
-        mRecyclerView.setAdapter(mIGoodsmanageAdapter);
-    }
-
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("张大大的物资申请");
-        list.add("张大大的物资申请");
-        list.add("张大大的物资申请");
-        return list;
+        mAdapter = new IGoodsManageAdapter(new ArrayList());
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic() {
+        onRefresh(null);
+    }
+
+
+    private void getListFormServer(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("mUid", CurrentUser.getInstance().getMuid());
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(mPageSize));
+        mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLICANT,requestParams,false);
     }
 
     @Override
     protected void setListener() {
-        mIGoodsmanageAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
+        mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
@@ -101,16 +111,41 @@ public class ChapterApprovalFragment extends BaseFragment implements OnRefreshLi
 
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+        mCurrentPage++;
+        getListFormServer();
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        mCurrentPage = 1;
+        getListFormServer();
     }
 
     @Override
     public void initImmersionBar() {
 
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+        ApplyListResp listResp = JsonHelper.fromJson(result,ApplyListResp.class);
+        if (listResp!=null){
+            if (listResp.isLast()){
+                mRefreshLayout.finishLoadMoreWithNoMoreData();
+            }
+            if (mCurrentPage == 1) {
+                mRefreshLayout.finishRefresh();
+                mAdapter.setNewData(listResp.getData());
+                mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
+            } else {
+                mAdapter.addData(listResp.getData());
+                mRefreshLayout.finishLoadMore();
+            }
+        }
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
     }
 }

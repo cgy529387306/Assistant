@@ -34,7 +34,7 @@ public class GoodsManageAdapter extends BaseQuickAdapter<String, BaseViewHolder>
         RecyclerView mRecyclerView = helper.getView(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,mContext.getResources().getColor(R.color.gray_divider)));
-        IGoodsManageAdapter mIGoodsmanageAdapter = new IGoodsManageAdapter(getList());
+        IGoodsManageAdapter mIGoodsmanageAdapter = new IGoodsManageAdapter(new ArrayList());
         mRecyclerView.setAdapter(mIGoodsmanageAdapter);
         mIGoodsmanageAdapter.setOnItemClickListener(new OnItemClickListener() {
             @Override
@@ -42,16 +42,9 @@ public class GoodsManageAdapter extends BaseQuickAdapter<String, BaseViewHolder>
                 mOnChapterApprovalListener.onGoodsApproval();
             }
         });
+    }
 
 
-    }
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("张大大的物资申请");
-        list.add("张大大的物资申请");
-        list.add("张大大的物资申请");
-        return list;
-    }
 }
 
 

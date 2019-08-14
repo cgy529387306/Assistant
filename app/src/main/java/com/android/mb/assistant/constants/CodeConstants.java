@@ -157,4 +157,9 @@ public class CodeConstants {
      */
     public static final String KEY_CART_APPLY = "300017";
 
+    /**
+     * 物资审批
+     */
+    public static final String KEY_GOODS_APPLICANT = "300018";
+
 }

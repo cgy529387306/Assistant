@@ -122,16 +122,14 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                 CartBean cartBean = mAdapter.getItem(position);
                 cartBean.setSelect(!cartBean.isSelect());
                 mAdapter.setData(position,cartBean);
-                mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
-                setImageState();
+                initEditData();
             }
         });
         mCbAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mAdapter.setIsAllCheck(b);
-                mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
-                setImageState();
+                initEditData();
             }
         });
         registerEvent(ProjectConstants.EVENT_UPDATE_CART, new Action1<Events<?>>() {
@@ -188,7 +186,7 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
             if (resp!=null){
                 if (resp.isSuccess()){
                     onRefresh(null);
-                    mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
+                    initEditData();
                 }else{
                     showToastMessage(resp.getMessage());
                 }
@@ -207,7 +205,7 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                     mAdapter.addData(listResp.getData());
                     mRefreshLayout.finishLoadMore();
                 }
-                setImageState();
+                initEditData();
             }
         }
     }
@@ -261,7 +259,11 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
         return sb.toString().substring(0, sb.toString().length() - 1);
     }
 
-    private void setImageState(){
+    private void initEditData(){
+        if (mAdapter==null){
+            return;
+        }
+        mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
         if (Helper.isEmpty(mAdapter.getSelectList())){
             hideRightImage();
         }else{
