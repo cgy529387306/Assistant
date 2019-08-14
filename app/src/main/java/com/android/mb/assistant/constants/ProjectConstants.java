@@ -15,6 +15,8 @@ public class ProjectConstants {
 
     public static final int EVENT_UPDATE_LOCATION = 10005;
 
+    public static final int EVENT_UPDATE_CART = 10006;
+
     //REQUEST
     public static final int REQUEST_SELECT_ADDRESS = 0x01;
 

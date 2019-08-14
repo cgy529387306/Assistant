@@ -17,6 +17,7 @@ import com.android.mb.assistant.adapter.GoodsShoppingCartAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CartBean;
 import com.android.mb.assistant.entitys.CartListResp;
 import com.android.mb.assistant.entitys.CommonResp;
@@ -24,6 +25,7 @@ import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.GoodsListResp;
 import com.android.mb.assistant.entitys.ShoppingCartData;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
@@ -44,6 +46,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.functions.Action1;
+
 /**
  * 物资购物车
  */
@@ -59,6 +63,12 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
     @Override
     protected void loadIntent() {
 
+    }
+
+    @Override
+    protected void onRightAction(View view) {
+        super.onRightAction(view);
+        doDelete();
     }
 
     @Override
@@ -113,6 +123,7 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                 cartBean.setSelect(!cartBean.isSelect());
                 mAdapter.setData(position,cartBean);
                 mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
+                setImageState();
             }
         });
         mCbAll.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -120,6 +131,13 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 mAdapter.setIsAllCheck(b);
                 mTvAll.setText("合计("+mAdapter.getTotalCount()+")");
+                setImageState();
+            }
+        });
+        registerEvent(ProjectConstants.EVENT_UPDATE_CART, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                 onRefresh(null);
             }
         });
     }
@@ -155,7 +173,17 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
 
     @Override
     public void requestSuccess(String requestCode, String result) {
-        if (CodeConstants.KEY_CART_MINUS.equals(requestCode)){
+        if (CodeConstants.KEY_CART_DELETE.equals(requestCode)){
+            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+            if (resp!=null){
+                if (resp.isSuccess()){
+                    onRefresh(null);
+                    showToastMessage("删除成功");
+                }else{
+                    showToastMessage(resp.getMessage());
+                }
+            }
+        }else if (CodeConstants.KEY_CART_MINUS.equals(requestCode)){
             CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
             if (resp!=null){
                 if (resp.isSuccess()){
@@ -179,6 +207,7 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                     mAdapter.addData(listResp.getData());
                     mRefreshLayout.finishLoadMore();
                 }
+                setImageState();
             }
         }
     }
@@ -210,5 +239,33 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
         requestParams.put("materialId",item.getMaterialId());
         requestParams.put("type","1");
         mPresenter.requestCart(CodeConstants.KEY_CART_MINUS,requestParams,false);
+    }
+
+    private void doDelete(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("memberId", CurrentUser.getInstance().getMuid());
+        requestParams.put("materialId",getMaterialIds(mAdapter.getSelectList()));
+        mPresenter.requestCart(CodeConstants.KEY_CART_DELETE,requestParams,true);
+    }
+
+    private String getMaterialIds(List<CartBean> dataList){
+        if (Helper.isEmpty(dataList)){
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < dataList.size(); i++) {
+            CartBean cartBean = dataList.get(i);
+            sb.append(cartBean.getMaterialId()).append(",");
+
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
+    }
+
+    private void setImageState(){
+        if (Helper.isEmpty(mAdapter.getSelectList())){
+            hideRightImage();
+        }else{
+            setRightImage(R.mipmap.icon_delete);
+        }
     }
 }

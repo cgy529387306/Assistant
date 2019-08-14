@@ -108,8 +108,7 @@ public class GoodsBrowseFragment extends BaseMvpFragment<CommonPresenter, ICommo
         registerEvent(ProjectConstants.EVENT_UPDATE_GOODS, new Action1<Events<?>>() {
             @Override
             public void call(Events<?> events) {
-                mCurrentPage = 1;
-                getListFormServer();
+                onRefresh(null);
             }
         });
     }

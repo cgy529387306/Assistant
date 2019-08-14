@@ -18,14 +18,18 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CartBean;
+import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.UserBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
+import com.android.mb.assistant.utils.ToastHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
@@ -103,7 +107,16 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
 
     @Override
     public void requestSuccess(String requestCode, String result) {
-
+        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+        if (resp!=null){
+            if (resp.isSuccess()){
+                sendMsg(ProjectConstants.EVENT_UPDATE_CART,null);
+                ToastHelper.showToast("申请成功");
+                finish();
+            }else{
+                showToastMessage(resp.getMessage());
+            }
+        }
     }
 
     @Override
