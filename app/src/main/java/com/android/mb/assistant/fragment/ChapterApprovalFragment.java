@@ -90,10 +90,17 @@ public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICo
 
 
     private void getListFormServer(){
+        String apSyStatus = "";
+        if (mState==1){
+            apSyStatus = "1";
+        }else if (mState==2){
+            apSyStatus = "0";
+        }
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("mUid", CurrentUser.getInstance().getMuid());
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
+        requestParams.put("apSyStatus", apSyStatus);
         mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLICANT,requestParams,false);
     }
 

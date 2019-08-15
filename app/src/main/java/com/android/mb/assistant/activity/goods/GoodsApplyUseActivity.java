@@ -142,11 +142,12 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         }
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("mUid", CurrentUser.getInstance().getMuid());
-        requestParams.put("userId", CurrentUser.getInstance().getUid());
+        requestParams.put("uName", CurrentUser.getInstance().getUname());
         requestParams.put("materialIds",getMaterialIds(mCartBeanList));
         requestParams.put("phone", tel);
         requestParams.put("apRemarks", remark);
         requestParams.put("apApprover", mApprovalName);
+        requestParams.put("apTime", Helper.dateString2Long(mTvTime.getText().toString(),Helper.DATE_FORMAT1)+"");
         mPresenter.requestCart(CodeConstants.KEY_CART_APPLY,requestParams,true);
     }
 
