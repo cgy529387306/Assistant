@@ -52,6 +52,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
     private TextView mTvSubmit;
     private List<CartBean> mCartBeanList = new ArrayList<>();
     private String mApprovalName;
+    private String mApprovalId;
     @Override
     protected void loadIntent() {
         mCartBeanList = (List<CartBean>) getIntent().getSerializableExtra("dataList");
@@ -136,7 +137,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
             showToastMessage("手机号码输入有误");
             return;
         }
-        if (Helper.isEmpty(mApprovalName)){
+        if (Helper.isEmpty(mApprovalId)){
             showToastMessage("请选择审批人");
             return;
         }
@@ -148,6 +149,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         requestParams.put("apRemarks", remark);
         requestParams.put("apApprover", mApprovalName);
         requestParams.put("apTime", Helper.dateString2Long(mTvTime.getText().toString(),Helper.DATE_FORMAT1)+"");
+        requestParams.put("apApproverId", mApprovalId);
         mPresenter.requestCart(CodeConstants.KEY_CART_APPLY,requestParams,true);
     }
 
@@ -173,6 +175,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
                 UserBean userBean = (UserBean) data.getSerializableExtra("userBean");
                 mSelectApproval.setText(userBean.getUname());
                 mApprovalName = userBean.getUname();
+                mApprovalId = userBean.getMuid();
             }
         }
     }
