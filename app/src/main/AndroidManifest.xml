@@ -97,7 +97,7 @@
         <activity android:name=".activity.goods.GoodsApplyUseActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateAlwaysHidden"/>
-        <activity android:name=".activity.goods.ChapterApprovalDeailsActivity"
+        <activity android:name=".activity.goods.ApplyDetailsActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectPatternActivity"
             android:screenOrientation="portrait"/>
@@ -107,7 +107,7 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectGsDepActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".activity.goods.ChapterApprovalActivity"
+        <activity android:name=".activity.goods.ApplyListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectApprovalActivity"
             android:screenOrientation="portrait"/>

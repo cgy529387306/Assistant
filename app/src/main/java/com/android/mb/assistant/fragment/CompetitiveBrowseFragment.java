@@ -142,7 +142,6 @@ public class CompetitiveBrowseFragment extends BaseMvpFragment<CommonPresenter,I
             if (mCurrentPage == 1) {
                 mRefreshLayout.finishRefresh();
                 mAdapter.setNewData(listResp.getData());
-                mAdapter.setEmptyView(R.layout.empty_data, (ViewGroup) mRecyclerView.getParent());
             } else {
                 mAdapter.addData(listResp.getData());
                 mRefreshLayout.finishLoadMore();

@@ -39,4 +39,6 @@ public interface IScheduleService {
     @POST("/MoveHelper/ServletApplicant")
     Observable<String> applicantRequest(@QueryMap Map<String, String> requestMap);
 
+    @POST("/MoveHelper/ServletFront")
+    Observable<String> manageRequest(@QueryMap Map<String, String> requestMap);
 }

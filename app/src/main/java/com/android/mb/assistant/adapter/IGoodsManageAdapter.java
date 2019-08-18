@@ -22,7 +22,6 @@ public class IGoodsManageAdapter extends BaseQuickAdapter<ApplyBean, BaseViewHol
     @Override
     protected void convert(BaseViewHolder helper, ApplyBean item) {
         helper.setText(R.id.tv_content,item.getApSqName()+"的物资申请");
-//        helper.setText(R.id.tv_time, Helper.long2DateString(item.getApTime(),Helper.DATE_FORMAT1));
     }
 }
 

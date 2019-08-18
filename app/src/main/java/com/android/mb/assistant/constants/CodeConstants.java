@@ -162,4 +162,25 @@ public class CodeConstants {
      */
     public static final String KEY_GOODS_APPLICANT = "300018";
 
+    /**
+     * 我的申请
+     */
+    public static final String KEY_GOODS_APPLY_LIST = "300021";
+
+    /**
+     * 我的申请详情
+     */
+    public static final String KEY_GOODS_APPLY_DETAIL = "300020";
+
+    /**
+     * 物资管理
+     */
+    public static final String KEY_GOODS_MANAGE = "300026";
+
+
+
+    /**
+     * 竞情管理
+     */
+    public static final String KEY_COMPETITIVE_MANAGE = "400002";
 }

@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
 import com.android.mb.assistant.base.BaseActivity;
-import com.android.mb.assistant.fragment.ChapterApprovalFragment;
+import com.android.mb.assistant.fragment.ApplyFragment;
 import com.android.mb.assistant.widget.FragmentViewPager;
 
 import java.util.ArrayList;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 /**
  * 用章审批(我的申请)
  */
-public class ChapterApprovalActivity extends BaseActivity{
+public class ApplyListActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
@@ -30,7 +30,7 @@ public class ChapterApprovalActivity extends BaseActivity{
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_chapter_approval;
+        return R.layout.activity_apply_list;
     }
 
     @Override
@@ -82,9 +82,9 @@ public class ChapterApprovalActivity extends BaseActivity{
     }
     private void initTabViewPager(){
         mFragmentArrayList = new ArrayList<>();
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,0));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,1));
-        mFragmentArrayList.add(ChapterApprovalFragment.getInstance(mType,2));
+        mFragmentArrayList.add(ApplyFragment.getInstance(mType,0));
+        mFragmentArrayList.add(ApplyFragment.getInstance(mType,1));
+        mFragmentArrayList.add(ApplyFragment.getInstance(mType,2));
         mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
         mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
         mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
@@ -97,7 +97,7 @@ public class ChapterApprovalActivity extends BaseActivity{
         int[] tabTitles = new int[]{R.string.tab_all,R.string.tab_no_pass,R.string.tab_pass};
         for (int i = 0; i < tabTitles.length; i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
-            View view = LayoutInflater.from(ChapterApprovalActivity.this).inflate(R.layout.chapter_approval_tab,null);
+            View view = LayoutInflater.from(ApplyListActivity.this).inflate(R.layout.chapter_approval_tab,null);
             tab.setCustomView(view);
 
             TextView tvTitle = view.findViewById(R.id.tv_tab);

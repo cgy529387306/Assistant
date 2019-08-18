@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.goods.ChapterApprovalDeailsActivity;
+import com.android.mb.assistant.activity.goods.ApplyDetailsActivity;
 import com.android.mb.assistant.adapter.IGoodsManageAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
@@ -35,7 +35,7 @@ import java.util.Map;
  * 用章审批
  * Created by cgy on 16/7/18.
  */
-public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener {
+public class ApplyFragment extends BaseMvpFragment<CommonPresenter,ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener {
 
     private IGoodsManageAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -43,7 +43,7 @@ public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICo
 
     private static final String KEY_STATE = "key_state";
     private static final String KEY_TYPE = "key_type";
-    private int mType;//0:我的审批  1:我的申请
+    private int mType;//0:我的审批  1:我的申请  2:最新入库
     private int mState;
 
     @Override
@@ -56,7 +56,7 @@ public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICo
      * @return
      */
     public static Fragment getInstance(int type,int state) {
-        Fragment fragment = new ChapterApprovalFragment();
+        Fragment fragment = new ApplyFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(KEY_TYPE, type);
         bundle.putInt(KEY_STATE, state);
@@ -101,7 +101,11 @@ public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICo
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
         requestParams.put("apSyStatus", apSyStatus);
-        mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLICANT,requestParams,false);
+        if (mType == 0){
+            mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLICANT,requestParams,false);
+        }else if (mType == 1){
+            mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLY_LIST,requestParams,false);
+        }
     }
 
     @Override
@@ -110,8 +114,8 @@ public class ChapterApprovalFragment extends BaseMvpFragment<CommonPresenter,ICo
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
-                bundle.putInt("type",mType);
-                NavigationHelper.startActivity(getActivity(), ChapterApprovalDeailsActivity.class, bundle, false);
+                bundle.putSerializable("mApplyBean",mAdapter.getItem(position));
+                NavigationHelper.startActivity(getActivity(), ApplyDetailsActivity.class, bundle, false);
             }
         });
     }

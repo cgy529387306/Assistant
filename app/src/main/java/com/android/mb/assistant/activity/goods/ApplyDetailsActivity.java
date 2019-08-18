@@ -1,50 +1,51 @@
 package com.android.mb.assistant.activity.goods;
 
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
-import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
 import com.android.mb.assistant.base.BaseActivity;
-import com.android.mb.assistant.fragment.ChapterApprovalFragment;
-import com.android.mb.assistant.widget.FragmentViewPager;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.ApplyBean;
+import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 用章审批详情
  */
-public class ChapterApprovalDeailsActivity extends BaseActivity implements View.OnClickListener{
+public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener{
 
     private TextView mTvName,mTvTel,mTvTime,mTvRemark;
     private TextView mTvReturn,mTvRefuse,mTvAgree,mTvRevoke;
     private LinearLayout mLlOperate;
     private RecyclerView mRecyclerView;
     private GoodsApplyUseAdapter mAdapter;
-    private int mType;
+    private ApplyBean mApplyBean;
     @Override
     protected void loadIntent() {
-        mType = getIntent().getIntExtra("type",0);
+        mApplyBean = (ApplyBean) getIntent().getSerializableExtra("mApplyBean");
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_chapter_approval_details;
+        return R.layout.activity_apply_details;
     }
 
     @Override
     protected void initTitle() {
-        setTitleText(mType==1||mType==2?"我的使用申请":"使用申请审批");
+
     }
 
     @Override
@@ -58,18 +59,19 @@ public class ChapterApprovalDeailsActivity extends BaseActivity implements View.
         mTvAgree = findViewById(R.id.tv_agree);
         mTvRevoke = findViewById(R.id.tv_revoke);
         mLlOperate = findViewById(R.id.lly_operate);
-        mTvRevoke.setVisibility(mType==1||mType==2?View.VISIBLE:View.GONE);
-        mLlOperate.setVisibility(mType==1||mType==2?View.GONE:View.VISIBLE);
+//        mTvRevoke.setVisibility(mType==1||mType==2?View.VISIBLE:View.GONE);
+//        mLlOperate.setVisibility(mType==1||mType==2?View.GONE:View.VISIBLE);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
-        mAdapter = new GoodsApplyUseAdapter(getList());
+        mAdapter = new GoodsApplyUseAdapter(new ArrayList());
         mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
     protected void processLogic(Bundle savedInstanceState) {
-
+        initData();
+        getDetail();
     }
 
     @Override
@@ -80,12 +82,15 @@ public class ChapterApprovalDeailsActivity extends BaseActivity implements View.
         mTvRevoke.setOnClickListener(this);
     }
 
-    private List<String> getList(){
-        List<String> list = new ArrayList<>();
-        list.add("苹果电脑");
-        list.add("华硕电脑");
-        return list;
+    private void initData(){
+        if (mApplyBean!=null){
+            mTvName.setText(mApplyBean.getApSqName());
+            mTvTel.setText(mApplyBean.getApTel());
+            mTvTime.setText(mApplyBean.getApTime());
+            mTvRemark.setText(mApplyBean.getApRemarks());
+        }
     }
+
 
     @Override
     public void onClick(View view) {
@@ -100,4 +105,25 @@ public class ChapterApprovalDeailsActivity extends BaseActivity implements View.
             //撤回
         }
     }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+
+    }
+
+    private void getDetail(){
+        if (mApplyBean!=null){
+            Map<String,String> requestParams = new HashMap<>();
+            requestParams.put("mUid", mApplyBean.getApSqId());
+            requestParams.put("applicationId",mApplyBean.getApplicationId());
+            mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLY_DETAIL,requestParams,false);
+        }
+    }
+
+
 }

@@ -23,4 +23,6 @@ public interface ICommonPresenter {
     void uploadImg(String requestCode, Map<String,String> params, File file, boolean isShowLoading);
 
     void requestApplicant(String requestCode, Map<String,String> params, boolean isShowLoading);
+
+    void requestManage(String requestCode, Map<String,String> params, boolean isShowLoading);
 }

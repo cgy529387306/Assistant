@@ -15,11 +15,15 @@ import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
 import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
-import com.android.mb.assistant.base.BaseFragment;
-import com.android.mb.assistant.entitys.CompetitiveBean;
+import com.android.mb.assistant.base.BaseMvpFragment;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.entitys.CompetitiveListResp;
 import com.android.mb.assistant.entitys.IType;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.gyf.immersionbar.ImmersionBar;
@@ -29,14 +33,17 @@ import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
 
 
 /**
  * 竞情管理
  * Created by cgy on 16/7/18.
  */
-public class CompetitiveManageFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener {
 
     private CompetitiveOrderAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -59,11 +66,10 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         mRefreshLayout = view.findViewById(R.id.refreshLayout);
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
-        mRefreshLayout.setEnableLoadMore(false);
         mRecyclerView = view.findViewById(R.id.recyclerView);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL, AppHelper.calDpi2px(10),getResources().getColor(R.color.list_divider)));
-        mAdapter = new CompetitiveOrderAdapter(getList());
+        mAdapter = new CompetitiveOrderAdapter(new ArrayList());
         mRecyclerView.setAdapter(mAdapter);
         //添加Header
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_competitive_header, mRecyclerView, false);
@@ -99,16 +105,9 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         });
     }
 
-    private List<CompetitiveBean> getList(){
-        List<CompetitiveBean> list = new ArrayList<CompetitiveBean>();
-        list.add(new CompetitiveBean());
-        list.add(new CompetitiveBean());
-        list.add(new CompetitiveBean());
-        return list;
-    }
-
     @Override
     protected void processLogic() {
+        onRefresh(null);
     }
 
     @Override
@@ -129,18 +128,48 @@ public class CompetitiveManageFragment extends BaseFragment implements OnRefresh
         return competitiveTypeList;
     }
 
+    private void getListFormServer(){
+        Map<String,String> requestParams = new HashMap<>();
+        mPresenter.requestManage(CodeConstants.KEY_COMPETITIVE_MANAGE,requestParams,false);
+    }
+
     @Override
     public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-
+        mCurrentPage++;
+        getListFormServer();
     }
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-        getList();
+        mCurrentPage = 1;
+        getListFormServer();
     }
 
     @Override
     public void initImmersionBar() {
         ImmersionBar.with(this).fitsSystemWindows(true).statusBarColor(R.color.white).statusBarDarkFont(true).init();
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+        mRefreshLayout.finishRefresh();
+        CompetitiveListResp listResp = JsonHelper.fromJson(result,CompetitiveListResp.class);
+        if (listResp!=null){
+            if (listResp.isLast()){
+                mRefreshLayout.finishLoadMoreWithNoMoreData();
+            }
+            if (mCurrentPage == 1) {
+                mRefreshLayout.finishRefresh();
+                mAdapter.setNewData(listResp.getData());
+            } else {
+                mAdapter.addData(listResp.getData());
+                mRefreshLayout.finishLoadMore();
+            }
+        }
     }
 }

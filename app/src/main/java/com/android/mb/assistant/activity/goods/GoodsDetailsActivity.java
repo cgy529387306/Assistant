@@ -193,5 +193,4 @@ public class GoodsDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         });
     }
 
-
 }
