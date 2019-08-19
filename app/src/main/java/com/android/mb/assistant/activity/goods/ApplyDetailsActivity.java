@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GoodsApplyUseAdapter;
-import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.entitys.ApplyBean;
-import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.ApplyDetailResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.utils.Helper;
+import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
@@ -113,7 +114,18 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
 
     @Override
     public void requestSuccess(String requestCode, String result) {
-
+        ApplyDetailResp resp = JsonHelper.fromJson(result,ApplyDetailResp.class);
+        if (resp!=null){
+            if (resp.isSuccess()){
+                mApplyBean = resp.getData();
+                initData();
+                if (Helper.isNotEmpty(resp.getRows())){
+                    mAdapter.setNewData(resp.getRows());
+                }
+            }else{
+                showToastMessage(resp.getMessage());
+            }
+        }
     }
 
     private void getDetail(){

@@ -157,7 +157,6 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, 
 
     @Override
     public void requestSuccess(String requestCode, String result) {
-        mRefreshLayout.finishRefresh();
         CompetitiveListResp listResp = JsonHelper.fromJson(result,CompetitiveListResp.class);
         if (listResp!=null){
             if (listResp.isLast()){

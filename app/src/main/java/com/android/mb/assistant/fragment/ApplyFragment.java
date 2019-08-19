@@ -90,17 +90,17 @@ public class ApplyFragment extends BaseMvpFragment<CommonPresenter,ICommonView> 
 
 
     private void getListFormServer(){
-        String apSyStatus = "";
-        if (mState==1){
-            apSyStatus = "1";
-        }else if (mState==2){
-            apSyStatus = "0";
-        }
         Map<String,String> requestParams = new HashMap<>();
         requestParams.put("mUid", CurrentUser.getInstance().getMuid());
         requestParams.put("page",String.valueOf(mCurrentPage));
         requestParams.put("rows",String.valueOf(mPageSize));
-        requestParams.put("apSyStatus", apSyStatus);
+        if (mState==1){
+            requestParams.put("apSyStatus", "1");
+        }else if (mState==2){
+            requestParams.put("apSyStatus", "0");
+        }else{
+            requestParams.put("apSyStatus", "");
+        }
         if (mType == 0){
             mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPLICANT,requestParams,false);
         }else if (mType == 1){
