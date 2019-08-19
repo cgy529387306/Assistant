@@ -173,9 +173,9 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
         if (listResp!=null){
             if (listResp.isSuccess()){
                 List<GoodsManage> dataList = new ArrayList<>();
-                dataList.add(new GoodsManage("用章审批",listResp.getSpList()));
-                dataList.add(new GoodsManage("我的申请",listResp.getSqList()));
-                dataList.add(new GoodsManage("最新入库",listResp.getZxList()));
+                dataList.add(new GoodsManage("用章审批",listResp.getSpList(),listResp.getZxList()));
+                dataList.add(new GoodsManage("我的申请",listResp.getSqList(),listResp.getZxList()));
+                dataList.add(new GoodsManage("最新入库",listResp.getSqList(),listResp.getZxList()));
                 mAdapter.setNewData(dataList);
             }else {
                 showToastMessage(listResp.getMessage());

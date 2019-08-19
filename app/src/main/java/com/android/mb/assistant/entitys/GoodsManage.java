@@ -7,6 +7,7 @@ import java.util.List;
 public class GoodsManage implements Serializable {
     private String name;
     private List<ApplyBean> dataList;
+    private List<GoodsBean> goodsList;
 
     public String getName() {
         return name == null ? "" : name;
@@ -27,8 +28,20 @@ public class GoodsManage implements Serializable {
         this.dataList = dataList;
     }
 
-    public GoodsManage(String name, List<ApplyBean> dataList) {
+    public List<GoodsBean> getGoodsList() {
+        if (goodsList == null) {
+            return new ArrayList<>();
+        }
+        return goodsList;
+    }
+
+    public void setGoodsList(List<GoodsBean> goodsList) {
+        this.goodsList = goodsList;
+    }
+
+    public GoodsManage(String name, List<ApplyBean> dataList, List<GoodsBean> goodsList) {
         this.name = name;
         this.dataList = dataList;
+        this.goodsList = goodsList;
     }
 }

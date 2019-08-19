@@ -1,12 +1,16 @@
 package com.android.mb.assistant.adapter;
 
+import android.app.Activity;
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.goods.GoodsDetailsActivity;
 import com.android.mb.assistant.entitys.ApplyBean;
 import com.android.mb.assistant.entitys.GoodsManage;
+import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -41,17 +45,30 @@ public class GoodsManageAdapter extends BaseQuickAdapter<GoodsManage, BaseViewHo
         }else{
             helper.setImageResource(R.id.iv_icon,R.mipmap.icon_zuixin);
         }
-        RecyclerView mRecyclerView = helper.getView(R.id.rv_goods);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
-        mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,mContext.getResources().getColor(R.color.gray_divider)));
-        IGoodsManageAdapter goodsManageAdapter = new IGoodsManageAdapter(item.getDataList());
-        mRecyclerView.setAdapter(goodsManageAdapter);
-        goodsManageAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                mOnChapterApprovalListener.onGoodsApproval(goodsManageAdapter.getItem(position));
-            }
-        });
+        RecyclerView recyclerView = helper.getView(R.id.rv_goods);
+        recyclerView.setLayoutManager(new LinearLayoutManager(mContext));
+        recyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,mContext.getResources().getColor(R.color.gray_divider)));
+        if (helper.getAdapterPosition()==3){
+            GoodsItemAdapter itemAdapter = new GoodsItemAdapter(item.getGoodsList());
+            recyclerView.setAdapter(itemAdapter);
+            itemAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("goods",itemAdapter.getItem(position));
+                    NavigationHelper.startActivity((Activity) mContext, GoodsDetailsActivity.class,bundle,false);
+                }
+            });
+        }else{
+            IGoodsManageAdapter goodsManageAdapter = new IGoodsManageAdapter(item.getDataList());
+            recyclerView.setAdapter(goodsManageAdapter);
+            goodsManageAdapter.setOnItemClickListener(new OnItemClickListener() {
+                @Override
+                public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+                    mOnChapterApprovalListener.onGoodsApproval(goodsManageAdapter.getItem(position));
+                }
+            });
+        }
     }
 
 

@@ -10,7 +10,7 @@ import java.util.List;
 public class GoodsManageResp extends BaseResponse{
     private List<ApplyBean> spList;
     private List<ApplyBean> sqList;
-    private List<ApplyBean> zxList;
+    private List<GoodsBean> zxList;
 
     public List<ApplyBean> getSpList() {
         if (spList == null) {
@@ -34,14 +34,15 @@ public class GoodsManageResp extends BaseResponse{
         this.sqList = sqList;
     }
 
-    public List<ApplyBean> getZxList() {
+
+    public List<GoodsBean> getZxList() {
         if (zxList == null) {
             return new ArrayList<>();
         }
         return zxList;
     }
 
-    public void setZxList(List<ApplyBean> zxList) {
+    public void setZxList(List<GoodsBean> zxList) {
         this.zxList = zxList;
     }
 }
