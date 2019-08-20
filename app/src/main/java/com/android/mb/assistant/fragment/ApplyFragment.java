@@ -114,6 +114,7 @@ public class ApplyFragment extends BaseMvpFragment<CommonPresenter,ICommonView> 
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 Bundle bundle = new Bundle();
+                bundle.putInt("type",mType);
                 bundle.putSerializable("mApplyBean",mAdapter.getItem(position));
                 NavigationHelper.startActivity(getActivity(), ApplyDetailsActivity.class, bundle, false);
             }

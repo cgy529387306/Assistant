@@ -31,7 +31,7 @@ public class GoodsManageAdapter extends BaseQuickAdapter<GoodsManage, BaseViewHo
     }
 
     public interface OnChapterApprovalListener{   //用章审批
-        void onGoodsApproval(ApplyBean applyBean);
+        void onGoodsApproval(int type,ApplyBean applyBean);
     }
 
 
@@ -65,7 +65,7 @@ public class GoodsManageAdapter extends BaseQuickAdapter<GoodsManage, BaseViewHo
             goodsManageAdapter.setOnItemClickListener(new OnItemClickListener() {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                    mOnChapterApprovalListener.onGoodsApproval(goodsManageAdapter.getItem(position));
+                    mOnChapterApprovalListener.onGoodsApproval(helper.getAdapterPosition()==1?0:1,goodsManageAdapter.getItem(position));
                 }
             });
         }

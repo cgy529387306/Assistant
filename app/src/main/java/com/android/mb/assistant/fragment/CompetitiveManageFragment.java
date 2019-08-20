@@ -18,6 +18,7 @@ import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.entitys.CompetitiveListResp;
+import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
@@ -130,7 +131,12 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, 
 
     private void getListFormServer(){
         Map<String,String> requestParams = new HashMap<>();
-        mPresenter.requestManage(CodeConstants.KEY_COMPETITIVE_MANAGE,requestParams,false);
+        requestParams.put("mUid", CurrentUser.getInstance().getMuid());
+        requestParams.put("cOpName",CurrentUser.getInstance().getUname());
+        requestParams.put("status",String.valueOf(99));
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(mPageSize));
+        mPresenter.requestData(CodeConstants.KEY_COMPETITIVE_LIST,requestParams,false);
     }
 
     @Override

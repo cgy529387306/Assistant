@@ -34,8 +34,10 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
     private RecyclerView mRecyclerView;
     private GoodsApplyUseAdapter mAdapter;
     private ApplyBean mApplyBean;
+    private int mType;//1：申请  0：审批
     @Override
     protected void loadIntent() {
+        mType = getIntent().getIntExtra("type",0);
         mApplyBean = (ApplyBean) getIntent().getSerializableExtra("mApplyBean");
     }
 
@@ -46,7 +48,7 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
 
     @Override
     protected void initTitle() {
-
+        setTitleText(mType==1?"我的使用申请":"使用申请审批");
     }
 
     @Override
@@ -60,8 +62,8 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         mTvAgree = findViewById(R.id.tv_agree);
         mTvRevoke = findViewById(R.id.tv_revoke);
         mLlOperate = findViewById(R.id.lly_operate);
-//        mTvRevoke.setVisibility(mType==1||mType==2?View.VISIBLE:View.GONE);
-//        mLlOperate.setVisibility(mType==1||mType==2?View.GONE:View.VISIBLE);
+        mTvRevoke.setVisibility(mType==1||mType==2?View.VISIBLE:View.GONE);
+        mLlOperate.setVisibility(mType==1||mType==2?View.GONE:View.VISIBLE);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));

@@ -104,9 +104,13 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
                 //0:用章审批 1:我的申请 2:我的入库
-                Bundle bundle = new Bundle();
-                bundle.putInt("type",position);
-                NavigationHelper.startActivity(getActivity(), ApplyListActivity.class,bundle,false);
+                if (position==2){
+                    NavigationHelper.startActivity(getActivity(), GoodsBrowseActivity.class,null,false);
+                }else{
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type",position);
+                    NavigationHelper.startActivity(getActivity(), ApplyListActivity.class,bundle,false);
+                }
             }
         });
     }
@@ -150,8 +154,9 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
     }
 
     @Override
-    public void onGoodsApproval(ApplyBean applyBean) {
+    public void onGoodsApproval(int type,ApplyBean applyBean) {
         Bundle bundle = new Bundle();
+        bundle.putInt("type",type);
         bundle.putSerializable("mApplyBean",applyBean);
         NavigationHelper.startActivity(getActivity(), ApplyDetailsActivity.class, bundle, false);
     }
