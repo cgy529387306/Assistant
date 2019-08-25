@@ -35,7 +35,7 @@ public class ApplyBean implements Serializable{
     private String apApprover;
     private String apRemarks;
     private int apStatus;
-    private String apSyStatus;
+    private int apSyStatus;
     private String apCause;
 
     public String getApplicationId() {
@@ -118,11 +118,11 @@ public class ApplyBean implements Serializable{
         this.apStatus = apStatus;
     }
 
-    public String getApSyStatus() {
-        return apSyStatus == null ? "" : apSyStatus;
+    public int getApSyStatus() {
+        return apSyStatus;
     }
 
-    public void setApSyStatus(String apSyStatus) {
+    public void setApSyStatus(int apSyStatus) {
         this.apSyStatus = apSyStatus;
     }
 

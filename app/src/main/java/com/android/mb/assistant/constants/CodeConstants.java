@@ -177,7 +177,15 @@ public class CodeConstants {
      */
     public static final String KEY_GOODS_MANAGE = "300026";
 
+    /**
+     * 物资审批
+     */
+    public static final String KEY_GOODS_APPROVE = "300022";
 
+    /**
+     * 物资审批 撤回
+     */
+    public static final String KEY_GOODS_CANCEL = "300023";
 
     /**
      * 竞情管理

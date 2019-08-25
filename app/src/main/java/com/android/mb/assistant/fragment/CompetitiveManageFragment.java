@@ -6,27 +6,32 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.activity.competitive.CompetitiveBrowseActivity;
+import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.activity.competitive.CompetitiveInputActivity;
 import com.android.mb.assistant.adapter.CompetitiveOrderAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CompetitiveListResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.NestedGridView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.gyf.immersionbar.ImmersionBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -38,13 +43,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import rx.functions.Action1;
 
 
 /**
  * 竞情管理
  * Created by cgy on 16/7/18.
  */
-public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener {
+public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, ICommonView> implements ICommonView, OnRefreshListener, OnLoadMoreListener,BaseQuickAdapter.OnItemClickListener {
 
     private CompetitiveOrderAdapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -113,6 +119,15 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, 
 
     @Override
     protected void setListener() {
+        mRefreshLayout.setOnRefreshListener(this);
+        mRefreshLayout.setOnLoadMoreListener(this);
+        mAdapter.setOnItemClickListener(this);
+        registerEvent(ProjectConstants.EVENT_UPDATE_COMPETITIVE, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                onRefresh(null);
+            }
+        });
     }
 
 
@@ -177,4 +192,12 @@ public class CompetitiveManageFragment extends BaseMvpFragment<CommonPresenter, 
             }
         }
     }
+
+    @Override
+    public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("competitive",mAdapter.getItem(position));
+        NavigationHelper.startActivity(getActivity(), CompetitiveDetailsActivity.class,bundle,false);
+    }
+
 }

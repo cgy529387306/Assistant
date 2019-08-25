@@ -1,5 +1,6 @@
 package com.android.mb.assistant.fragment;
 
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -112,7 +113,12 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
 
     @Override
     public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mRefreshLayout.finishRefresh();
+            }
+        },1000);
     }
 
     @Override
