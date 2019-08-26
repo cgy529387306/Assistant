@@ -7,47 +7,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <!--<com.youth.banner.Banner-->
-        <!--android:id="@+id/bannerView"-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="150dp"-->
-        <!--app:is_auto_play="true"/>-->
-
-    <ImageView
+    <com.youth.banner.Banner
+        android:id="@+id/bannerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scaleType="centerCrop"
-        android:src="@mipmap/icon_goods_details"/>
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="44dp"-->
-        <!--android:layout_marginLeft="73dp"-->
-        <!--android:layout_marginRight="72dp"-->
-        <!--android:background="@drawable/border_shape_bg_home"-->
-        <!--android:gravity="center"-->
-        <!--android:orientation="horizontal">-->
-
-        <!--<ImageView-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:src="@mipmap/icon_search"/>-->
-        <!--<com.android.mb.assistant.widget.ClearableEditText-->
-            <!--android:id="@+id/et_account"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="match_parent"-->
-            <!--android:maxLength="20"-->
-            <!--android:background="@null"-->
-            <!--android:imeOptions="actionNext"-->
-            <!--android:singleLine="true"-->
-            <!--android:inputType="text"-->
-            <!--android:hint="请输入搜索内容"-->
-            <!--android:textColor="#BBBBBB"-->
-            <!--android:gravity="center"-->
-            <!--android:textColorHint="@color/base_gray"-->
-            <!--android:paddingLeft="5dp"-->
-            <!--android:textSize="13sp" />-->
-    <!--</LinearLayout>-->
+        android:layout_height="200dp"
+        app:is_auto_play="true"/>
 
     <com.android.mb.assistant.widget.NestedGridView
         android:id="@+id/gridCate"
@@ -71,9 +35,7 @@
         android:layout_height="wrap_content"
         android:text="通知公告"
         android:background="@color/white"
-        android:paddingLeft="16dp"
-        android:paddingTop="22dp"
-        android:paddingBottom="16dp"
+        android:padding="16dp"
         android:textColor="#000000"
         android:textSize="16sp"/>
 

@@ -188,6 +188,11 @@ public class CodeConstants {
     public static final String KEY_GOODS_CANCEL = "300023";
 
     /**
+     * 轮播图公告
+     */
+    public static final String KEY_EXTRA_DATA = "400001";
+
+    /**
      * 竞情管理
      */
     public static final String KEY_COMPETITIVE_MANAGE = "400002";

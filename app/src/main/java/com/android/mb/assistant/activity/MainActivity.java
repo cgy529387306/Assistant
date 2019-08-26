@@ -118,6 +118,7 @@ public class MainActivity extends BaseMvpActivity<CommonPresenter, ICommonView> 
         mFragmentViewPager = findViewById(R.id.fragmentViewPager);
         mTabLayout = findViewById(R.id.tab_layout);
     }
+
     private void initTabViewPager(){
         mFragmentArrayList = new ArrayList<>();
         mHomeFragment = new HomeFragment();

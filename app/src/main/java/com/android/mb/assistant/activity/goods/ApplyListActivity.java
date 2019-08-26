@@ -22,7 +22,7 @@ public class ApplyListActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
-    private int mType;
+    private int mType;//1我的申请 0用章审批
     @Override
     protected void loadIntent() {
         mType = getIntent().getIntExtra("type",0);
@@ -35,7 +35,7 @@ public class ApplyListActivity extends BaseActivity{
 
     @Override
     protected void initTitle() {
-        setTitleText(mType == 1?"我的申请":mType==2? "最新入库":"用章审批");
+        setTitleText(mType == 1?"我的申请":"用章审批");
     }
 
     @Override

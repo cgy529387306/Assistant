@@ -95,6 +95,10 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
                     NavigationHelper.startActivity(getActivity(), GoodsInputActivity.class,null,false);
                 }else if (i == 1) {//物资浏览
                     NavigationHelper.startActivity(getActivity(), GoodsBrowseActivity.class,null,false);
+                }else if (i == 2) {//我的领用
+                    Bundle bundle = new Bundle();
+                    bundle.putInt("type",1);
+                    NavigationHelper.startActivity(getActivity(), ApplyListActivity.class,bundle,false);
                 } else if (i == 3) {//物资购物车
                     NavigationHelper.startActivity(getActivity(), GoodsShoppingCartActivity.class,null,false);
                 }

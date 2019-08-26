@@ -67,6 +67,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.MsgDetailActivity"
+            android:screenOrientation="portrait"/>
 
         <activity android:name=".activity.competitive.CompetitiveInputActivity"
             android:screenOrientation="portrait"

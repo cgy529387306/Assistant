@@ -78,8 +78,8 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         mViewStatus1 = findViewById(R.id.v_status1);
         mViewStatus2 = findViewById(R.id.v_status2);
         mLlOperate = findViewById(R.id.lly_operate);
-        mTvRevoke.setVisibility(mType==1||mType==2?View.VISIBLE:View.GONE);
-        mLlOperate.setVisibility(mType==1||mType==2?View.GONE:View.VISIBLE);
+        mTvRevoke.setVisibility(mType==1?View.VISIBLE:View.GONE);
+        mLlOperate.setVisibility(mType==1?View.GONE:View.VISIBLE);
         mRecyclerView = findViewById(R.id.rv_goods);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new RecycleViewDivider(LinearLayoutManager.VERTICAL,1,getResources().getColor(R.color.gray_divider)));
@@ -176,9 +176,11 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
     private void doApprove(int apStatus,int apSyStatus){
         if (mApplyBean!=null){
             Map<String,String> requestParams = new HashMap<>();
+            requestParams.put("mUid", CurrentUser.getInstance().getMuid());
             requestParams.put("apStatus", apStatus+"");
             requestParams.put("apSyStatus",apSyStatus+"");
             requestParams.put("applicationId",mApplyBean.getApplicationId());
+            requestParams.put("type","44");
             mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPROVE,requestParams,true);
         }
     }
@@ -196,11 +198,8 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         //apStatus(申请状态   0:发起   1：撤回    2：审批中    3：审批完成)
         //apSyStatus(使用状态   0:同意     1：不同意退回)
         if (mApplyBean!=null){
-            if (mApplyBean.getApStatus() == 3){
-                mLlOperate.setVisibility(View.GONE);
-            }else{
-                mLlOperate.setVisibility(View.VISIBLE);
-            }
+            mTvRevoke.setVisibility(mType==1 && mApplyBean.getApStatus()!=3?View.VISIBLE:View.GONE);
+            mLlOperate.setVisibility(mType==0 && mApplyBean.getApStatus()!=3?View.VISIBLE:View.GONE);
             if (mApplyBean.getApStatus()==0){
                 mIvStatus1.setImageResource(R.mipmap.icon_status_on);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"提交审批");
