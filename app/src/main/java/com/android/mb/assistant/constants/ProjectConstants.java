@@ -31,4 +31,8 @@ public class ProjectConstants {
 
     public static final String KEY_MY_LOCATION = "KEY_MY_LOCATION";
 
+    public static final String KEY_LOGIN_ACCOUNT = "KEY_LOGIN_ACCOUNT";
+
+    public static final String KEY_LOGIN_PASSWORD = "KEY_LOGIN_PASSWORD";
+
 }
