@@ -9,12 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.adapter.CityAdapter;
 import com.android.mb.assistant.adapter.PatternAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
-import com.android.mb.assistant.entitys.CityBean;
-import com.android.mb.assistant.entitys.CityListResp;
 import com.android.mb.assistant.entitys.PatternBean;
 import com.android.mb.assistant.entitys.PatternListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;

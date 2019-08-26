@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.goods.ApplyListActivity;
 import com.android.mb.assistant.activity.goods.ApplyDetailsActivity;
+import com.android.mb.assistant.activity.goods.ApplyListActivity;
 import com.android.mb.assistant.activity.goods.GoodsBrowseActivity;
 import com.android.mb.assistant.activity.goods.GoodsInputActivity;
 import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;

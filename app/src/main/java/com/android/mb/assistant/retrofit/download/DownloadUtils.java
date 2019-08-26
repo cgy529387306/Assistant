@@ -2,7 +2,6 @@ package com.android.mb.assistant.retrofit.download;
 
 import android.support.annotation.NonNull;
 
-
 import com.android.mb.assistant.api.BaseHttp;
 import com.android.mb.assistant.utils.Helper;
 

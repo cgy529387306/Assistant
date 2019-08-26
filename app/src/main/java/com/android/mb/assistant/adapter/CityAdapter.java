@@ -2,7 +2,6 @@ package com.android.mb.assistant.adapter;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.entitys.CityBean;
-import com.android.mb.assistant.entitys.UserBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

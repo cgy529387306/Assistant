@@ -15,11 +15,9 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.GridImageAdapter;
-import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
-import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.presenter.CommonPresenter;

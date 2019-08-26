@@ -7,7 +7,6 @@ import com.android.mb.assistant.retrofit.cache.RetrofitCache;
 import com.android.mb.assistant.retrofit.cache.intercept.CacheForceInterceptorNoNet;
 import com.android.mb.assistant.retrofit.cache.intercept.CacheInterceptorOnNet;
 import com.android.mb.assistant.retrofit.http.interceptor.HeaderInterceptor;
-import com.android.mb.assistant.retrofit.http.interceptor.LogInterceptor;
 import com.android.mb.assistant.retrofit.http.interceptor.NoNetWorkInterceptor;
 import com.android.mb.assistant.retrofit.http.interceptor.ParameterInterceptor;
 import com.android.mb.assistant.retrofit.http.util.ArrayUtil;

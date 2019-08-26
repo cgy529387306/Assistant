@@ -4,7 +4,6 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 import com.android.mb.assistant.retrofit.cache.anno.Cache;
 import com.android.mb.assistant.retrofit.cache.anno.Mock;
 

@@ -3,7 +3,6 @@ package com.android.mb.assistant.retrofit.cache.transformer;
 
 import android.util.Log;
 
-
 import com.android.mb.assistant.retrofit.cache.RetrofitCache;
 
 import java.lang.reflect.Field;

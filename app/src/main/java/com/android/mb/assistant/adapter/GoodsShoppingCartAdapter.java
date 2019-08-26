@@ -6,7 +6,6 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.entitys.CartBean;
-import com.android.mb.assistant.entitys.GoodsBean;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.ImageUtils;
 import com.android.mb.assistant.utils.ProjectHelper;

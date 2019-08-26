@@ -2,8 +2,6 @@ package com.android.mb.assistant.utils;
 
 import android.text.TextUtils;
 
-import com.luck.picture.lib.tools.StringUtils;
-
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.MessageDigest;

@@ -2,7 +2,6 @@ package com.android.mb.assistant.entitys;
 
 import android.util.Log;
 
-import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.PreferencesHelper;
 

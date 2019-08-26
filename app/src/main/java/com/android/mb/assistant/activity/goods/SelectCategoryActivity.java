@@ -10,13 +10,10 @@ import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.DicAdapter;
-import com.android.mb.assistant.adapter.PatternAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.entitys.DicBean;
 import com.android.mb.assistant.entitys.DicListResp;
-import com.android.mb.assistant.entitys.PatternBean;
-import com.android.mb.assistant.entitys.PatternListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.JsonHelper;

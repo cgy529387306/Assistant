@@ -15,7 +15,6 @@ import com.android.mb.assistant.widget.RecycleViewDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 

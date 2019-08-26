@@ -10,11 +10,9 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 import android.view.WindowManager;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.luck.picture.lib.PictureSelector;
 

@@ -5,9 +5,6 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.DigitsKeyListener;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 /**
  *
  *描述   ：金额输入过滤器，限制小数点后输入位数

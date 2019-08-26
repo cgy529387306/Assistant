@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.adapter.CityAdapter;
 import com.android.mb.assistant.adapter.DepAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;

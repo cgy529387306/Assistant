@@ -3,7 +3,6 @@ package com.android.mb.assistant.retrofit.cache.intercept;
 import android.text.TextUtils;
 import android.util.Log;
 
-
 import com.android.mb.assistant.retrofit.cache.RetrofitCache;
 
 import okhttp3.Interceptor;

@@ -5,14 +5,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.android.mb.assistant.app.MBApplication;
-import com.android.mb.assistant.utils.Helper;
-import com.android.mb.assistant.utils.NetworkHelper;
-import com.android.mb.assistant.utils.NotificationHelper;
-import com.android.mb.assistant.utils.ToastHelper;
-
 import java.util.Timer;
-import java.util.TimerTask;
 
 import rx.Observable;
 import rx.Subscriber;

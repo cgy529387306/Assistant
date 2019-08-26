@@ -120,10 +120,10 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
             doApprove(1,0);
         }else if (id == R.id.tv_refuse){
             //拒绝
-            doApprove(3,0);
+            doApprove(3,1);
         }else if (id == R.id.tv_agree){
             //同意
-            doApprove(3,1);
+            doApprove(3,0);
         }else if (id == R.id.tv_revoke){
             //撤回
             doRevoke();
@@ -180,7 +180,7 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
             requestParams.put("apStatus", apStatus+"");
             requestParams.put("apSyStatus",apSyStatus+"");
             requestParams.put("applicationId",mApplyBean.getApplicationId());
-            requestParams.put("type","44");
+            requestParams.put("type","33");
             mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPROVE,requestParams,true);
         }
     }
@@ -188,9 +188,11 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
     private void doRevoke(){
         if (mApplyBean!=null){
             Map<String,String> requestParams = new HashMap<>();
+            requestParams.put("mUid", CurrentUser.getInstance().getMuid());
             requestParams.put("apStatus", "1");
+            requestParams.put("type","55");
             requestParams.put("applicationId",mApplyBean.getApplicationId());
-            mPresenter.requestApplicant(CodeConstants.KEY_GOODS_CANCEL,requestParams,true);
+            mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPROVE,requestParams,true);
         }
     }
 
@@ -198,11 +200,16 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         //apStatus(申请状态   0:发起   1：撤回    2：审批中    3：审批完成)
         //apSyStatus(使用状态   0:同意     1：不同意退回)
         if (mApplyBean!=null){
-            mTvRevoke.setVisibility(mType==1 && mApplyBean.getApStatus()!=3?View.VISIBLE:View.GONE);
+            mTvRevoke.setVisibility(mType==1 && mApplyBean.getApStatus()!=3 && mApplyBean.getApStatus()!=1?View.VISIBLE:View.GONE);
             mLlOperate.setVisibility(mType==0 && mApplyBean.getApStatus()!=3?View.VISIBLE:View.GONE);
             if (mApplyBean.getApStatus()==0){
                 mIvStatus1.setImageResource(R.mipmap.icon_status_on);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"提交审批");
+                mViewStatus2.setBackgroundColor(Color.parseColor("#E1E1E1"));
+
+            }if (mApplyBean.getApStatus()==1){
+                mIvStatus1.setImageResource(R.mipmap.icon_status_on);
+                mTvStatus1.setText(mApplyBean.getApSqName()+"撤回申请");
                 mViewStatus2.setBackgroundColor(Color.parseColor("#E1E1E1"));
 
             }else if (mApplyBean.getApStatus()==2){

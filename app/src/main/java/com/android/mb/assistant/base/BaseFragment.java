@@ -1,17 +1,14 @@
 package com.android.mb.assistant.base;
 
 import android.app.Activity;
-import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.rxbus.RxBus;
-import com.gyf.immersionbar.ImmersionBar;
 import com.gyf.immersionbar.components.SimpleImmersionFragment;
 
 import rx.functions.Action1;

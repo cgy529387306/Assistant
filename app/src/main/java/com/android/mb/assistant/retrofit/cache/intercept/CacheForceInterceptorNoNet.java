@@ -2,7 +2,6 @@ package com.android.mb.assistant.retrofit.cache.intercept;
 
 import android.util.Log;
 
-
 import com.android.mb.assistant.retrofit.cache.RetrofitCache;
 import com.android.mb.assistant.retrofit.cache.util.NetUtils;
 

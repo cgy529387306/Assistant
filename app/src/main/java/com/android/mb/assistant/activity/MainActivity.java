@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
-import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.fragment.CompetitiveManageFragment;

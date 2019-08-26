@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.android.mb.assistant.R;
-import com.android.mb.assistant.activity.competitive.CompetitiveDetailsActivity;
 import com.android.mb.assistant.activity.goods.GoodsDetailsActivity;
 import com.android.mb.assistant.activity.goods.GoodsShoppingCartActivity;
 import com.android.mb.assistant.adapter.GoodsBrowseAdapter;
@@ -23,7 +22,6 @@ import com.android.mb.assistant.entitys.GoodsListResp;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
-import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;

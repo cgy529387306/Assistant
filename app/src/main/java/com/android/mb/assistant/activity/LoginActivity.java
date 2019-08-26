@@ -15,8 +15,8 @@ import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CurrentUser;
-import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.entitys.LoginResp;
+import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.MACHelper;
@@ -26,9 +26,7 @@ import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.ClearableEditText;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {

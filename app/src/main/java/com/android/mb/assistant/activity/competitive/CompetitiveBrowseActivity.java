@@ -11,7 +11,6 @@ import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
 import com.android.mb.assistant.base.BaseActivity;
 import com.android.mb.assistant.fragment.CompetitiveBrowseFragment;
-import com.android.mb.assistant.fragment.CompetitiveWorkFragment;
 import com.android.mb.assistant.widget.FragmentViewPager;
 
 import java.util.ArrayList;
