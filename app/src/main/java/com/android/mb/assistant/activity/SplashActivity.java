@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.android.mb.assistant.R;
@@ -137,10 +138,10 @@ public class SplashActivity extends Activity{
     private void init(){
         handler.postDelayed(() -> {
             if (CurrentUser.getInstance().isLogin()){
-                startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                startActivity(new Intent(SplashActivity.this,MainActivity.class));
                 finish();
             }else{
-                startActivity(new Intent(SplashActivity.this,LoginActivity.class));
+                startActivity(new Intent(SplashActivity.this, LoginActivity.class));
                 finish();
             }
         }, 2000);
