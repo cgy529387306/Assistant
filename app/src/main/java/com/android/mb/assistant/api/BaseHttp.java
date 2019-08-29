@@ -19,7 +19,10 @@ import rx.functions.Func1;
 
 public class BaseHttp {
 
-    public static final String BASE_URL = "http://114.115.136.72:8080";
+//    //测试地址
+//    public static final String BASE_URL = "http://114.115.136.72:8080";
+    //正式地址
+    public static final String BASE_URL = "http://112.30.210.148:8888";
 
     public String getServerHost() {
         return BASE_URL;
