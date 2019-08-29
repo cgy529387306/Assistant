@@ -21,6 +21,7 @@ import com.afollestad.materialdialogs.MaterialDialog;
 import com.android.mb.assistant.R;
 import com.android.mb.assistant.adapter.CompetitiveTelAdapter;
 import com.android.mb.assistant.adapter.GridImageAdapter;
+import com.android.mb.assistant.api.BaseHttp;
 import com.android.mb.assistant.base.BaseMvpActivity;
 import com.android.mb.assistant.constants.CodeConstants;
 import com.android.mb.assistant.constants.ProjectConstants;
@@ -487,7 +488,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         if (CodeConstants.KEY_COMMON_UPLOAD.equals(requestCode)){
             ImageResp resp = JsonHelper.fromJson(result,ImageResp.class);
             if (resp!=null && resp.getData()!=null){
-                mImageList.add("http://114.115.136.72:8080/MoveHelper/"+resp.getData().getImages0());
+                mImageList.add(BaseHttp.BASE_URL +"/MoveHelper/"+resp.getData().getImages0());
             }
         }else {
             CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
