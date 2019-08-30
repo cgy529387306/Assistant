@@ -20,12 +20,14 @@ import com.android.mb.assistant.adapter.GoodsManageAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.ApplyBean;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.entitys.GoodsManage;
 import com.android.mb.assistant.entitys.GoodsManageResp;
 import com.android.mb.assistant.entitys.IType;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.AppHelper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
@@ -43,6 +45,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import rx.functions.Action1;
 
 
 /**
@@ -82,12 +86,20 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
         View header = LayoutInflater.from(getActivity()).inflate(R.layout.item_goods_header, mRecyclerView, false);
         mGridCate = header.findViewById(R.id.gridCate);
         mAdapter.addHeaderView(header);
-
         mTvTitle = view.findViewById(R.id.tv_title);
         mTvBack = view.findViewById(R.id.iv_back);
         mTvTitle.setText("物资管理");
         mTvBack.setVisibility(View.GONE);
         mGridCate.setAdapter(new ITypeAdapter(getActivity(),getGoodsTypeList()));
+    }
+
+    @Override
+    protected void processLogic() {
+        onRefresh(null);
+    }
+
+    @Override
+    protected void setListener() {
         mGridCate.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -117,15 +129,12 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
                 }
             }
         });
-    }
-
-    @Override
-    protected void processLogic() {
-        onRefresh(null);
-    }
-
-    @Override
-    protected void setListener() {
+        registerEvent(ProjectConstants.EVENT_UPDATE_GOODS, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                onRefresh(null);
+            }
+        });
     }
 
     private List<IType> getGoodsTypeList(){
