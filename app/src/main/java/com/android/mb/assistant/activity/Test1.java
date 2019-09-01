@@ -3,5 +3,5 @@ package com.android.mb.assistant.activity;
 /**
  * v8
  */
-public class Test {
+public class Test1 {
 }
