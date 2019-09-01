@@ -1,7 +1,7 @@
 package com.android.mb.assistant.activity;
 
 /**
- * v5
+ * v4
  */
 public class Test {
 }
