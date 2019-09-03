@@ -112,6 +112,7 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         if (resp!=null){
             if (resp.isSuccess()){
                 sendMsg(ProjectConstants.EVENT_UPDATE_CART,null);
+                sendMsg(ProjectConstants.EVENT_UPDATE_GOODS,null);
                 ToastHelper.showToast("申请成功");
                 finish();
             }else{

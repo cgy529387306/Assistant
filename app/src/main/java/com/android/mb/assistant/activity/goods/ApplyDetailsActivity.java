@@ -117,13 +117,12 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         int id = view.getId();
         if (id == R.id.tv_return){
             //退回
-            doApprove(1,0);
         }else if (id == R.id.tv_refuse){
             //拒绝
-            doApprove(3,1);
+            doApprove(1);
         }else if (id == R.id.tv_agree){
             //同意
-            doApprove(3,0);
+            doApprove(0);
         }else if (id == R.id.tv_revoke){
             //撤回
             doRevoke();
@@ -173,12 +172,11 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         }
     }
 
-    private void doApprove(int apStatus,int apSyStatus){
+    private void doApprove(int isAgree){
         if (mApplyBean!=null){
             Map<String,String> requestParams = new HashMap<>();
             requestParams.put("mUid", CurrentUser.getInstance().getMuid());
-            requestParams.put("apStatus", apStatus+"");
-            requestParams.put("apSyStatus",apSyStatus+"");
+            requestParams.put("isAgree", isAgree+"");
             requestParams.put("applicationId",mApplyBean.getApplicationId());
             requestParams.put("type","33");
             mPresenter.requestApplicant(CodeConstants.KEY_GOODS_APPROVE,requestParams,true);
