@@ -18,14 +18,17 @@ import com.android.mb.assistant.entitys.ApplyBean;
 import com.android.mb.assistant.entitys.ApplyDetailResp;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.SpBean;
 import com.android.mb.assistant.presenter.CommonPresenter;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
+import com.android.mb.assistant.utils.ProjectHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
 import com.android.mb.assistant.widget.RecycleViewDivider;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -107,7 +110,6 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
             mTvTel.setText(mApplyBean.getApTel());
             mTvTime.setText(mApplyBean.getApTime());
             mTvRemark.setText(mApplyBean.getApRemarks());
-            initStatus();
         }
     }
 
@@ -141,9 +143,15 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
             if (resp!=null){
                 if (resp.isSuccess()){
                     mApplyBean = resp.getData();
-                    initData();
-                    if (Helper.isNotEmpty(resp.getRows())){
-                        mAdapter.setNewData(resp.getRows());
+                    if (mApplyBean!=null && mApplyBean.getApStatus() == 1){
+                        //撤回
+                        finish();
+                    }else{
+                        initData();
+                        initStatus(resp.getSplist());
+                        if (Helper.isNotEmpty(resp.getSqList())){
+                            mAdapter.setNewData(resp.getSqList());
+                        }
                     }
                 }else{
                     showToastMessage(resp.getMessage());
@@ -194,38 +202,38 @@ public class ApplyDetailsActivity extends BaseMvpActivity<CommonPresenter, IComm
         }
     }
 
-    private void initStatus(){
+    private void initStatus(List<SpBean> spList){
         //apStatus(申请状态   0:发起   1：撤回    2：审批中    3：审批完成)
         //apSyStatus(使用状态   0:同意     1：不同意退回)
         if (mApplyBean!=null){
             mTvRevoke.setVisibility(mType==1 && mApplyBean.getApStatus()!=3 && mApplyBean.getApStatus()!=1?View.VISIBLE:View.GONE);
-            mLlOperate.setVisibility(mType==0 && mApplyBean.getApStatus()!=3?View.VISIBLE:View.GONE);
+            mLlOperate.setVisibility(mType==0 && !ProjectHelper.isAudit(spList)?View.VISIBLE:View.GONE);
             if (mApplyBean.getApStatus()==0){
-                mIvStatus1.setImageResource(R.mipmap.icon_status_on);
+                mIvStatus1.setImageResource(R.mipmap.icon_status_check);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"提交审批");
                 mViewStatus2.setBackgroundColor(Color.parseColor("#E1E1E1"));
 
             }if (mApplyBean.getApStatus()==1){
-                mIvStatus1.setImageResource(R.mipmap.icon_status_on);
+                mIvStatus1.setImageResource(R.mipmap.icon_status_check);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"撤回申请");
                 mViewStatus2.setBackgroundColor(Color.parseColor("#E1E1E1"));
 
             }else if (mApplyBean.getApStatus()==2){
-                mIvStatus1.setImageResource(R.mipmap.icon_status_on);
+                mIvStatus1.setImageResource(R.mipmap.icon_status_check);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"提交审批");
+
                 mViewStatus2.setBackgroundColor(Color.parseColor("#E1E1E1"));
+                mIvStatus2.setImageResource(R.mipmap.icon_status_on);
+                mTvStatus2.setText(ProjectHelper.getSpListStr(spList));
 
             }else if (mApplyBean.getApStatus()==3){
                 mIvStatus1.setImageResource(R.mipmap.icon_status_check);
                 mTvStatus1.setText(mApplyBean.getApSqName()+"提交审批");
-                if (mApplyBean.getApSyStatus()==0){
-                    mTvStatus2.setText(mApplyBean.getApApprover()+"审批通过");
-                    mIvStatus2.setImageResource(R.mipmap.icon_status_check);
-                }else{
-                    mTvStatus2.setText(mApplyBean.getApApprover()+"审批不通过");
-                    mIvStatus2.setImageResource(R.mipmap.icon_status_check);
-                }
+
                 mViewStatus2.setBackgroundColor(Color.parseColor("#0080CC"));
+                mIvStatus2.setImageResource(R.mipmap.icon_status_check);
+                mTvStatus2.setText(ProjectHelper.getSpListStr(spList));
+
                 mIvStatus3.setImageResource(R.mipmap.icon_status_pass);
                 mTvStatus3.setText("已完成");
             }

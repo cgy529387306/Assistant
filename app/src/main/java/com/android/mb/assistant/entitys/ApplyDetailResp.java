@@ -9,7 +9,8 @@ import java.util.List;
 
 public class ApplyDetailResp extends BaseResponse{
     private ApplyBean data;
-    private List<CartBean> rows;
+    private List<CartBean> sqList;
+    private List<SpBean> splist;
 
     public ApplyBean getData() {
         return data;
@@ -19,14 +20,25 @@ public class ApplyDetailResp extends BaseResponse{
         this.data = data;
     }
 
-    public List<CartBean> getRows() {
-        if (rows == null) {
+    public List<CartBean> getSqList() {
+        if (sqList == null) {
             return new ArrayList<>();
         }
-        return rows;
+        return sqList;
     }
 
-    public void setRows(List<CartBean> rows) {
-        this.rows = rows;
+    public void setSqList(List<CartBean> sqList) {
+        this.sqList = sqList;
+    }
+
+    public List<SpBean> getSplist() {
+        if (splist == null) {
+            return new ArrayList<>();
+        }
+        return splist;
+    }
+
+    public void setSplist(List<SpBean> splist) {
+        this.splist = splist;
     }
 }

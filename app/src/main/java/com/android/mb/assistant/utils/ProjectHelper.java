@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewParent;
 
 import com.android.mb.assistant.entitys.CompetitiveBean;
+import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.SpBean;
 import com.google.gson.Gson;
 
 import java.io.File;
@@ -489,4 +491,52 @@ public class ProjectHelper {
             ToastHelper.showToast("您还没有下载地图导航软件");
         }
     }
+
+    public static String getSpListStr(List<SpBean> spList) {
+        if (Helper.isEmpty(spList)){
+            return "未审批";
+        }else{
+            StringBuilder sb = new StringBuilder();
+            for (SpBean spBean:spList){
+                String spState;
+                if (spBean.getIsComplete() == 2){
+                    spState = "0".equals(spBean.getIsAgree())?"同意":"不同意";
+                }else{
+                    spState = "未审批";
+                }
+                sb.append(getRole(spBean.getFlowNo())).append(" ").append(spBean.getApproverName()).append(" ").append(spState).append("\n");
+            }
+            return sb.toString();
+        }
+    }
+
+    public static boolean isAudit(List<SpBean> spList) {
+        if (Helper.isEmpty(spList)){
+            return false;
+        }else{
+            for (SpBean spBean:spList){
+                if (Helper.isNotEmpty(spBean.getApproverId()) && spBean.getApproverId().equals(CurrentUser.getInstance().getMuid())
+                        && spBean.getIsComplete() == 2){
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    public static String getRole(int role){
+        switch (role){
+            case 1:
+                return "主管";
+            case 2:
+                return "分管";
+            case 3:
+                return "领导";
+            case 4:
+                return "联系人";
+            default:
+                return "主管";
+        }
+    }
+
 }
