@@ -132,6 +132,12 @@ public class GoodsShoppingCartActivity extends BaseMvpActivity<CommonPresenter, 
                  onRefresh(null);
             }
         });
+        registerEvent(ProjectConstants.EVENT_APPLY_SUCCESS, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                finish();
+            }
+        });
     }
 
     @Override

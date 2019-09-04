@@ -111,8 +111,10 @@ public class GoodsApplyUseActivity  extends BaseMvpActivity<CommonPresenter, ICo
         CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
         if (resp!=null){
             if (resp.isSuccess()){
-                sendMsg(ProjectConstants.EVENT_UPDATE_CART,null);
-                sendMsg(ProjectConstants.EVENT_UPDATE_GOODS,null);
+                sendMsg(ProjectConstants.EVENT_APPLY_SUCCESS,null);
+                Bundle bundle = new Bundle();
+                bundle.putInt("type",1);
+                NavigationHelper.startActivity(GoodsApplyUseActivity.this, ApplyListActivity.class,bundle,false);
                 ToastHelper.showToast("申请成功");
                 finish();
             }else{

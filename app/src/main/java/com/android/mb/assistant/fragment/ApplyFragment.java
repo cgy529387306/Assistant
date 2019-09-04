@@ -13,9 +13,11 @@ import com.android.mb.assistant.activity.goods.ApplyDetailsActivity;
 import com.android.mb.assistant.adapter.IGoodsManageAdapter;
 import com.android.mb.assistant.base.BaseMvpFragment;
 import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.ApplyListResp;
 import com.android.mb.assistant.entitys.CurrentUser;
 import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.view.interfaces.ICommonView;
@@ -29,6 +31,8 @@ import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+
+import rx.functions.Action1;
 
 
 /**
@@ -110,6 +114,12 @@ public class ApplyFragment extends BaseMvpFragment<CommonPresenter,ICommonView> 
 
     @Override
     protected void setListener() {
+        registerEvent(ProjectConstants.EVENT_UPDATE_APPLY, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                onRefresh(null);
+            }
+        });
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {

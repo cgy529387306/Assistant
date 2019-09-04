@@ -135,6 +135,18 @@ public class GoodsManageFragment extends BaseMvpFragment<CommonPresenter, ICommo
                 onRefresh(null);
             }
         });
+        registerEvent(ProjectConstants.EVENT_UPDATE_APPLY, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                onRefresh(null);
+            }
+        });
+        registerEvent(ProjectConstants.EVENT_APPLY_SUCCESS, new Action1<Events<?>>() {
+            @Override
+            public void call(Events<?> events) {
+                onRefresh(null);
+            }
+        });
     }
 
     private List<IType> getGoodsTypeList(){
