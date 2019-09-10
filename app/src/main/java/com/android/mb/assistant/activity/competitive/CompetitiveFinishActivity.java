@@ -95,6 +95,11 @@ public class CompetitiveFinishActivity extends BaseMvpActivity<CommonPresenter, 
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
                         .forResult(PictureConfig.CHOOSE_REQUEST);
             }
+
+            @Override
+            public void onImageDelete(String imagePath) {
+                //删除
+            }
         });
         mImageAdapter.setList(mSelectImageList);
         mImageAdapter.setSelectMax(6);

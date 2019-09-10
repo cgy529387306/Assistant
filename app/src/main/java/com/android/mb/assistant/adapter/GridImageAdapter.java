@@ -41,6 +41,7 @@ public class GridImageAdapter extends
 
     public interface onAddPicClickListener {
         void onAddPicClick();
+        void onImageDelete(String imagePath);
     }
 
     public GridImageAdapter(Context context, onAddPicClickListener mOnAddPicClickListener) {
@@ -118,50 +119,41 @@ public class GridImageAdapter extends
             });
             viewHolder.mIvDelete.setVisibility(View.INVISIBLE);
         } else {
-            viewHolder.mIvDelete.setVisibility(View.VISIBLE);
-            viewHolder.mIvDelete.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int index = viewHolder.getAdapterPosition();
-                    // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
-                    // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
-                    if (index != RecyclerView.NO_POSITION) {
-                        mDataList.remove(index);
-                        notifyItemRemoved(index);
-                        notifyItemRangeChanged(index, mDataList.size());
-                    }
-                }
-            });
             LocalMedia media = mDataList.get(position);
             int mimeType = media.getMimeType();
-            String path ;
-            if (media.isCut() && !media.isCompressed()) {
-                // 裁剪过
-                path = media.getCutPath();
-            } else if (media.isCompressed() || (media.isCut() && media.isCompressed())) {
-                // 压缩过,或者裁剪同时压缩过,以最终压缩过图片为准
-                path = media.getCompressPath();
-            } else {
-                // 原图
-                path = media.getPath();
-            }
+            String imagePath = media.isCompressed()?media.getCompressPath():media.getPath();
             if (mimeType == PictureMimeType.ofImage()) {
                 RequestOptions options = new RequestOptions()
                         .centerCrop()
                         .placeholder(R.mipmap.icon_camera_add)
                         .diskCacheStrategy(DiskCacheStrategy.ALL);
                 Glide.with(viewHolder.itemView.getContext())
-                        .load(path)
+                        .load(imagePath)
                         .apply(options)
                         .into(viewHolder.mIvImage);
             }
             //itemView 的点击事件
+            viewHolder.mIvDelete.setVisibility(View.VISIBLE);
             if (mItemClickListener != null) {
                 viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         int adapterPosition = viewHolder.getAdapterPosition();
                         mItemClickListener.onItemClick(adapterPosition, v);
+                    }
+                });
+                viewHolder.mIvDelete.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        int index = viewHolder.getAdapterPosition();
+                        // 这里有时会返回-1造成数据下标越界,具体可参考getAdapterPosition()源码，
+                        // 通过源码分析应该是bindViewHolder()暂未绘制完成导致，知道原因的也可联系我~感谢
+                        if (index != RecyclerView.NO_POSITION) {
+                            mDataList.remove(index);
+                            notifyItemRemoved(index);
+                            notifyItemRangeChanged(index, mDataList.size());
+                            mOnAddPicClickListener.onImageDelete(imagePath);
+                        }
                     }
                 });
             }

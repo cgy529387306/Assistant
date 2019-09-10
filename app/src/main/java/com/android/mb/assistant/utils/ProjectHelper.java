@@ -13,6 +13,7 @@ import android.view.ViewParent;
 
 import com.android.mb.assistant.entitys.CompetitiveBean;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.Image;
 import com.android.mb.assistant.entitys.SpBean;
 import com.google.gson.Gson;
 
@@ -405,6 +406,22 @@ public class ProjectHelper {
     }
 
     public final static String SPLIT = "、";
+
+    /**
+     * List 转 string分隔
+     * @param dataList
+     * @return
+     */
+    public static String imageListToStr(List<Image> dataList){
+        if (Helper.isEmpty(dataList)){
+            return "";
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < dataList.size(); i++) {
+            sb.append(dataList.get(i).getImageUrl()).append(SPLIT);
+        }
+        return sb.toString().substring(0, sb.toString().length() - 1);
+    }
 
     /**
      * List 转 string分隔

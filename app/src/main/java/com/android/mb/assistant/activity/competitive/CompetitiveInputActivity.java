@@ -28,15 +28,16 @@ import com.android.mb.assistant.constants.ProjectConstants;
 import com.android.mb.assistant.entitys.CityBean;
 import com.android.mb.assistant.entitys.CommonResp;
 import com.android.mb.assistant.entitys.CurrentUser;
+import com.android.mb.assistant.entitys.Image;
 import com.android.mb.assistant.entitys.ImageResp;
-import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.presenter.UploadPresenter;
 import com.android.mb.assistant.rxbus.Events;
 import com.android.mb.assistant.utils.Helper;
 import com.android.mb.assistant.utils.JsonHelper;
 import com.android.mb.assistant.utils.LocationUtils;
 import com.android.mb.assistant.utils.NavigationHelper;
 import com.android.mb.assistant.utils.ProjectHelper;
-import com.android.mb.assistant.view.interfaces.ICommonView;
+import com.android.mb.assistant.view.interfaces.IUploadView;
 import com.android.mb.assistant.widget.FullyGridLayoutManager;
 import com.bigkoo.pickerview.builder.TimePickerBuilder;
 import com.bigkoo.pickerview.listener.OnTimeSelectListener;
@@ -46,7 +47,6 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -59,7 +59,7 @@ import rx.functions.Action1;
 /**
  * 竞情录入
  */
-public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView, View.OnClickListener {
+public class CompetitiveInputActivity extends BaseMvpActivity<UploadPresenter, IUploadView> implements IUploadView, View.OnClickListener {
 
     private TextView mTvCoverYes;
     private TextView mTvCoverNo;
@@ -106,7 +106,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private static final int REQUEST_CITY = 0x11;
     private static final int REQUEST_DEP = 0x22;
 
-    private List<String> mImageList = new ArrayList<>();
+    private List<Image> mImageList = new ArrayList<>();
 
     @Override
     protected void loadIntent() {
@@ -215,6 +215,18 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                         .compress(true)// 是否压缩 true or false
                         .minimumCompressSize(100)// 小于100kb的图片不压缩
                         .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+
+            @Override
+            public void onImageDelete(String imagePath) {
+                //删除
+                for (Image image:mImageList){
+                    if (Helper.isNotEmpty(imagePath) && imagePath.equals(image.getImagePath())){
+                        mImageList.remove(image);
+                        break;
+                    }
+                }
+
             }
         });
         mImageAdapter.setList(mSelectImageList);
@@ -356,7 +368,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
         requestParams.put("remarks",remark);
         requestParams.put("cAreaName",areaName);
         requestParams.put("cDepartmentName",depName);
-        requestParams.put("imgStr",ProjectHelper.listToStr(mImageList));
+        requestParams.put("imgStr",ProjectHelper.imageListToStr(mImageList));
         mPresenter.requestCompetitive(CodeConstants.KEY_COMPETITIVE_ADD,requestParams,true);
     }
 
@@ -440,7 +452,7 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
     private void uploadImageList(List<LocalMedia> dataList){
         for (LocalMedia localMedia:dataList) {
             String imagePath = localMedia.isCompressed()?localMedia.getCompressPath():localMedia.getPath();
-            mPresenter.uploadImg(CodeConstants.KEY_COMMON_UPLOAD,new HashMap<>(),new File(imagePath),true);
+            mPresenter.uploadImg(CodeConstants.KEY_COMMON_UPLOAD,imagePath,true);
         }
     }
 
@@ -485,28 +497,21 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
 
     @Override
     public void requestSuccess(String requestCode,String result) {
-        if (CodeConstants.KEY_COMMON_UPLOAD.equals(requestCode)){
-            ImageResp resp = JsonHelper.fromJson(result,ImageResp.class);
-            if (resp!=null && resp.getData()!=null){
-                mImageList.add(BaseHttp.BASE_URL +"/MoveHelper/"+resp.getData().getImages0());
-            }
-        }else {
-            CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
-            if (resp!=null){
-                if (resp.isSuccess()){
-                    sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
-                    showToastMessage("录入成功");
-                    finish();
-                }else{
-                    showToastMessage(resp.getMessage());
-                }
+        CommonResp resp = JsonHelper.fromJson(result,CommonResp.class);
+        if (resp!=null){
+            if (resp.isSuccess()){
+                sendMsg(ProjectConstants.EVENT_UPDATE_COMPETITIVE,null);
+                showToastMessage("录入成功");
+                finish();
+            }else{
+                showToastMessage(resp.getMessage());
             }
         }
     }
 
     @Override
-    protected CommonPresenter createPresenter() {
-        return new CommonPresenter();
+    protected UploadPresenter createPresenter() {
+        return new UploadPresenter();
     }
 
     private void addTel(){
@@ -532,5 +537,14 @@ public class CompetitiveInputActivity extends BaseMvpActivity<CommonPresenter, I
                 })
                 .positiveText("确定")
                 .show();
+    }
+
+    @Override
+    public void uploadSuccess(String requestCode, String filePath, String result) {
+        ImageResp resp = JsonHelper.fromJson(result,ImageResp.class);
+        if (resp!=null && resp.getData()!=null){
+            String imageUrl = BaseHttp.BASE_URL +"/MoveHelper/"+resp.getData().getImages0();
+            mImageList.add(new Image(filePath,imageUrl));
+        }
     }
 }
