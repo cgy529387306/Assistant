@@ -1,0 +1,174 @@
+package com.android.mb.assistant.activity;
+
+import android.os.Build;
+import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.android.mb.assistant.R;
+import com.android.mb.assistant.adapter.MyFragmentPagerAdapter;
+import com.android.mb.assistant.base.BaseMvpActivity;
+import com.android.mb.assistant.constants.CodeConstants;
+import com.android.mb.assistant.fragment.DevelopFragment;
+import com.android.mb.assistant.fragment.NewHomeFragment;
+import com.android.mb.assistant.presenter.CommonPresenter;
+import com.android.mb.assistant.utils.LocationUtils;
+import com.android.mb.assistant.utils.PreferencesHelper;
+import com.android.mb.assistant.utils.ToastHelper;
+import com.android.mb.assistant.view.interfaces.ICommonView;
+import com.android.mb.assistant.widget.FragmentViewPager;
+import com.pgyersdk.update.PgyUpdateManager;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+public class HomeActivity extends BaseMvpActivity<CommonPresenter, ICommonView> implements ICommonView{
+    private FragmentViewPager mFragmentViewPager;
+    private TabLayout mTabLayout;
+    private ArrayList<Fragment> mFragmentArrayList;
+    private NewHomeFragment mHomeFragment;
+    private DevelopFragment mCompetitiveManageFragment;
+    private DevelopFragment mGoodsManageFragment;
+
+    @Override
+    protected void loadIntent() {
+
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void initTitle() {
+        hideActionBar();
+    }
+
+    @Override
+    protected void bindViews() {
+        initView();
+        initTabViewPager();
+    }
+
+    @Override
+    protected void processLogic(Bundle savedInstanceState) {
+        PgyUpdateManager.setIsForced(false); //设置是否强制更新。true为强制更新；false为不强制更新（默认值）。
+        PgyUpdateManager.register(this);
+        LocationUtils.instance().startLocation();
+        getListFormServer();
+    }
+
+    @Override
+    protected CommonPresenter createPresenter() {
+        return new CommonPresenter();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        PgyUpdateManager.unregister();
+    }
+
+    @Override
+    protected void setListener() {
+        //设置阴影
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            mTabLayout.setElevation(10);
+        }
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition()==0){
+                    mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
+                }else if (tab.getPosition()==1){
+                    mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
+                }else if (tab.getPosition()==2){
+                    mFragmentViewPager.setCurrentItem(tab.getPosition(),true);
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+
+    }
+
+    private void initView() {
+        mFragmentViewPager = findViewById(R.id.fragmentViewPager);
+        mTabLayout = findViewById(R.id.tab_layout);
+    }
+
+    private void initTabViewPager(){
+        mFragmentArrayList = new ArrayList<>();
+        mHomeFragment = new NewHomeFragment();
+        mCompetitiveManageFragment = new DevelopFragment();
+        mGoodsManageFragment = new DevelopFragment();
+        mFragmentArrayList.add(mHomeFragment);
+        mFragmentArrayList.add(mCompetitiveManageFragment);
+        mFragmentArrayList.add(mGoodsManageFragment);
+        mFragmentViewPager.setAdapter(new MyFragmentPagerAdapter(getSupportFragmentManager(), mFragmentArrayList));
+        mFragmentViewPager.setOffscreenPageLimit(mFragmentArrayList.size());
+        mFragmentViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(mTabLayout));
+        setViewTabs();
+    }
+    /**
+     * @description: 设置添加Tab
+     */
+    private void setViewTabs(){
+        int[] tabTitles = new int[]{R.string.tab_home,R.string.tab_contacts,R.string.tab_mine};
+        int[] tabImages = new int[]{R.drawable.btn_tab_home,R.drawable.btn_tab_contact,R.drawable.btn_tab_mine};
+        for (int i = 0; i < tabImages.length; i++) {
+            TabLayout.Tab tab = mTabLayout.newTab();
+            View view = LayoutInflater.from(HomeActivity.this).inflate(R.layout.custom_tab,null);
+            tab.setCustomView(view);
+
+            TextView tvTitle = view.findViewById(R.id.tv_tab);
+            tvTitle.setText(tabTitles[i]);
+            ImageView imgTab =  view.findViewById(R.id.iv_tab);
+            imgTab.setImageResource(tabImages[i]);
+            mTabLayout.addTab(tab);
+        }
+    }
+
+    private static final long DOUBLE_CLICK_INTERVAL = 2000;
+    private long mLastClickTimeMills = 0;
+
+    @Override
+    public void onBackPressed() {
+        if (System.currentTimeMillis() - mLastClickTimeMills > DOUBLE_CLICK_INTERVAL) {
+            ToastHelper.showToast("再按一次返回退出");
+            mLastClickTimeMills = System.currentTimeMillis();
+            return;
+        }
+        finish();
+    }
+
+    @Override
+    public void requestSuccess(String requestCode, String result) {
+        if (CodeConstants.KEY_COMMON_DIC.equals(requestCode)){
+            PreferencesHelper.getInstance().putString("category",result);
+        }
+    }
+
+    private void getListFormServer(){
+        Map<String,String> requestParams = new HashMap<>();
+        requestParams.put("parno","5");
+        requestParams.put("page",String.valueOf(mCurrentPage));
+        requestParams.put("rows",String.valueOf(Integer.MAX_VALUE));
+        mPresenter.requestData(CodeConstants.KEY_COMMON_DIC,requestParams,false);
+    }
+
+}

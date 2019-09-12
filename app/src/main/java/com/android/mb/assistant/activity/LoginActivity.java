@@ -112,7 +112,7 @@ public class LoginActivity extends BaseMvpActivity<CommonPresenter, ICommonView>
                 saveAccount();
                 CurrentUser.getInstance().login(resp.getData());
                 showToastMessage("登录成功");
-                NavigationHelper.startActivity(this, MainActivity.class,null,true);
+                NavigationHelper.startActivity(this, HomeActivity.class,null,true);
             }else{
                 showToastMessage(resp.getMessage());
             }

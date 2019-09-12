@@ -67,6 +67,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.MainActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".activity.HomeActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".activity.MsgDetailActivity"
             android:screenOrientation="portrait"/>
 
@@ -84,6 +86,8 @@
         <activity android:name=".activity.competitive.SelectCityActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.competitive.SelectDepActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.competitive.CompetitiveManagerActivity"
             android:screenOrientation="portrait"/>
 
 
@@ -112,6 +116,8 @@
         <activity android:name=".activity.goods.ApplyListActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".activity.goods.SelectApprovalActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.goods.GoodsManagerActivity"
             android:screenOrientation="portrait"/>
 
         <service

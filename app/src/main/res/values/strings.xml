@@ -5,6 +5,8 @@
     <string name="tab_home">首页</string>
     <string name="tab_competitive_manage">竞情管理</string>
     <string name="tab_goods_manage">物资管理</string>
+    <string name="tab_contacts">通讯录</string>
+    <string name="tab_mine">我的</string>
 
     <string name="tab_all">全部</string>
     <string name="tab_no_pass">未通过</string>
