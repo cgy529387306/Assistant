@@ -20,6 +20,7 @@ public class CartBean implements Serializable {
     private int materialNum;
     private String materialId;
     private String materialName;
+    private String materialNo;
     private long time;
     private double materialPrice;
     private String memberId;
@@ -123,5 +124,13 @@ public class CartBean implements Serializable {
 
     public void setImg(String img) {
         mImg = img;
+    }
+
+    public String getMaterialNo() {
+        return materialNo == null ? "" : materialNo;
+    }
+
+    public void setMaterialNo(String materialNo) {
+        this.materialNo = materialNo;
     }
 }

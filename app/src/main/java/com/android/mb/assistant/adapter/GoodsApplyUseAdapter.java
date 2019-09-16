@@ -20,7 +20,7 @@ public class GoodsApplyUseAdapter extends BaseQuickAdapter<CartBean, BaseViewHol
 
     @Override
     protected void convert(BaseViewHolder helper, CartBean item) {
-        helper.setText(R.id.tv_serial,String.valueOf(helper.getAdapterPosition()+1));
+        helper.setText(R.id.tv_serial,item.getMaterialNo());
         helper.setText(R.id.tv_name,item.getMaterialName());
         helper.setText(R.id.tv_number,String.valueOf(item.getMaterialNum()));
         helper.setText(R.id.tv_price,String.valueOf(item.getMaterialPrice()));
