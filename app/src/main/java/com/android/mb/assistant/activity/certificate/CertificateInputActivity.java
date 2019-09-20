@@ -1,4 +1,4 @@
-package com.android.mb.assistant.activity.goods;
+package com.android.mb.assistant.activity.certificate;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,6 +15,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.goods.SelectCategoryActivity;
+import com.android.mb.assistant.activity.goods.SelectCompanyActivity;
+import com.android.mb.assistant.activity.goods.SelectGsDepActivity;
 import com.android.mb.assistant.adapter.GridImageAdapter;
 import com.android.mb.assistant.api.BaseHttp;
 import com.android.mb.assistant.base.BaseMvpActivity;
@@ -53,9 +56,9 @@ import java.util.Map;
 import rx.functions.Action1;
 
 /**
- * 物资录入
+ * 电子申退单
  */
-public class GoodsInputActivity extends BaseMvpActivity<UploadPresenter, IUploadView> implements IUploadView, View.OnClickListener {
+public class CertificateInputActivity extends BaseMvpActivity<UploadPresenter, IUploadView> implements IUploadView, View.OnClickListener {
 
     private EditText mEtName;
     private EditText mEtPattern;
@@ -95,7 +98,7 @@ public class GoodsInputActivity extends BaseMvpActivity<UploadPresenter, IUpload
 
     @Override
     protected void initTitle() {
-        setTitleText("物资录入");
+        setTitleText("电子申退单");
     }
 
     @Override
@@ -132,7 +135,7 @@ public class GoodsInputActivity extends BaseMvpActivity<UploadPresenter, IUpload
             @Override
             public void onAddPicClick() {
                 //拍照
-                PictureSelector.create(GoodsInputActivity.this)
+                PictureSelector.create(CertificateInputActivity.this)
                         .openGallery(PictureMimeType.ofImage())
                         .isCamera(true)
                         .maxSelectNum(9)
@@ -164,7 +167,7 @@ public class GoodsInputActivity extends BaseMvpActivity<UploadPresenter, IUpload
                     String pictureType = media.getPictureType();
                     int mediaType = PictureMimeType.pictureToVideo(pictureType);
                     if (mediaType == 1){
-                        PictureSelector.create(GoodsInputActivity.this).externalPicturePreview(position, mSelectImageList);
+                        PictureSelector.create(CertificateInputActivity.this).externalPicturePreview(position, mSelectImageList);
                     }
                 }
             }
@@ -205,13 +208,13 @@ public class GoodsInputActivity extends BaseMvpActivity<UploadPresenter, IUpload
             isYes = !isYes;
         }else if (id == R.id.tv_select_category){
             //选择类型
-            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectCategoryActivity.class,null,REQUEST_CATEGORY);
+            NavigationHelper.startActivityForResult(CertificateInputActivity.this, SelectCategoryActivity.class,null,REQUEST_CATEGORY);
         }else if (id == R.id.tv_select_company){
             //选择保管单位
-            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectCompanyActivity.class,null,REQUEST_COMPANY);
+            NavigationHelper.startActivityForResult(CertificateInputActivity.this, SelectCompanyActivity.class,null,REQUEST_COMPANY);
         }else if (id == R.id.tv_select_department){
             //选择归属部门
-            NavigationHelper.startActivityForResult(GoodsInputActivity.this, SelectGsDepActivity.class,null,REQUEST_GS_DEP);
+            NavigationHelper.startActivityForResult(CertificateInputActivity.this, SelectGsDepActivity.class,null,REQUEST_GS_DEP);
         }else if (id == R.id.tv_select_date){
             pvInputTime.show(view);
         }else if (id == R.id.tv_confirm){

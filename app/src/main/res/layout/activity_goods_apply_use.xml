@@ -217,7 +217,7 @@
                 android:layout_weight="1"
                 android:layout_marginLeft="10dp"
                 android:layout_height="match_parent"
-                android:drawableRight="@mipmap/icon_arraw_right"
+                android:drawableRight="@mipmap/icon_arrow_right"
                 android:singleLine="true"
                 android:drawablePadding="10dp"
                 android:text="请选择"

@@ -1,4 +1,4 @@
-package com.android.mb.assistant.activity.goods;
+package com.android.mb.assistant.activity.certificate;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -16,13 +16,13 @@ import com.android.mb.assistant.widget.FragmentViewPager;
 import java.util.ArrayList;
 
 /**
- * 用章审批(我的申请)
+ * 电子凭证
  */
-public class ApplyListActivity extends BaseActivity{
+public class CertificateListActivity extends BaseActivity{
     private FragmentViewPager mFragmentViewPager;
     private TabLayout mTabLayout;
     private ArrayList<Fragment> mFragmentArrayList;
-    private int mType;//1我的申请 0我的审批
+    private int mType;//1我的电子申退单 0我的电子申退单审批
     @Override
     protected void loadIntent() {
         mType = getIntent().getIntExtra("type",0);
@@ -35,7 +35,7 @@ public class ApplyListActivity extends BaseActivity{
 
     @Override
     protected void initTitle() {
-        setTitleText(mType == 1?"我的申请":"我的审批");
+        setTitleText(mType == 1?"我的电子申退单":"我的电子申退单审批");
     }
 
     @Override
@@ -97,7 +97,7 @@ public class ApplyListActivity extends BaseActivity{
         int[] tabTitles = new int[]{R.string.tab_all,R.string.tab_no_pass,R.string.tab_pass};
         for (int i = 0; i < tabTitles.length; i++) {
             TabLayout.Tab tab = mTabLayout.newTab();
-            View view = LayoutInflater.from(ApplyListActivity.this).inflate(R.layout.chapter_approval_tab,null);
+            View view = LayoutInflater.from(CertificateListActivity.this).inflate(R.layout.chapter_approval_tab,null);
             tab.setCustomView(view);
 
             TextView tvTitle = view.findViewById(R.id.tv_tab);

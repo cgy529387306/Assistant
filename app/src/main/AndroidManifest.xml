@@ -120,6 +120,15 @@
         <activity android:name=".activity.goods.GoodsManagerActivity"
             android:screenOrientation="portrait"/>
 
+        <activity android:name=".activity.certificate.CertificateManagerActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.certificate.CertificateListActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.certificate.CertificateInputActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".activity.certificate.CertificateDetailsActivity"
+            android:screenOrientation="portrait"/>
+
         <service
             android:name="com.baidu.location.f"
             android:enabled="true"

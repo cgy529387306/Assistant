@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="移动支撑助手"
+        android:text="宣城移动综合支撑平台"
         android:textColor="#0080cc"
         android:gravity="center"
         android:textSize="18sp"/>

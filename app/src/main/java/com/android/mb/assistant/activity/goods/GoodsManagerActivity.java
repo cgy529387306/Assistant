@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.android.mb.assistant.R;
+import com.android.mb.assistant.activity.certificate.CertificateManagerActivity;
 import com.android.mb.assistant.adapter.GoodsManageAdapter;
 import com.android.mb.assistant.adapter.ITypeAdapter;
 import com.android.mb.assistant.base.BaseMvpActivity;
@@ -97,10 +98,8 @@ public class GoodsManagerActivity extends BaseMvpActivity<CommonPresenter, IComm
                     NavigationHelper.startActivity(GoodsManagerActivity.this, GoodsInputActivity.class,null,false);
                 }else if (i == 1) {//物资浏览
                     NavigationHelper.startActivity(GoodsManagerActivity.this, GoodsBrowseActivity.class,null,false);
-                }else if (i == 2) {//我的领用
-                    Bundle bundle = new Bundle();
-                    bundle.putInt("type",1);
-                    NavigationHelper.startActivity(GoodsManagerActivity.this, ApplyListActivity.class,bundle,false);
+                }else if (i == 2) {//电子凭证
+                    NavigationHelper.startActivity(GoodsManagerActivity.this, CertificateManagerActivity.class,null,false);
                 } else if (i == 3) {//物资购物车
                     NavigationHelper.startActivity(GoodsManagerActivity.this, GoodsShoppingCartActivity.class,null,false);
                 }
@@ -143,7 +142,7 @@ public class GoodsManagerActivity extends BaseMvpActivity<CommonPresenter, IComm
         List<IType> competitiveTypeList = new ArrayList<>();
         competitiveTypeList.add(new IType(R.mipmap.icon_wuzi,"物资录入"));
         competitiveTypeList.add(new IType(R.mipmap.icon_liulan,"物资浏览"));
-        competitiveTypeList.add(new IType(R.mipmap.icon_wode_lingyong,"我的领用"));
+        competitiveTypeList.add(new IType(R.mipmap.icon_wode_lingyong,"电子凭证"));
         competitiveTypeList.add(new IType(R.mipmap.icon_gowuche,"物资购物车"));
         return competitiveTypeList;
     }
@@ -188,7 +187,7 @@ public class GoodsManagerActivity extends BaseMvpActivity<CommonPresenter, IComm
         if (listResp!=null){
             if (listResp.isSuccess()){
                 List<GoodsManage> dataList = new ArrayList<>();
-                dataList.add(new GoodsManage("用章审批",listResp.getSpList(),listResp.getZxList()));
+                dataList.add(new GoodsManage("我的审批",listResp.getSpList(),listResp.getZxList()));
                 dataList.add(new GoodsManage("我的申请",listResp.getSqList(),listResp.getZxList()));
                 dataList.add(new GoodsManage("最新入库",listResp.getSqList(),listResp.getZxList()));
                 mAdapter.setNewData(dataList);

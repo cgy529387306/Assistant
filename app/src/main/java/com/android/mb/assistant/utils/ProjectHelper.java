@@ -548,11 +548,11 @@ public class ProjectHelper {
             case 2:
                 return "分管";
             case 3:
-                return "领导";
+                return "保管员";
             case 4:
                 return "联系人";
             default:
-                return "主管";
+                return "";
         }
     }
 
