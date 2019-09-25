@@ -15,6 +15,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_certificate_input"
+            android:drawablePadding="10dp"
             android:text="电子申退单"
             android:textColor="#000000"
             android:textSize="16sp"/>
@@ -36,6 +38,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_certificate_mine"
+            android:drawablePadding="10dp"
             android:text="我的电子申退单"
             android:textColor="#000000"
             android:textSize="16sp"/>
@@ -57,6 +61,8 @@
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="wrap_content"
+            android:drawableLeft="@mipmap/icon_certificate_audit"
+            android:drawablePadding="10dp"
             android:text="我的电子申退单审批"
             android:textColor="#000000"
             android:textSize="16sp"/>
